@@ -31,19 +31,19 @@ var blackQueenImage=null;
 var blackKingImage=null;
 
 async function loadImages(){
-    blackPawnImage=await loadImage("/static/chess pieces/black pawn.png");
-    blackKnightImage=await loadImage("/static/chess pieces/black knight.png");
-    blackBishopImage=await loadImage("/static/chess pieces/black bishop.png");
-    blackRookImage=await loadImage("/static/chess pieces/black rook.png");
-    blackQueenImage=await loadImage("/static/chess pieces/black queen.png");
-    blackKingImage=await loadImage("/static/chess pieces/black king.png");
+    blackPawnImage=await loadImage("/chess pieces/black pawn.png");
+    blackKnightImage=await loadImage("/chess pieces/black knight.png");
+    blackBishopImage=await loadImage("/chess pieces/black bishop.png");
+    blackRookImage=await loadImage("/chess pieces/black rook.png");
+    blackQueenImage=await loadImage("/chess pieces/black queen.png");
+    blackKingImage=await loadImage("/chess pieces/black king.png");
 
-    whitePawnImage=await loadImage("/static/chess pieces/white pawn.png");
-    whiteKnightImage=await loadImage("/static/chess pieces/white knight.png");
-    whiteBishopImage=await loadImage("/static/chess pieces/white bishop.png");
-    whiteRookImage=await loadImage("/static/chess pieces/white rook.png");
-    whiteQueenImage=await loadImage("/static/chess pieces/white queen.png");
-    whiteKingImage=await loadImage("/static/chess pieces/white king.png");
+    whitePawnImage=await loadImage("/chess pieces/white pawn.png");
+    whiteKnightImage=await loadImage("/chess pieces/white knight.png");
+    whiteBishopImage=await loadImage("/chess pieces/white bishop.png");
+    whiteRookImage=await loadImage("/chess pieces/white rook.png");
+    whiteQueenImage=await loadImage("/chess pieces/white queen.png");
+    whiteKingImage=await loadImage("/chess pieces/white king.png");
     update();
 }
 var board=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
