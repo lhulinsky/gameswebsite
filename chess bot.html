@@ -1,0 +1,114 @@
+<head>
+    <title>Chess Bot</title>
+</head>
+<body onload="loadImages();">
+    <canvas id="boardCanvas"></canvas>
+    <div id="botSelect">
+        <h2>Choose A Bot</h2>
+        <table>
+            <tr>
+                <th><img src="/static/chess pieces/white pawn.png"></img></th>
+                <th><p class="botName">Larry the Lucky (1000)</p></th>
+                <th><p class="playButton" onclick="startGame(1);">Play</p></th>
+            </tr>
+            <tr>
+                <th><img src="/static/chess pieces/white bishop.png"></img></th>
+                <th><p class="botName">Albert the Aggravating (1100)</p></th>
+                <th><p class="playButton" onclick="startGame(2);">Play</p></th>
+            </tr>
+            <tr>
+                <th><img src="/static/chess pieces/white knight.png"></img></th>
+                <th><p class="botName">Oswald the Observant (1300)</p></th>
+                <th><p class="playButton" onclick="startGame(3);">Play</p></th>
+            </tr>
+            <tr>
+                <th><img src="/static/chess pieces/white rook.png"></img></th>
+                <th><p class="botName">Edward the Educated (1500)</p></th>
+                <th><p class="playButton" onclick="startGame(4);">Play</p></th>
+            </tr>
+            <tr>
+                <th><img src="/static/chess pieces/white queen.png"></img></th>
+                <th><p class="botName">Doug the Devourer (1700)</p></th>
+                <th><p class="playButton" onclick="startGame(5);">Play</p></th>
+            </tr>
+            <tr>
+                <th><img src="/static/chess pieces/white king.png"></img></th>
+                <th><p class="botName">Master Mike (2000)</p></th>
+                <th><p class="playButton" onclick="startGame(6);">Play</p></th>
+            </tr>
+            <tr>
+                <th><p id="questionMark">?</p></th>
+                <th><p class="botName">Randolf the Random (1)</p></th>
+                <th><p class="playButton" onclick="startGame(0);">Play</p></th>
+            </tr>
+            <tr>
+                <th><p id="exMark">!</p></th>
+                <th><p class="botName">Larry the Loser (0)</p></th>
+                <th><p class="playButton" onclick="startGame(-4);">Play</p></th>
+            </tr>
+        </table>
+    </div>
+    <p id="endgameText"></p>
+    <style>
+        #boardCanvas{
+            margin:0px;
+        }
+        body{
+            margin:0px;
+            overflow:hidden;
+        }
+        #botSelect{
+            position:fixed;
+            right:100px;
+            left:50%;
+            width:400px;
+            height:565px;
+            top:10px;
+            margin-left:-200px;
+            background-color:rgba(0,0,0,.8);
+            border-radius:5px;
+            text-align:center;
+        }
+        *{
+            font-family:Arial;
+            color:white;
+        }
+        .playButton{
+            background-color:rgb(30, 163, 3);
+            border-radius:5px;
+            padding:10px;
+            margin-left:10px;
+            margin-right:10px;
+        }
+        .playButton:hover{
+            background-color:rgb(73, 212, 4);
+        }
+        table{
+            margin:auto;
+        }
+        .botName{
+            margin-left:10px;
+            margin-right:10px;
+        }
+        #endgameText{
+            width:100%;
+            position:fixed;
+            top:490px;
+            text-align:center;
+            font-size:20px;
+        }
+        #questionMark{
+            font-size:40px;
+        }
+        #exMark{
+            font-size:40px;
+        }
+    </style>
+    <script>
+        window.onerror = function(e, url, line){
+          alert('\nLine ' + line+" "+e);
+          return true;
+        }
+    </script>
+    <script src="/static/chess bot.js"></script>
+</body>
