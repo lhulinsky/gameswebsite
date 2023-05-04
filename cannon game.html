@@ -1,0 +1,32 @@
+<!Doctype HTML>
+<head></head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <input type="range" min="1" max="150" value="5" id="powerRange" class="slider">
+    <input type="range" min="10" max="300" value="100" id="radiusRange" class="slider">
+    <style>
+        body{
+            margin:0px;
+        }
+        #gameCanvas{
+            margin:0px;
+        }
+        #powerRange{
+            position:fixed;
+            top:5px;
+            left:5px;
+        }
+        #radiusRange{
+            position:fixed;
+            top:25px;
+            left:5px;
+        }
+    </style>
+    <script>
+        window.onerror = function(e, url, line){
+          alert('\nLine ' + line+" "+e);
+          return true;
+        }
+    </script>
+    <script src="/static/cannon game.js"></script>
+</body>
