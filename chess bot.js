@@ -31,19 +31,19 @@ var blackQueenImage=null;
 var blackKingImage=null;
 
 async function loadImages(){
-    blackPawnImage=await loadImage("/chess pieces/black pawn.png");
-    blackKnightImage=await loadImage("/chess pieces/black knight.png");
-    blackBishopImage=await loadImage("/chess pieces/black bishop.png");
-    blackRookImage=await loadImage("/chess pieces/black rook.png");
-    blackQueenImage=await loadImage("/chess pieces/black queen.png");
-    blackKingImage=await loadImage("/chess pieces/black king.png");
+    blackPawnImage=await loadImage("/gameswebsite/chess pieces/black pawn.png");
+    blackKnightImage=await loadImage("/gameswebsite/chess pieces/black knight.png");
+    blackBishopImage=await loadImage("/gameswebsite/chess pieces/black bishop.png");
+    blackRookImage=await loadImage("/gameswebsite/chess pieces/black rook.png");
+    blackQueenImage=await loadImage("/gameswebsite/chess pieces/black queen.png");
+    blackKingImage=await loadImage("/gameswebsite/chess pieces/black king.png");
 
-    whitePawnImage=await loadImage("/chess pieces/white pawn.png");
-    whiteKnightImage=await loadImage("/chess pieces/white knight.png");
-    whiteBishopImage=await loadImage("/chess pieces/white bishop.png");
-    whiteRookImage=await loadImage("/chess pieces/white rook.png");
-    whiteQueenImage=await loadImage("/chess pieces/white queen.png");
-    whiteKingImage=await loadImage("/chess pieces/white king.png");
+    whitePawnImage=await loadImage("/gameswebsite/chess pieces/white pawn.png");
+    whiteKnightImage=await loadImage("/gameswebsite/chess pieces/white knight.png");
+    whiteBishopImage=await loadImage("/gameswebsite/chess pieces/white bishop.png");
+    whiteRookImage=await loadImage("/gameswebsite/chess pieces/white rook.png");
+    whiteQueenImage=await loadImage("/gameswebsite/chess pieces/white queen.png");
+    whiteKingImage=await loadImage("/gameswebsite/chess pieces/white king.png");
     update();
 }
 var board=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
