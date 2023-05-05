@@ -232,8 +232,7 @@ radiusRange.oninput = function(){
     explosionRadius=this.value;
 }
 function update(){
-    //ctx.fillStyle="#4ab7ff";
-    ctx.fillStyle="blue";
+    ctx.fillStyle="#4ab7ff";
     ctx.fillRect(0,0,width,height);
     ctx.fillStyle="#56ff4a";
     ctx.fillRect(0,height-50,width,50);
