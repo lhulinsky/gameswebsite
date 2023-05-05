@@ -1,0 +1,30 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&effect=fire-animation">
+</head>
+<body>
+    <h1 class="fire-animation" style="font-family:Roboto;">This is the 404 page</h1>
+    <p>you must of tiped something wrong</p>
+    <p>like that sentence</p>
+    <p>No one ever wants to go to the 404 page anymore</p>
+    <p id="sad">:-(</p>
+    <p>if you type 404 i'll be happy</p>
+    <script>
+        let happyString="";
+        var sadText=document.getElementById("sad");
+        document.addEventListener("keydown",function(e){
+            if(e.keyCode==52){
+                happyString+="4";
+                if(happyString.includes("404")){
+                    sadText.innerHTML=":-)";
+                }
+            }
+            else if(e.keyCode==48){
+                happyString+="0";
+            }
+            else{
+                //any other key writes w
+                happyString+="w";
+            }
+        });
+    </script>
+</body>
