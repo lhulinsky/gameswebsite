@@ -71,17 +71,17 @@ class Building{
         this.points=[];
         this.lines=[];
         this.connectedPoints=[];
-        for(var x=0;x<8;x++){
-            for(var y=0;y<8;y++){
-                this.points.push(new Point(700+x*lineLength,height-50-y*lineLength));
+        for(var x=0;x<6;x++){
+            for(var y=0;y<6;y++){
+                this.points.push(new Point(600+x*lineLength,height-50-y*lineLength));
             }
         }
         for(var i=0;i<this.points.length;i++){
-            if(i<this.points.length-1 && i%8!=7){
+            if(i<this.points.length-1 && i%6!=5){
                 this.lines.push([i,i+1]);
             }
-            if(i<this.points.length-8){
-                this.lines.push([i,i+8]);
+            if(i<this.points.length-6){
+                this.lines.push([i,i+6]);
             }
         }
         this.getConnectedPoints();
