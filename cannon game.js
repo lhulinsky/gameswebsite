@@ -303,6 +303,11 @@ function update(){
             explosions[i].destroy();
         }
     }
+    for(var i=0;i<explosions.length;i++){
+        if(explosions[i].radius<=0){
+            explosions[i].destroy();
+        }
+    }
     requestAnimationFrame(update);
 }
 requestAnimationFrame(update);
