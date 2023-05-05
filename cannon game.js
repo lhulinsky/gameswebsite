@@ -178,7 +178,7 @@ class Building{
             var indexOne=this.lines[i][0];
             var indexTwo=this.lines[i][1];
             ctx.lineWidth=5;
-            ctx.strokeStyle="orange";
+            ctx.strokeStyle="brown";
             ctx.beginPath();
             ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
             ctx.lineTo(this.points[indexTwo].x,this.points[indexTwo].y);
