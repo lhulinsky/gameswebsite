@@ -1,8 +1,5 @@
-<head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&effect=fire-animation">
-</head>
 <body>
-    <h1 class="fire-animation" style="font-family:Roboto;">This is the 404 page</h1>
+    <h1 style="font-family:Roboto;">This is the 404 page</h1>
     <p>you must of tiped something wrong</p>
     <p>like that sentence</p>
     <p>No one ever wants to go to the 404 page anymore</p>
@@ -16,6 +13,7 @@
                 happyString+="4";
                 if(happyString.includes("404")){
                     sadText.innerHTML=":-)";
+                    sadText.style.color="green";
                 }
             }
             else if(e.keyCode==48){
