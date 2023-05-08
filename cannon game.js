@@ -76,9 +76,9 @@ class Building{
                 this.points.push(new Point(600+x*lineLength,height-50-y*lineLength));
             }
         }
-        for(var layer=0;layer<72;layer+=36){
+        for(var layer=0;layer<3;layer+=1){
             for(var i=0;i<3;i++){
-                var index=Math.floor(Math.random()*11)+layer;
+                var index=Math.floor(Math.random()*11)+layer*36;
                 this.lines.push([index,index+1]);
                 this.lines.push([index,index+12]);
                 this.lines.push([index+1,index+13]);
@@ -86,9 +86,9 @@ class Building{
                 this.lines.push([index+12,index+24]);
                 this.lines.push([index+13,index+25]);
             }
-            for(var i=24+layer;i<36+layer;i++){
+            for(var i=24+layer*36;i<36+layer*36;i++){
                 this.lines.push([i,i+12]);
-                if(i<36+layer-1){
+                if(i<36+layer*36-1){
                     this.lines.push([i,i+1]);
                     this.lines.push([i+12,i+13]);
                 }
