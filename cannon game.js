@@ -71,26 +71,26 @@ class Building{
         this.points=[];
         this.lines=[];
         this.connectedPoints=[];
-        for(var y=0;y<12;y++){
-            for(var x=0;x<12;x++){
+        for(var y=0;y<8;y++){
+            for(var x=0;x<8;x++){
                 this.points.push(new Point(600+x*lineLength,height-50-y*lineLength));
             }
         }
         for(var layer=0;layer<3;layer+=1){
             for(var i=0;i<3;i++){
-                var index=Math.floor(Math.random()*11)+layer*36;
+                var index=Math.floor(Math.random()*11)+layer*24;
                 this.lines.push([index,index+1]);
-                this.lines.push([index,index+12]);
-                this.lines.push([index+1,index+13]);
-                this.lines.push([index+12,index+13]);
-                this.lines.push([index+12,index+24]);
-                this.lines.push([index+13,index+25]);
+                this.lines.push([index,index+9]);
+                this.lines.push([index+1,index+10]);
+                this.lines.push([index+9,index+10]);
+                this.lines.push([index+9,index+16]);
+                this.lines.push([index+10,index+17]);
             }
-            for(var i=24+layer*36;i<36+layer*36;i++){
-                this.lines.push([i,i+12]);
-                if(i<36+layer*36-1){
+            for(var i=24+layer*24;i<24+layer*24;i++){
+                this.lines.push([i,i+8]);
+                if(i<24+layer*24-1){
                     this.lines.push([i,i+1]);
-                    this.lines.push([i+12,i+13]);
+                    this.lines.push([i+8,i+9]);
                 }
             }
         }
@@ -225,7 +225,7 @@ function explode(x,y,radius,power){
 }
 
 const gravity=.2;
-const lineLength=50;
+const lineLength=75;
 var cannonballs=[];
 var explosions=[];
 var cannonAngle=0;
