@@ -128,10 +128,10 @@ class Building{
                 var distDiff=getDistance(this.points[i],this.points[connectedIndex])-this.distances[i][connectedIndex];
                 if(i!=j && distDiff!=0){
                     var angle=getAngle(this.points[i],this.points[connectedIndex]);
-                    this.points[i].vx+=Math.cos(angle+Math.PI)*distDiff*.04;
-                    this.points[i].vy+=Math.sin(angle+Math.PI)*distDiff*.04;
-                    this.points[connectedIndex].vx+=Math.cos(angle)*distDiff*.04;
-                    this.points[connectedIndex].vy+=Math.sin(angle)*distDiff*.04;
+                    this.points[i].vx+=Math.cos(angle+Math.PI)*distDiff*.03;
+                    this.points[i].vy+=Math.sin(angle+Math.PI)*distDiff*.03;
+                    this.points[connectedIndex].vx+=Math.cos(angle)*distDiff*.03;
+                    this.points[connectedIndex].vy+=Math.sin(angle)*distDiff*.03;
                 }
             }
             this.points[i].x+=this.points[i].vx;
