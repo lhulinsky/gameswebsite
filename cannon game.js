@@ -86,9 +86,11 @@ class Building{
             this.lines.push([index+13,index+25]);
         }
         for(var i=24;i<36;i++){
-            this.lines.push([i,i+1]);
             this.lines.push([i,i+12]);
-            this.lines.push([i+12,i+13]);
+            if(i<36-1){
+                this.lines.push([i,i+1]);
+                this.lines.push([i+12,i+13]);
+            }
         }
         for(var i=0;i<3;i++){
             var index=Math.floor(Math.random()*11)+36;
