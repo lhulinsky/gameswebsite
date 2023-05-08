@@ -85,8 +85,13 @@ class Building{
             this.lines.push([index+12,index+24]);
             this.lines.push([index+13,index+25]);
         }
+        for(var i=24;i<36;i++){
+            this.lines.push([i,i+1]);
+            this.lines.push([i,i+12]);
+            this.lines.push([i+12,i+13]);
+        }
         for(var i=0;i<3;i++){
-            var index=Math.floor(Math.random()*11)+24;
+            var index=Math.floor(Math.random()*11)+36;
             this.lines.push([index,index+1]);
             this.lines.push([index,index+12]);
             this.lines.push([index+1,index+13]);
