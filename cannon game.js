@@ -78,7 +78,7 @@ class Building{
         }
         for(var layer=0;layer<3;layer+=1){
             for(var i=0;i<3;i++){
-                var index=Math.floor(Math.random()*11)+layer*24;
+                var index=Math.floor(Math.random()*7)+layer*24;
                 this.lines.push([index,index+1]);
                 this.lines.push([index,index+8]);
                 this.lines.push([index+1,index+9]);
