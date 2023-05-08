@@ -80,11 +80,11 @@ class Building{
             for(var i=0;i<3;i++){
                 var index=Math.floor(Math.random()*11)+layer*24;
                 this.lines.push([index,index+1]);
-                this.lines.push([index,index+9]);
-                this.lines.push([index+1,index+10]);
-                this.lines.push([index+9,index+10]);
-                this.lines.push([index+9,index+16]);
-                this.lines.push([index+10,index+17]);
+                this.lines.push([index,index+8]);
+                this.lines.push([index+1,index+9]);
+                this.lines.push([index+8,index+9]);
+                this.lines.push([index+8,index+16]);
+                this.lines.push([index+9,index+17]);
             }
             for(var i=24+layer*24;i<24+layer*24;i++){
                 this.lines.push([i,i+8]);
