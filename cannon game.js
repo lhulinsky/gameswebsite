@@ -71,8 +71,8 @@ class Building{
         this.points=[];
         this.lines=[];
         this.connectedPoints=[];
-        for(var x=0;x<12;x++){
-            for(var y=0;y<12;y++){
+        for(var y=0;y<12;x++){
+            for(var x=0;x<12;y++){
                 this.points.push(new Point(600+x*lineLength,height-50-y*lineLength));
             }
         }
