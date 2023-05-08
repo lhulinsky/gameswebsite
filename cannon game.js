@@ -71,18 +71,28 @@ class Building{
         this.points=[];
         this.lines=[];
         this.connectedPoints=[];
-        for(var x=0;x<6;x++){
-            for(var y=0;y<6;y++){
+        for(var x=0;x<12;x++){
+            for(var y=0;y<12;y++){
                 this.points.push(new Point(600+x*lineLength,height-50-y*lineLength));
             }
         }
-        for(var i=0;i<this.points.length;i++){
-            if(i<this.points.length-1 && i%6!=5){
-                this.lines.push([i,i+1]);
-            }
-            if(i<this.points.length-6){
-                this.lines.push([i,i+6]);
-            }
+        for(var i=0;i<3;i++){
+            var index=Math.floor(Math.random()*11);
+            this.lines.push([index,index+1]);
+            this.lines.push([index,index+12]);
+            this.lines.push([index+1,index+13]);
+            this.lines.push([index+12,index+13]);
+            this.lines.push([index+12,index+24]);
+            this.lines.push([index+13,index+25]);
+        }
+        for(var i=0;i<3;i++){
+            var index=Math.floor(Math.random()*11)+24;
+            this.lines.push([index,index+1]);
+            this.lines.push([index,index+12]);
+            this.lines.push([index+1,index+13]);
+            this.lines.push([index+12,index+13]);
+            this.lines.push([index+12,index+24]);
+            this.lines.push([index+13,index+25]);
         }
         this.getConnectedPoints();
         this.distances=[];
@@ -215,7 +225,7 @@ function explode(x,y,radius,power){
 }
 
 const gravity=.2;
-const lineLength=100;
+const lineLength=50;
 var cannonballs=[];
 var explosions=[];
 var cannonAngle=0;
