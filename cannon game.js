@@ -86,7 +86,7 @@ class Building{
                 this.lines.push([index+8,index+16]);
                 this.lines.push([index+9,index+17]);
             }
-            for(var i=24+layer*24;i<24+layer*24;i++){
+            for(var i=16+layer*24;i<24+layer*24;i++){
                 this.lines.push([i,i+8]);
                 if(i<24+layer*24-1){
                     this.lines.push([i,i+1]);
