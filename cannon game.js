@@ -108,8 +108,8 @@ class Building{
     update(){
         for(var i=0;i<this.points.length;i++){
             this.points[i].vy+=gravity;
-            this.points[i].vx*=.98;
-            this.points[i].vy*=.98;
+            this.points[i].vx*=.97;
+            this.points[i].vy*=.97;
             if(this.points[i].y>=height-50){
                 this.points[i].vy=0;
                 this.points[i].y=height-50;
@@ -128,10 +128,10 @@ class Building{
                 var distDiff=getDistance(this.points[i],this.points[connectedIndex])-this.distances[i][connectedIndex];
                 if(i!=j && distDiff!=0){
                     var angle=getAngle(this.points[i],this.points[connectedIndex]);
-                    this.points[i].vx+=Math.cos(angle+Math.PI)*distDiff*3/this.points.length;
-                    this.points[i].vy+=Math.sin(angle+Math.PI)*distDiff*3/this.points.length;
-                    this.points[connectedIndex].vx+=Math.cos(angle)*distDiff*3/this.points.length;
-                    this.points[connectedIndex].vy+=Math.sin(angle)*distDiff*3/this.points.length;
+                    this.points[i].vx+=Math.cos(angle+Math.PI)*distDiff*2.5/this.points.length;
+                    this.points[i].vy+=Math.sin(angle+Math.PI)*distDiff*2.5/this.points.length;
+                    this.points[connectedIndex].vx+=Math.cos(angle)*distDiff*2.5/this.points.length;
+                    this.points[connectedIndex].vy+=Math.sin(angle)*distDiff*2.5/this.points.length;
                 }
             }
             this.points[i].x+=this.points[i].vx;
