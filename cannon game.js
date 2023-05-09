@@ -71,12 +71,12 @@ class Building{
         this.points=[];
         this.lines=[];
         this.connectedPoints=[];
-        for(var y=0;y<8;y++){
+        for(var y=0;y<9;y++){
             for(var x=0;x<8;x++){
                 this.points.push(new Point(600+x*lineLength,height-50-y*lineLength));
             }
         }
-        for(var layer=0;layer<2;layer+=1){
+        for(var layer=0;layer<3;layer+=1){
             for(var i=0;i<3;i++){
                 var index=Math.floor(Math.random()*7)+layer*24;
                 this.lines.push([index,index+1]);
