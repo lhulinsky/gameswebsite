@@ -224,7 +224,7 @@ function explode(x,y,radius,power){
     explosions.push(new Explosion(x,y,radius));
 }
 
-const gravity=.2;
+const gravity=.25;
 const lineLength=75;
 var cannonballs=[];
 var explosions=[];
