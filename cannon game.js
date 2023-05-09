@@ -71,12 +71,12 @@ class Building{
         this.points=[];
         this.lines=[];
         this.connectedPoints=[];
-        for(var y=0;y<10;y++){
+        for(var y=0;y<8;y++){
             for(var x=0;x<8;x++){
                 this.points.push(new Point(600+x*lineLength,height-50-y*lineLength));
             }
         }
-        for(var layer=0;layer<3;layer+=1){
+        for(var layer=0;layer<2;layer+=1){
             for(var i=0;i<3;i++){
                 var index=Math.floor(Math.random()*7)+layer*24;
                 this.lines.push([index,index+1]);
@@ -128,8 +128,8 @@ class Building{
                 var distDiff=getDistance(this.points[i],this.points[connectedIndex])-this.distances[i][connectedIndex];
                 if(i!=j && distDiff!=0){
                     var angle=getAngle(this.points[i],this.points[connectedIndex]);
-                    this.points[i].vx+=Math.cos(angle+Math.PI)*distDiff*2.5/this.points.length;
-                    this.points[i].vy+=Math.sin(angle+Math.PI)*distDiff*2.5/this.points.length;
+                    //this.points[i].vx+=Math.cos(angle+Math.PI)*distDiff*2.5/this.points.length;
+                    //this.points[i].vy+=Math.sin(angle+Math.PI)*distDiff*2.5/this.points.length;
                     this.points[connectedIndex].vx+=Math.cos(angle)*distDiff*2.5/this.points.length;
                     this.points[connectedIndex].vy+=Math.sin(angle)*distDiff*2.5/this.points.length;
                 }
