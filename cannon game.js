@@ -94,6 +94,10 @@ class Building{
                 }
             }
         }
+        this.lineDurabilities=[];
+        for(var i=0;i<this.lines.length;i++){
+            this.lineDurabilities.push(2);
+        }
         this.getConnectedPoints();
         this.distances=[];
         for(var i=0;i<this.points.length;i++){
@@ -189,6 +193,9 @@ class Building{
             var indexTwo=this.lines[i][1];
             ctx.lineWidth=5;
             ctx.strokeStyle="brown";
+            if(this.lineDurabilities[i]>1){
+                ctx.strokeStyle="gray";
+            }
             ctx.beginPath();
             ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
             ctx.lineTo(this.points[indexTwo].x,this.points[indexTwo].y);
@@ -206,10 +213,16 @@ function explode(x,y,radius,power){
             //destruction
             for(var l=0;l<building.lines.length;l++){
                 if(building.lines[l][0]==i){
-                    building.lines.splice(l,1);
+                    building.lineDurabilities[l]--;
+                    if(building.lineDurabilities[l]<=0){
+                        building.lines.splice(l,1);
+                    }
                 }
                 else if(building.lines[l][1]==i){
-                    building.lines.splice(l,1);
+                    building.lineDurabilities[l]--;
+                    if(building.lineDurabilities[l]<=0){
+                        building.lines.splice(l,1);
+                    }
                 }
             }
         }
