@@ -209,8 +209,25 @@ function explode(x,y,radius,power){
     for(var i=0;i<building.points.length;i++){
         var point=building.points[i];
         var dist=getDistance(point,center);
-        if(dist<radius){
-            //destruction
+        if(dist<radius/2){
+            //double destruction
+            for(var l=0;l<building.lines.length;l++){
+                if(building.lines[l][0]==i){
+                    building.lineDurabilities[l]-=2;
+                    if(building.lineDurabilities[l]<=0){
+                        building.lines.splice(l,1);
+                    }
+                }
+                else if(building.lines[l][1]==i){
+                    building.lineDurabilities[l]-=2;
+                    if(building.lineDurabilities[l]<=0){
+                        building.lines.splice(l,1);
+                    }
+                }
+            }
+        }
+        else if(dist<radius){
+            //single destruction
             for(var l=0;l<building.lines.length;l++){
                 if(building.lines[l][0]==i){
                     building.lineDurabilities[l]--;
