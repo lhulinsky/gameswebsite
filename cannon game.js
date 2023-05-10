@@ -192,9 +192,9 @@ class Building{
             var indexOne=this.lines[i][0];
             var indexTwo=this.lines[i][1];
             ctx.lineWidth=5;
-            ctx.strokeStyle="brown";
+            ctx.strokeStyle="rgba(158, 77, 36,.5)";
             if(this.lineDurabilities[i]>1){
-                ctx.strokeStyle="gray";
+                ctx.strokeStyle="rgba(158, 77, 36,1)";
             }
             ctx.beginPath();
             ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
@@ -209,25 +209,8 @@ function explode(x,y,radius,power){
     for(var i=0;i<building.points.length;i++){
         var point=building.points[i];
         var dist=getDistance(point,center);
-        if(dist<radius/2){
-            //double destruction
-            for(var l=0;l<building.lines.length;l++){
-                if(building.lines[l][0]==i){
-                    building.lineDurabilities[l]-=2;
-                    if(building.lineDurabilities[l]<=0){
-                        building.lines.splice(l,1);
-                    }
-                }
-                else if(building.lines[l][1]==i){
-                    building.lineDurabilities[l]-=2;
-                    if(building.lineDurabilities[l]<=0){
-                        building.lines.splice(l,1);
-                    }
-                }
-            }
-        }
-        else if(dist<radius){
-            //single destruction
+        if(dist<radius){
+            //destruction
             for(var l=0;l<building.lines.length;l++){
                 if(building.lines[l][0]==i){
                     building.lineDurabilities[l]--;
@@ -359,5 +342,5 @@ document.onmousemove=function move(e){
     launchDist=Math.min(launchDist,300);
 }
 document.onmousedown=function shoot(e){
-    cannonballs.push(new Cannonball(100+Math.cos(cannonAngle)*150,height-100+Math.sin(cannonAngle)*150,Math.cos(cannonAngle)*launchDist/10,Math.sin(cannonAngle)*launchDist/10))
+    cannonballs.push(new Cannonball(100+Math.cos(cannonAngle)*150,height-100+Math.sin(cannonAngle)*150,Math.cos(cannonAngle)*launchDist/20,Math.sin(cannonAngle)*launchDist/20))
 }
