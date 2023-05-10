@@ -24,14 +24,14 @@ function explode(x,y,radius,power){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
                         building.lines.splice(l,1);
-                        building.linesDurabilities.splice(l,1);
+                        building.lineDurabilities.splice(l,1);
                     }
                 }
                 else if(building.lines[l][1]==i){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
                         building.lines.splice(l,1);
-                        building.linesDurabilities.splice(l,1);
+                        building.lineDurabilities.splice(l,1);
                     }
                 }
             }
