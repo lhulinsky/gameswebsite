@@ -342,5 +342,5 @@ document.onmousemove=function move(e){
     launchDist=Math.min(launchDist,300);
 }
 document.onmousedown=function shoot(e){
-    cannonballs.push(new Cannonball(100+Math.cos(cannonAngle)*150,height-100+Math.sin(cannonAngle)*150,Math.cos(cannonAngle)*launchDist/20,Math.sin(cannonAngle)*launchDist/20))
+    cannonballs.push(new Cannonball(100+Math.cos(cannonAngle)*150,height-100+Math.sin(cannonAngle)*150,Math.cos(cannonAngle)*launchDist/15,Math.sin(cannonAngle)*launchDist/15))
 }
