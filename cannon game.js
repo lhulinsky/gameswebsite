@@ -95,12 +95,12 @@ class Building{
             }
             for(var i=16+layer*24;i<24+layer*24;i++){
                 this.lines.push([i,i+8]);
-                this.lineDurabilities.push(2);
+                this.lineDurabilities.push(3);
                 if(i<24+layer*24-1){
                     this.lines.push([i,i+1]);
                     this.lines.push([i+8,i+9]);
-                    this.lineDurabilities.push(2);
-                    this.lineDurabilities.push(2);
+                    this.lineDurabilities.push(3);
+                    this.lineDurabilities.push(3);
                 }
             }
         }
