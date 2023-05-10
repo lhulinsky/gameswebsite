@@ -92,7 +92,6 @@ class Building{
                 this.lineDurabilities.push(1);
                 this.lineDurabilities.push(1);
                 this.lineDurabilities.push(1);
-                this.lineDurabilities.push(1);
             }
             for(var i=16+layer*24;i<24+layer*24;i++){
                 this.lines.push([i,i+8]);
