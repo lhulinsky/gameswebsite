@@ -70,6 +70,7 @@ class Building{
     constructor(){
         this.points=[];
         this.lines=[];
+        this.lineDurabilities=[];
         this.connectedPoints=[];
         for(var y=0;y<10;y++){
             for(var x=0;x<8;x++){
@@ -85,18 +86,24 @@ class Building{
                 this.lines.push([index+8,index+9]);
                 this.lines.push([index+8,index+16]);
                 this.lines.push([index+9,index+17]);
+                this.lineDurabilities.push(1);
+                this.lineDurabilities.push(1);
+                this.lineDurabilities.push(1);
+                this.lineDurabilities.push(1);
+                this.lineDurabilities.push(1);
+                this.lineDurabilities.push(1);
+                this.lineDurabilities.push(1);
             }
             for(var i=16+layer*24;i<24+layer*24;i++){
                 this.lines.push([i,i+8]);
+                this.lineDurabilities.push(2);
                 if(i<24+layer*24-1){
                     this.lines.push([i,i+1]);
                     this.lines.push([i+8,i+9]);
+                    this.lineDurabilities.push(2);
+                    this.lineDurabilities.push(2);
                 }
             }
-        }
-        this.lineDurabilities=[];
-        for(var i=0;i<this.lines.length;i++){
-            this.lineDurabilities.push(2);
         }
         this.getConnectedPoints();
         this.distances=[];
@@ -192,9 +199,9 @@ class Building{
             var indexOne=this.lines[i][0];
             var indexTwo=this.lines[i][1];
             ctx.lineWidth=5;
-            ctx.strokeStyle="rgba(158, 77, 36,.5)";
+            ctx.strokeStyle="rgb(158, 77, 36)";
             if(this.lineDurabilities[i]>1){
-                ctx.strokeStyle="rgba(158, 77, 36,1)";
+                ctx.strokeStyle="rgba(136,136,136)";
             }
             ctx.beginPath();
             ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
