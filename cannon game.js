@@ -186,13 +186,19 @@ class Building{
                 this.connectedPoints[i].splice(0,1);
             }
         }
-        this.distances=[];
-        for(var i=0;i<this.points.length;i++){
-            this.distances.push([]);
-        }
-        for(var i=0;i<this.points.length;i++){
-            for(var j=0;j<this.points.length;j++){
-                this.distances[i].push(getDistance(this.points[i],this.points[j]));
+        if(this.distances.length<this.points.length){
+            for(var i=0;i<this.distances.length;i++){
+                for(var j=this.distances.length;j<this.points.length;j++){
+                    this.distances[i].push(getDistance(this.points[i],this.points[j]));
+                }
+            }
+            for(var i=0;i<this.points.length-this.distances.length;i++){
+                this.distances.push([]);
+            }
+            for(var i=this.distances.length;i<this.points.length;i++){
+                for(var j=0;j<this.points.length;j++){
+                    this.distances[i].push(getDistance(this.points[i],this.points[j]));
+                }
             }
         }
     }
