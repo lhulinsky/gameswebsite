@@ -24,7 +24,7 @@ function explode(x,y,radius,power){
                 if(building.lines[l][0]==i){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
-                        building.points.push(point);
+                        building.points.push(new Point(point.x,point.y));
                         building.lines[0]=building.points.length-1;
                         //building.lines.splice(l,1);
                         //building.lineDurabilities.splice(l,1);
@@ -33,7 +33,7 @@ function explode(x,y,radius,power){
                 else if(building.lines[l][1]==i){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
-                        building.points.push(point);
+                        building.points.push(new Point(point.x,point.y));
                         building.lines[1]=building.points.length-1;
                         //building.lines.splice(l,1);
                         //building.lineDurabilities.splice(l,1);
