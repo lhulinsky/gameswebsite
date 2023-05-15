@@ -196,8 +196,7 @@ class Building{
                 ctx.stroke();
             }
             catch(e){
-                alert(indexOne);
-                alert(this.points.length);
+                alert(this.lines[i]);
             }
         }
     }
