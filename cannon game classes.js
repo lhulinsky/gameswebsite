@@ -190,6 +190,7 @@ class Building{
                 ctx.strokeStyle="rgba(136,136,136)";
             }
             ctx.beginPath();
+            alert(indexOne);
             ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
             ctx.lineTo(this.points[indexTwo].x,this.points[indexTwo].y);
             ctx.stroke();
