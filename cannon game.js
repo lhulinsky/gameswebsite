@@ -14,7 +14,8 @@ function getAngle(point1,point2){
 
 function explode(x,y,radius,power){
     var center=new Point(x,y);
-    for(var i=0;i<building.points.length;i++){
+    var originalLength=building.points.length;
+    for(var i=0;i<originalLength;i++){
         var point=building.points[i];
         var dist=getDistance(point,center);
         if(dist<radius){
@@ -23,15 +24,19 @@ function explode(x,y,radius,power){
                 if(building.lines[l][0]==i){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
-                        building.lines.splice(l,1);
-                        building.lineDurabilities.splice(l,1);
+                        building.points.push(point);
+                        building.lines[0]=building.points.length-1;
+                        //building.lines.splice(l,1);
+                        //building.lineDurabilities.splice(l,1);
                     }
                 }
                 else if(building.lines[l][1]==i){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
-                        building.lines.splice(l,1);
-                        building.lineDurabilities.splice(l,1);
+                        building.points.push(point);
+                        building.lines[1]=building.points.length-1;
+                        //building.lines.splice(l,1);
+                        //building.lineDurabilities.splice(l,1);
                     }
                 }
             }
