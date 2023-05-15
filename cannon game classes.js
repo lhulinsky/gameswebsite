@@ -189,11 +189,16 @@ class Building{
             if(this.lineDurabilities[i]>1){
                 ctx.strokeStyle="rgba(136,136,136)";
             }
-            ctx.beginPath();
-            alert(indexOne);
-            ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
-            ctx.lineTo(this.points[indexTwo].x,this.points[indexTwo].y);
-            ctx.stroke();
+            try{
+                ctx.beginPath();
+                ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
+                ctx.lineTo(this.points[indexTwo].x,this.points[indexTwo].y);
+                ctx.stroke();
+            }
+            catch(e){
+                alert(indexOne);
+                alert(this.points.length);
+            }
         }
     }
 }
