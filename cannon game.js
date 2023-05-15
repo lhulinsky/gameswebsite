@@ -143,7 +143,6 @@ class Building{
         }
     }
     getConnectedPoints(){
-        alert("connected");
         this.connectedPoints=[];
         for(var i=0;i<this.points.length;i++){
             this.connectedPoints.push([]);
@@ -187,8 +186,15 @@ class Building{
                 this.connectedPoints[i].splice(0,1);
             }
         }
-        alert(this.connectedPoints.length);
-        alert(this.points.length);
+        this.distances=[];
+        for(var i=0;i<this.points.length;i++){
+            this.distances.push([]);
+        }
+        for(var i=0;i<this.points.length;i++){
+            for(var j=0;j<this.points.length;j++){
+                this.distances[i].push(getDistance(this.points[i],this.points[j]));
+            }
+        }
     }
     draw(){
         for(var i=0;i<this.lines.length;i++){
