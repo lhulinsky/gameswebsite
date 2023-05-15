@@ -186,21 +186,6 @@ class Building{
                 this.connectedPoints[i].splice(0,1);
             }
         }
-        if(this.distances.length<this.points.length){
-            for(var i=0;i<this.distances.length;i++){
-                for(var j=this.distances.length;j<this.points.length;j++){
-                    this.distances[i].push(getDistance(this.points[i],this.points[j]));
-                }
-            }
-            for(var i=0;i<this.points.length-this.distances.length;i++){
-                this.distances.push([]);
-            }
-            for(var i=this.distances.length;i<this.points.length;i++){
-                for(var j=0;j<this.points.length;j++){
-                    this.distances[i].push(getDistance(this.points[i],this.points[j]));
-                }
-            }
-        }
     }
     draw(){
         for(var i=0;i<this.lines.length;i++){
@@ -211,15 +196,10 @@ class Building{
             if(this.lineDurabilities[i]>1){
                 ctx.strokeStyle="rgba(136,136,136)";
             }
-            try{
-                ctx.beginPath();
-                ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
-                ctx.lineTo(this.points[indexTwo].x,this.points[indexTwo].y);
-                ctx.stroke();
-            }
-            catch(e){
-                alert(this.lines[i]);
-            }
+            ctx.beginPath();
+            ctx.moveTo(this.points[indexOne].x,this.points[indexOne].y);
+            ctx.lineTo(this.points[indexTwo].x,this.points[indexTwo].y);
+            ctx.stroke();
         }
     }
 }
@@ -243,19 +223,15 @@ function explode(x,y,radius,power){
                 if(building.lines[l][0]==i){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
-                        building.points.push(new Point(point.x,point.y));
-                        building.lines[l][0]=building.points.length-1;
-                        //building.lines.splice(l,1);
-                        //building.lineDurabilities.splice(l,1);
+                        building.lines.splice(l,1);
+                        building.lineDurabilities.splice(l,1);
                     }
                 }
                 else if(building.lines[l][1]==i){
                     building.lineDurabilities[l]--;
                     if(building.lineDurabilities[l]<=0){
-                        building.points.push(new Point(point.x,point.y));
-                        building.lines[l][1]=building.points.length-1;
-                        //building.lines.splice(l,1);
-                        //building.lineDurabilities.splice(l,1);
+                        building.lines.splice(l,1);
+                        building.lineDurabilities.splice(l,1);
                     }
                 }
             }
