@@ -48,7 +48,7 @@ function explode(x,y,radius,power){
             point.vy+=Math.sin(angle)*100*power/dist;
         }
     }
-    building.getConnectedPoints();
+    //building.getConnectedPoints();
     explosions.push(new Explosion(x,y,radius));
 }
 
