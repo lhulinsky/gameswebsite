@@ -179,6 +179,7 @@ class Building{
                 this.connectedPoints[i].splice(0,1);
             }
         }
+        alert(this.connectedPoints[this.connectedPoints.length-1]);
     }
     draw(){
         for(var i=0;i<this.lines.length;i++){
