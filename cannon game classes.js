@@ -136,6 +136,7 @@ class Building{
         }
     }
     getConnectedPoints(){
+        alert("connected");
         this.connectedPoints=[];
         for(var i=0;i<this.points.length;i++){
             this.connectedPoints.push([]);
