@@ -12,7 +12,7 @@ if(oldClicks.length>0 && oldClicks[0]=="clicks"){
     clicks=parseInt(oldClicks[1]);
     cursorImage.onload=function(){
         for(var i=0;i<clicks;i++){
-            ctx.drawImage(cursorImage,Math.random()*canvas.width,Math.random()*canvas.height);
+            ctx.drawImage(cursorImage,Math.floor(Math.random()*canvas.width),Math.floor(Math.random()*canvas.height));
         }
     }
 }
