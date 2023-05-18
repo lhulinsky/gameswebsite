@@ -22,7 +22,7 @@ function clickCookie(){
     clicks+=1;
     document.cookie="clicks="+clicks;
     clickText.innerHTML="You have clicked "+clicks+" times";
-    ctx.drawImage(cursorImage,Math.random()*canvas.width,Math.random()*canvas.height);
+    ctx.drawImage(cursorImage,Math.floor(Math.random()*canvas.width),Math.floor(Math.random()*canvas.height),12,19);
 }
 function resetCookie(){
     clicks=0;
