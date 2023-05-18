@@ -2,7 +2,7 @@ var button=document.getElementById("click");
 var clickText=document.getElementById("clickCount");
 var canvas=document.getElementById("cursorCanvas");
 canvas.width=window.innerWidth;
-canvas.height=window.innerHeight-70;
+canvas.height=window.innerHeight-80;
 var ctx=canvas.getContext("2d");
 var cursorImage=new Image();
 cursorImage.src="new cursor.png";
@@ -23,4 +23,11 @@ function clickCookie(){
     document.cookie="clicks="+clicks;
     clickText.innerHTML="You have clicked "+clicks+" times";
     ctx.drawImage(cursorImage,Math.random()*canvas.width,Math.random()*canvas.height);
+}
+function resetCookie(){
+    clicks=0;
+    document.cookie="clicks="+clicks;
+    clickText.innerHTML="You have clicked "+clicks+" times";
+    ctx.fillStyle="white";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 }
