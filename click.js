@@ -5,7 +5,7 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight-70;
 var ctx=canvas.getContext("2d");
 var cursorImage=new Image();
-cursorImage.src="cursor.png";
+cursorImage.src="new cursor.png";
 var oldClicks=document.cookie.split("=")
 var clicks=0;
 if(oldClicks.length>0 && oldClicks[0]=="clicks"){
