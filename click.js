@@ -2,7 +2,7 @@ var button=document.getElementById("click");
 var clickText=document.getElementById("clickCount");
 var oldClicks=document.cookie.split("=")
 var clicks=0;
-if(len(oldClicks)>0){
+if(oldClicks.length>0){
     clicks=parseInt(oldClicks[1]);
 }
 clickText.innerHTML="You have clicked "+clicks+" times";
