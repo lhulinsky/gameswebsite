@@ -1,5 +1,6 @@
 console.log(document.cookie);
+var clicks=0;
 function click(){
-    //document.cookie="clicks=1;expires="+(new Date().getTime()+24*60*60*1000);
-    document.cookie="Hello there expires="+(new Date().getTime()+24*60*60*1000);
+    clicks+=1;
+    //document.cookie="clicks="+clickes+";expires="+(new Date().getTime()+24*60*60*1000);
 }
