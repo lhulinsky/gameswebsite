@@ -6,4 +6,4 @@ function click(){
     clicks+=1;
     document.cookie="clicks="+clicks+";expires="+(new Date().getTime()+24*60*60*1000);
 }
-button.onclick="click()";
+button.onclick=click();
