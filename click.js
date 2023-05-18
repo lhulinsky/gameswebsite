@@ -1,6 +1,10 @@
 var button=document.getElementById("click");
 var clickText=document.getElementById("clickCount");
-var clicks=parseInt(document.cookie.split("=")[1]);
+var oldClicks=document.cookie.split("=")
+var clicks=0;
+if(len(oldClicks)>0){
+    clicks=parseInt(oldClicks[1]);
+}
 clickText.innerHTML="You have clicked "+clicks+" times";
 function clickCookie(){
     console.log("click");
