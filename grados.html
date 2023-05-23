@@ -1,0 +1,88 @@
+<head></head>
+<body>
+    <textarea placeholder="Copy and Paste Powerschool Here" rows="6" cols="160" id="pasteArea"></textarea>
+    <p onclick="submitData();" id="submitButton">Submit</p>
+    <h3>Final Grade</h3>
+    <h1 id="gradeDisplay">0%</h1>
+    <style>
+        /*penguin style*/
+        *{
+            font-family:Arial;
+        }
+        #submitButton{
+            background-color:rgb(200,200,200);
+            border: 2px solid rgb(120,120,120);
+            border-radius:4px;
+            width:100px;
+            text-align:center;
+            padding:8px;
+        }
+        #submitButton:hover{
+            background-color:rgb(170,170,170);
+        }
+        h3{
+            color:rgb(0,66,124);
+        }
+    </style>
+    <script>
+        window.onerror = function(e, url, line){
+            alert('\nLine ' + line+" "+e);
+            return true;
+        }
+    </script>
+    <script>
+        function isOneOrZero(charText){
+            if(charText=="0" || charText=="1"){
+                return true;
+            }
+            return false;
+        }
+        function submitData(){
+            let text=document.getElementById("pasteArea").value;
+            if(text==""){
+                text+="e";
+            }
+            let lines=text.split("\n");
+            let formPoints=0;
+            let sumPoints=0;
+            let formTotalPoints=0;
+            let sumTotalPoints=0;
+            for(i=0;i<lines.length;i++){
+                if(isOneOrZero(lines[i][0][0])){
+                    let sections=lines[i].split("\u0009");
+                    let gradeType=sections[1];
+                    if(sections[10].split("/")[0]!="--"){
+                        if(gradeType=="Formative"){
+                            formPoints+=parseInt(sections[10].split("/")[0])
+                            formTotalPoints+=parseInt(sections[10].split("/")[1]);
+                        }
+                        else{
+                            sumPoints+=parseInt(sections[10].split("/")[0])
+                            sumTotalPoints+=parseInt(sections[10].split("/")[1]);
+                        }
+                    }
+                }
+
+
+            }
+            let totalGrade=0;
+            if(formTotalPoints>0){
+                if(sumTotalPoints>0){
+                    totalGrade+=(formPoints/formTotalPoints)*.15;
+                }
+                else{
+                    totalGrade+=(formPoints/formTotalPoints);
+                }
+            }
+            if(sumTotalPoints>0){
+                if(formTotalPoints>0){
+                    totalGrade+=(sumPoints/sumTotalPoints)*.85;
+                }
+                else{
+                    totalGrade+=(sumPoints/sumTotalPoints);
+                }
+            }
+            document.getElementById("gradeDisplay").innerHTML=Math.round(totalGrade*10000)/100+"%";
+        }
+    </script>
+</body>
