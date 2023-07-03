@@ -1282,7 +1282,8 @@ function botMove(){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
-                alphaBetaMax(-1000000,1000000,i,searchStartTime,true)
+                alphaBetaMax(-1000000,1000000,i,searchStartTime,true);
+                console.log([bestPiece,bestMove]);
                 if(new Date().getTime()-searchStartTime>botThinkTime){
                     console.log("ended depth search");
                     console.log(bestPiece);
