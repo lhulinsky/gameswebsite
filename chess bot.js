@@ -1799,7 +1799,7 @@ function displayEndText(message){
     var textElement=document.getElementById("endgameText");
     if(message=="win"){
         textElement.style.color="rgb(30, 163, 3)";
-        else if(botThinkTime==0){
+        if(botThinkTime==0){
             textElement.innerHTML="Checkmate! You are SO good at chess";
         }
         else if(botThinkTime==20){
@@ -1823,7 +1823,7 @@ function displayEndText(message){
     }
     else if(message=="lose"){
         textElement.style.color="rgb(190, 30, 3)";
-        else if(==0){
+        if(botThinkTime==0){
             textElement.innerHTML="Checkmate! I guess chess isn't your thing...";
         }
         else if(botThinkTime==20){
@@ -1847,7 +1847,7 @@ function displayEndText(message){
     }
     else{
         textElement.style.color="rgb(190, 190, 3)";
-        else if(botThinkTime==0){
+        if(botThinkTime==0){
             textElement.innerHTML="Stalemate! You shouldn't have done that";
         }
         else if(botThinkTime==20){
