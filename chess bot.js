@@ -1281,6 +1281,7 @@ function botMove(){
     if(searchDepth>0){
         if(!firstMove){
             startTime=new Date().getTime();
+            console.log(startTime);
             for(var i=1;i<100;i++){
                 alphaBetaMax(-1000000,1000000,i)
                 if(new Date().getTime()-startTime>3000){
