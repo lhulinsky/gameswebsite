@@ -1276,14 +1276,13 @@ var lastlastPiece=0;
 var searchDepth=4;
 var isEndGame=false;
 var firstMove=true;
-var startTime=0;
 function botMove(){
-    startTime=new Date().getTime();
     if(searchDepth>0){
         if(!firstMove){
             for(var i=1;i<100;i++){
-                alphaBetaMax(-1000000,1000000,i)
-                if(new Date().getTime()-startTime>3000){
+                searchStartTime=new Date().getTime();
+                alphaBetaMax(-1000000,1000000,i,searchStartTime)
+                if(new Date().getTime()-searchStartTime>3000){
                     console.log("ended depth search");
                     console.log(bestPiece);
                     console.log(bestMove);
@@ -1609,13 +1608,13 @@ function searchAllWhiteCaptures(alpha,beta){
     return beta;
 }
 
-function alphaBetaMax(alpha,beta,depthleft){
+function alphaBetaMax(alpha,beta,depthleft,searchStartTime){
     if(depthleft==0){
         return searchAllBlackCaptures(alpha,beta);
     }
-    if(new Date().getTime()-startTime>3000){
+    if(new Date().getTime()-searchStartTime>3000){
         console.log("stopped");
-        console.log(startTime);
+        console.log(searchStartTime);
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
@@ -1645,7 +1644,7 @@ function alphaBetaMax(alpha,beta,depthleft){
         if(board[move[1]]==16){
             blackKingPosition=move[1];
         }
-        var score = alphaBetaMin(alpha,beta,depthleft - 1);
+        var score = alphaBetaMin(alpha,beta,depthleft - 1,searchStartTime);
         board[move[0]]=board[move[1]];
         board[move[1]]=deletedValue;
         if(board[move[0]]==16){
@@ -1677,13 +1676,13 @@ function alphaBetaMax(alpha,beta,depthleft){
     return alpha;
 }
 
-function alphaBetaMin(alpha,beta,depthleft){
+function alphaBetaMin(alpha,beta,depthleft,searchStartTime){
     if(depthleft==0){
         return searchAllWhiteCaptures(alpha,beta);
     }
-    if(new Date().getTime()-startTime>3000){
+    if(new Date().getTime()-searchStartTime>3000){
         console.log("stopped");
-        console.log(startTime);
+        console.log(searchStartTime);
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
@@ -1713,7 +1712,7 @@ function alphaBetaMin(alpha,beta,depthleft){
         if(board[move[1]]==6){
             whiteKingPosition=move[1];
         }
-        var score = alphaBetaMax(alpha,beta,depthleft - 1);
+        var score = alphaBetaMax(alpha,beta,depthleft - 1,searchStartTime);
         board[move[0]]=board[move[1]];
         board[move[1]]=deletedValue;
         if(board[move[0]]==6){
