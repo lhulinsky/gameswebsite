@@ -1285,6 +1285,8 @@ function botMove(){
                 alphaBetaMax(-1000000,1000000,i)
                 if(new Date().getTime()-startTime>3000){
                     console.log("ended depth search");
+                    console.log(bestPiece);
+                    console.log(bestMove);
                     break
                 }
             }
@@ -1613,6 +1615,7 @@ function alphaBetaMax(alpha,beta,depthleft){
     }
     if(new Date().getTime()-startTime>3000){
         console.log("stopped");
+        console.log(startTime);
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
@@ -1680,6 +1683,7 @@ function alphaBetaMin(alpha,beta,depthleft){
     }
     if(new Date().getTime()-startTime>3000){
         console.log("stopped");
+        console.log(startTime);
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
