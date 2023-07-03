@@ -1276,7 +1276,7 @@ var lastlastPiece=0;
 var searchDepth=4;
 var isEndGame=false;
 var firstMove=true;
-var botThinkTime=2000;
+var botThinkTime=100;
 function botMove(){
     if(searchDepth>0){
         if(!firstMove){
