@@ -1611,7 +1611,7 @@ function alphaBetaMax(alpha,beta,depthleft){
     if(depthleft==0){
         return searchAllBlackCaptures(alpha,beta);
     }
-    if(new Date().getTime-startTime>3000){
+    if(new Date().getTime()-startTime>3000){
         console.log("stopped");
         return searchAllBlackCaptures(alpha,beta);
     }
@@ -1678,7 +1678,7 @@ function alphaBetaMin(alpha,beta,depthleft){
     if(depthleft==0){
         return searchAllWhiteCaptures(alpha,beta);
     }
-    if(new Date().getTime-startTime>3000){
+    if(new Date().getTime()-startTime>3000){
         console.log("stopped");
         return searchAllBlackCaptures(alpha,beta);
     }
