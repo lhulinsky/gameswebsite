@@ -1280,8 +1280,14 @@ function botMove(){
     if(searchDepth>0){
         if(!firstMove){
             var startTime=new Date().getTime();
-            console.log(alphaBetaMax(-1000000,1000000,searchDepth));
+            for(var i=1;i<100;i++){
+                alphaBetaMax(-1000000,1000000,i)
+                if(new Date().getTime()-startTime>3000){
+                    break
+                }
+            }
             console.log("time: "+(new Date().getTime()-startTime));
+            console.log("depth "+i)
         }
         else{
             firstMove=false;
@@ -1600,7 +1606,7 @@ function searchAllWhiteCaptures(alpha,beta){
 }
 
 function alphaBetaMax(alpha,beta,depthleft){
-    if(depthleft==0){
+    if(depthleft==0 || new Date().getTime-startTime>3000){
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
@@ -1663,7 +1669,7 @@ function alphaBetaMax(alpha,beta,depthleft){
 }
 
 function alphaBetaMin(alpha,beta,depthleft){
-    if(depthleft==0){
+    if(depthleft==0 || new Date().getTime-startTime>3000){
         return searchAllWhiteCaptures(alpha,beta);
     }
     var allMoves=[];
