@@ -1281,7 +1281,7 @@ function botMove(){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
-                alphaBetaMax(-1000000,1000000,i,searchStartTime)
+                alphaBetaMax(-1000000,1000000,i,searchStartTime,true)
                 if(new Date().getTime()-searchStartTime>3000){
                     console.log("ended depth search");
                     console.log(bestPiece);
@@ -1608,7 +1608,7 @@ function searchAllWhiteCaptures(alpha,beta){
     return beta;
 }
 
-function alphaBetaMax(alpha,beta,depthleft,searchStartTime){
+function alphaBetaMax(alpha,beta,depthleft,searchStartTime,firstSearch=false){
     if(depthleft==0){
         return searchAllBlackCaptures(alpha,beta);
     }
@@ -1653,7 +1653,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime){
             return beta;
         }
         if(score>alpha){
-            if(depthleft==searchDepth){
+            if(firstSearch){
                 if(allMoves.length==1){
                     bestPiece=move[0];
                     bestMove=move[1];
