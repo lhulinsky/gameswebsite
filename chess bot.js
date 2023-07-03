@@ -1627,6 +1627,11 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,firstSearch=false){
         }
     }
     allMoves=orderMoves(allMoves,true);
+    //put best move from previous search first
+    if(firstSearch && depthLeft!=1){
+        allMoves.splice(allMove.indexOf([bestPiece,bestMove]),1)
+        allMoves=[[bestPiece,bestMove]]+allMoves
+    }
     if(allMoves.length==0){
         if(blackInCheck()){
             return -100000;
