@@ -1273,12 +1273,11 @@ var lastMove=0;
 var lastPiece=0;
 var lastlastMove=0;
 var lastlastPiece=0;
-var searchDepth=4;
 var isEndGame=false;
 var firstMove=true;
 var botThinkTime=5000;
 function botMove(){
-    if(searchDepth>0){
+    if(botThinkTime>0){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
@@ -1295,12 +1294,6 @@ function botMove(){
             firstMove=false;
             doRandomDefense();
         }
-    }
-    else if(searchDepth<0){
-        //failure
-        var startTime=new Date().getTime();
-        console.log(failureMax(1000000,-searchDepth));
-        console.log("time: "+(new Date().getTime()-startTime));
     }
     else{
         //random
@@ -1752,109 +1745,6 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime){
     return beta;
 }
 
-function failureMax(beta,depthleft){
-    if(depthleft==0){
-        return scoreBoard();
-    }
-    var allMoves=[];
-    for(var i=0;i<board.length;i++){
-        if(isBlack(i)){
-            var pieceMoves=getValidMoves(i);
-            pieceMoves=removeIllegalMoves(i,pieceMoves);
-            for(var u=0;u<pieceMoves.length;u++){
-                allMoves.push([i,pieceMoves[u]]);
-            }
-        }
-    }
-    if(allMoves.length==0){
-        if(blackInCheck()){
-            return 100000*depthleft;
-        }
-        else{
-            return 0;
-        }
-    }
-    for(var i=0;i<allMoves.length;i++){
-        var move=allMoves[i];
-        var deletedValue=board[move[1]];
-        board[move[1]]=board[move[0]];
-        board[move[0]]=0;
-        if(board[move[1]]==16){
-            blackKingPosition=move[1];
-        }
-        var score = failureMin(beta,depthleft - 1);
-        board[move[0]]=board[move[1]];
-        board[move[1]]=deletedValue;
-        if(board[move[0]]==16){
-            blackKingPosition=move[0];
-        }
-        if(score<beta){
-            if(depthleft==-searchDepth){
-                if(allMoves.length==1){
-                    bestPiece=move[0];
-                    bestMove=move[1];
-                    beta=score;
-                }
-                else{
-                    if(move[0]!=lastlastPiece || move[1]!=lastlastMove){
-                        bestPiece=move[0];
-                        bestMove=move[1];
-                        beta=score;
-                    }
-                }
-            }
-            else{
-                beta=score;
-            }
-        }
-    }
-    return beta;
-}
-
-function failureMin(beta,depthleft){
-    if(depthleft==0){
-        return scoreBoard();
-    }
-    var allMoves=[];
-    for(var i=0;i<board.length;i++){
-        if(isWhite(i)){
-            var pieceMoves=getValidMoves(i);
-            pieceMoves=removeIllegalMoves(i,pieceMoves);
-            for(var u=0;u<pieceMoves.length;u++){
-                allMoves.push([i,pieceMoves[u]]);
-            }
-        }
-    }
-    if(allMoves.length==0){
-        if(whiteInCheck()){
-            return 100000*depthleft;
-        }
-        else{
-            return 0;
-        }
-    }
-    for(var i=0;i<allMoves.length;i++){
-        var move=allMoves[i];
-        var deletedValue=board[move[1]];
-        board[move[1]]=board[move[0]];
-        board[move[0]]=0;
-        if(board[move[1]]==6){
-            whiteKingPosition=move[1];
-        }
-        var score = failureMax(beta,depthleft - 1);
-        board[move[0]]=board[move[1]];
-        board[move[1]]=deletedValue;
-        if(board[move[0]]==6){
-            whiteKingPosition=move[0];
-        }
-        if(score<beta){
-            beta = score;
-        }
-    }
-    return beta;
-}
-
-
 var botsTurn=false;
 var canCastleRight=true;
 var canCastleLeft=true;
@@ -1909,82 +1799,73 @@ function displayEndText(message){
     var textElement=document.getElementById("endgameText");
     if(message=="win"){
         textElement.style.color="rgb(30, 163, 3)";
-        if(searchDepth<0){
-            textElement.innerHTML="Checkmate! I always lose";
-        }
-        else if(searchDepth==0){
+        else if(botThinkTime==0){
             textElement.innerHTML="Checkmate! You are SO good at chess";
         }
-        else if(searchDepth==1){
+        else if(botThinkTime==20){
             textElement.innerHTML="Checkmate! I guess you're luckier than me...";
         }
-        else if(searchDepth==2){
+        else if(botThinkTime==100){
             textElement.innerHTML="Checkmate! I'm getting a little aggravated...";
         }
-        else if(searchDepth==3){
+        else if(botThinkTime==500){
             textElement.innerHTML="Checkmate! Somehow I didn't see that...";
         }
-        else if(searchDepth==4){
+        else if(botThinkTime==1000){
             textElement.innerHTML="Checkmate! I need to study...";
         }
-        else if(searchDepth==5){
+        else if(botThinkTime==3000){
             textElement.innerHTML="Checkmate! You're not supposed to win...";
         }
-        else if(searchDepth==6){
+        else if(botThinkTime==5000){
             textElement.innerHTML="Checkmate! Impossible!";
         }
     }
     else if(message=="lose"){
         textElement.style.color="rgb(190, 30, 3)";
-        if(searchDepth<0){
-            textElement.innerHTML="Checkmate! What?";
-        }
-        else if(searchDepth==0){
+        else if(==0){
             textElement.innerHTML="Checkmate! I guess chess isn't your thing...";
         }
-        else if(searchDepth==1){
+        else if(botThinkTime==20){
             textElement.innerHTML="Checkmate! Not everyone is as lucky as me";
         }
-        else if(searchDepth==2){
+        else if(botThinkTime==100){
             textElement.innerHTML="Checkmate! Are you feeling aggravated?";
         }
-        else if(searchDepth==3){
+        else if(botThinkTime==500){
             textElement.innerHTML="Checkmate! I saw this possibility 14 moves ago";
         }
-        else if(searchDepth==4){
+        else if(botThinkTime==1000){
             textElement.innerHTML="Checkmate! It seems like you need more education";
         }
-        else if(searchDepth==5){
+        else if(botThinkTime==3000){
             textElement.innerHTML="Checkmate! How does it feel to be devoured?";
         }
-        else if(searchDepth==6){
+        else if(botThinkTime==5000){
             textElement.innerHTML="Checkmate! Did you really think you could win?";
         }
     }
     else{
         textElement.style.color="rgb(190, 190, 3)";
-        if(searchDepth<0){
-            textElement.innerHTML="Stalemate! I didn't lose?";
-        }
-        else if(searchDepth==0){
+        else if(botThinkTime==0){
             textElement.innerHTML="Stalemate! You shouldn't have done that";
         }
-        else if(searchDepth==1){
+        else if(botThinkTime==20){
             textElement.innerHTML="Stalemate! Thats unlucky";
         }
-        else if(searchDepth==2){
+        else if(botThinkTime==100){
             textElement.innerHTML="Stalemate! This is so aggravating";
         }
-        else if(searchDepth==3){
+        else if(botThinkTime==500){
             textElement.innerHTML="Stalemate! How did I not see that?";
         }
-        else if(searchDepth==4){
+        else if(botThinkTime==1000){
             textElement.innerHTML="Stalemate! I see that you haven't ready Edward's guide to stalemates";
         }
-        else if(searchDepth==5){
+        else if(botThinkTime==3000){
             textElement.innerHTML="Stalemate! You got away this time...";
         }
-        else if(searchDepth==6){
+        else if(botThinkTime==5000){
             textElement.innerHTML="Stalemate! This is the closest you'll ever get to winning";
         }
     }
@@ -2094,5 +1975,5 @@ function startGame(botNumber){
         update();
 
    }
-   searchDepth=botNumber;
+   botThinkTime=botNumber;
 }
