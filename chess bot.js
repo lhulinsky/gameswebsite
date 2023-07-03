@@ -1276,7 +1276,7 @@ var lastlastPiece=0;
 var searchDepth=4;
 var isEndGame=false;
 var firstMove=true;
-var botThinkTime=100;
+var botThinkTime=5000;
 function botMove(){
     if(searchDepth>0){
         if(!firstMove){
@@ -1412,10 +1412,24 @@ var kingPositions=[1,1,1,0,0,1,1,1,
                    4,4,3,3,3,3,4,4,
                    4,5,3,3,3,3,5,4];
 
+var kingEndgamePositions=[ 0,1,1,1,1,1,1,0,
+                           1,1,2,2,2,2,1,1,
+                           1,2,3,4,4,3,2,1,
+                           1,2,4,4,4,4,2,1,
+                           1,2,4,5,5,4,2,1,
+                           1,2,4,4,4,4,2,1,
+                           1,1,2,2,2,2,1,1,
+                           0,1,1,1,1,1,1,0];
+
 function getPositionValue(pieceIndex){
     var pieceType=board[pieceIndex];
     if(pieceType==1){
-        return pawnPositions[pieceIndex];
+        if(isEndGame){
+            return pawnEndgamePositions[pieceIndex];
+        }
+        else{
+            return pawnPositions[pieceIndex];
+        }
     }
     else if(pieceType==2){
         return knightPositions[pieceIndex];
@@ -1430,14 +1444,19 @@ function getPositionValue(pieceIndex){
         return queenPositions[pieceIndex];
     }
     else if(pieceType==6){
-        return kingPositions[pieceIndex];
+        if(isEndGame){
+            return kingEndgamePositions[pieceIndex];
+        }
+        else{
+            return kingPositions[pieceIndex];
+        }
     }
     else if(pieceType==11){
         if(isEndGame){
-            return pawnPositions[63-pieceIndex];
+            return pawnEndgamePositions[63-pieceIndex];
         }
         else{
-            return pawnEndgamePositions[63-pieceIndex];
+            return pawnPositions[63-pieceIndex];
         }
     }
     else if(pieceType==12){
@@ -1453,7 +1472,12 @@ function getPositionValue(pieceIndex){
         return queenPositions[63-pieceIndex];
     }
     else if(pieceType==16){
-        return kingPositions[63-pieceIndex];
+        if(isEndGame){
+            return kingEndgamePositions[63-pieceIndex];
+        }
+        else{
+            return kingPositions[63-pieceIndex];
+        }
     }
 }
 
