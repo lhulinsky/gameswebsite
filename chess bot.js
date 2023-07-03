@@ -1282,12 +1282,9 @@ function botMove(){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
-                alphaBetaMax(-1000000,1000000,i,searchStartTime,true);
-                console.log([bestPiece,bestMove]);
+                console.log(alphaBetaMax(-1000000,1000000,i,searchStartTime,true));
                 if(new Date().getTime()-searchStartTime>botThinkTime){
-                    console.log("ended depth search");
-                    console.log(bestPiece);
-                    console.log(bestMove);
+                    console.log([bestPiece,bestMove]);
                     break
                 }
             }
