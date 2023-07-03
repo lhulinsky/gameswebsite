@@ -1289,7 +1289,7 @@ function botMove(){
                     break
                 }
             }
-            console.log("time: "+(new Date().getTime()-startTime));
+            console.log("time: "+(new Date().getTime()-searchStartTime));
             console.log("depth "+i)
         }
         else{
@@ -1613,8 +1613,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime){
         return searchAllBlackCaptures(alpha,beta);
     }
     if(new Date().getTime()-searchStartTime>3000){
-        console.log("stopped");
-        console.log(searchStartTime);
+        console.log(new Date().getTime()-searchStartTime);
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
@@ -1681,8 +1680,7 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime){
         return searchAllWhiteCaptures(alpha,beta);
     }
     if(new Date().getTime()-searchStartTime>3000){
-        console.log("stopped");
-        console.log(searchStartTime);
+        console.log(new Date().getTime()-searchStartTime);
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
