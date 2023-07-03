@@ -1276,13 +1276,14 @@ var lastlastPiece=0;
 var searchDepth=4;
 var isEndGame=false;
 var firstMove=true;
+var botThinkTime=2000;
 function botMove(){
     if(searchDepth>0){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
                 alphaBetaMax(-1000000,1000000,i,searchStartTime,true)
-                if(new Date().getTime()-searchStartTime>3000){
+                if(new Date().getTime()-searchStartTime>botThinkTime){
                     console.log("ended depth search");
                     console.log(bestPiece);
                     console.log(bestMove);
@@ -1612,8 +1613,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,firstSearch=false){
     if(depthleft==0){
         return searchAllBlackCaptures(alpha,beta);
     }
-    if(new Date().getTime()-searchStartTime>3000){
-        console.log(new Date().getTime()-searchStartTime);
+    if(new Date().getTime()-searchStartTime>botThinkTime){
         return searchAllBlackCaptures(alpha,beta);
     }
     var allMoves=[];
@@ -1679,8 +1679,7 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime){
     if(depthleft==0){
         return searchAllWhiteCaptures(alpha,beta);
     }
-    if(new Date().getTime()-searchStartTime>3000){
-        console.log(new Date().getTime()-searchStartTime);
+    if(new Date().getTime()-searchStartTime>botThinkTime){
         return searchAllWhiteCaptures(alpha,beta);
     }
     var allMoves=[];
