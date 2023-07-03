@@ -1276,10 +1276,11 @@ var lastlastPiece=0;
 var searchDepth=4;
 var isEndGame=false;
 var firstMove=true;
+var startTime=0;
 function botMove(){
     if(searchDepth>0){
         if(!firstMove){
-            var startTime=new Date().getTime();
+            startTime=new Date().getTime();
             for(var i=1;i<100;i++){
                 alphaBetaMax(-1000000,1000000,i)
                 if(new Date().getTime()-startTime>3000){
