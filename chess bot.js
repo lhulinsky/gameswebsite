@@ -1279,8 +1279,8 @@ var firstMove=true;
 function botMove(){
     if(searchDepth>0){
         if(!firstMove){
+            var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
-                var searchStartTime=new Date().getTime();
                 alphaBetaMax(-1000000,1000000,i,searchStartTime)
                 if(new Date().getTime()-searchStartTime>3000){
                     console.log("ended depth search");
