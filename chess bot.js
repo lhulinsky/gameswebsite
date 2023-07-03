@@ -1681,7 +1681,7 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime){
     }
     if(new Date().getTime()-searchStartTime>3000){
         console.log(new Date().getTime()-searchStartTime);
-        return searchAllBlackCaptures(alpha,beta);
+        return searchAllWhiteCaptures(alpha,beta);
     }
     var allMoves=[];
     for(var i=0;i<board.length;i++){
