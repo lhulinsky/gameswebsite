@@ -85,6 +85,7 @@ function displayBoard(board){
             var piecePos=[boardMargin+i%8*60,Math.floor(i/8)*60];
             var pieceImage=pieceImages[pieceNumbers.indexOf(pieceNumber)];
             ctx.drawImage(pieceImage,piecePos[0],piecePos[1]);
+        }
     }
 }
 
