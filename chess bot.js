@@ -1791,7 +1791,7 @@ function update(){
     displayBoard(board);
     if(botsTurn){
         botsTurn=false;
-        setTimeout(botMove,50);
+        setTimeout(botMove,200);
     }
 }
 
