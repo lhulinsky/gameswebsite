@@ -1880,12 +1880,7 @@ function update(){
     displayBoard(board);
     if(botsTurn){
         botsTurn=false;
-        if(searchDepth>4){
-            setTimeout(botMove,50);
-        }
-        else{
-            setTimeout(botMove,200);
-        }
+        setTimeout(botMove,50);
     }
 }
 
