@@ -81,10 +81,23 @@ function displayBoard(board){
                     blackPawnImage,blackKnightImage,blackBishopImage,blackRookImage,blackQueenImage,blackKingImage]; 
     for(var i=0;i<board.length;i++){
         var pieceNumber=board[i];
-        if(pieceNumber!=0){
+        if(pieceNumber!=0 && i!=movingPieceDest){
             var piecePos=[boardMargin+i%8*60,Math.floor(i/8)*60];
             var pieceImage=pieceImages[pieceNumbers.indexOf(pieceNumber)];
             ctx.drawImage(pieceImage,piecePos[0],piecePos[1]);
+        }
+    }
+    if(isMovingAnimation){
+        var animationProgess=1/(1+Math.pow(2.718,25-movingAnimationTime));
+        var startPos=[boardMargin+movingPiece%8*60,Math.floor(movingPiece/8)*60];
+        var endPos=[boardMargin+movingPieceDest%8*60,Math.floor(movingPieceDest/8)*60];
+        var dist=Math.sqrt((startPos[0]-endPos[0])**2+(startPos[1]-endPos[1])**2);
+        var angle=Math.atan2(endPos[1]-startPos[1],endPos[0]-startPos[0]);
+        var movingPieceImage=pieceImages[pieceNumbers.indexOf(board[movingPieceDest])];
+        ctx.drawImage(movingPieceImage,startPos[0]+Math.cos(angle)*dist*animationProgress,startPos[1]+Math.sin(angle)*dist*animationProgress);
+        movingAnimationTime-=1;
+        if(movingAnimationTime<=0){
+            isMovingAnimation=false;
         }
     }
 }
