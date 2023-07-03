@@ -71,48 +71,20 @@ for(var i=0;i<8;i++){
     board[48+i]=1;
 }
 
+var movingPiece=-1;
+var movingPieceDest=-1;
+var isMovingAnimation=false;
+var movingAnimationTime=0;
 function displayBoard(board){
+    var pieceNumbers=[1,2,3,4,5,6,11,12,13,14,15,16];
+    var pieceImages=[whitePawnImage,whiteKnightImage,whiteBishopImage,whiteRookImage,whiteQueenImage,whiteKingImage,
+                    blackPawnImage,blackKnightImage,blackBishopImage,blackRookImage,blackQueenImage,blackKingImage]; 
     for(var i=0;i<board.length;i++){
         var pieceNumber=board[i];
         if(pieceNumber!=0){
             var piecePos=[boardMargin+i%8*60,Math.floor(i/8)*60];
-            if(pieceNumber==1){
-                ctx.drawImage(whitePawnImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==2){
-                ctx.drawImage(whiteKnightImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==3){
-                ctx.drawImage(whiteBishopImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==4){
-                ctx.drawImage(whiteRookImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==5){
-                ctx.drawImage(whiteQueenImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==6){
-                ctx.drawImage(whiteKingImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==11){
-                ctx.drawImage(blackPawnImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==12){
-                ctx.drawImage(blackKnightImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==13){
-                ctx.drawImage(blackBishopImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==14){
-                ctx.drawImage(blackRookImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==15){
-                ctx.drawImage(blackQueenImage,piecePos[0],piecePos[1]);
-            }
-            else if(pieceNumber==16){
-                ctx.drawImage(blackKingImage,piecePos[0],piecePos[1]);
-            }
-        }
+            var pieceImage=pieceImages[pieceNumbers.indexOf(pieceNumber)];
+            ctx.drawImage(pieceImage,piecePos[0],piecePos[1]);
     }
 }
 
@@ -1791,7 +1763,7 @@ function update(){
     displayBoard(board);
     if(botsTurn){
         botsTurn=false;
-        setTimeout(botMove,200);
+        setTimeout(botMove,100);
     }
 }
 
@@ -1955,6 +1927,10 @@ function clickBoard(event){
                 if(board[newSelectedIndex]==6){
                     whiteKingPosition=newSelectedIndex;
                 }
+                movingPiece=selectedIndex;
+                movingPieceDest=newSelectedIndex;
+                isMovingAnimation=true;
+                movingAnimationTime=20;
                 botsTurn=true;
                 botDisplayMove=-1;
                 botDisplayPiece=-1;
