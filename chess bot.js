@@ -1606,7 +1606,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSe
             }
         }
     }
-    allMoves=orderMoves(allMoves,true);
+    //allMoves=orderMoves(allMoves,true);
     //put best move from previous search first
     if(firstSearch && depthleft!=1){
         allMoves.splice(allMoves.indexOf([bestPiece,bestMove]),1)
@@ -1681,7 +1681,7 @@ function alphaBetaMin(alpha,beta,depthleft,numExtensions,searchStartTime){
             }
         }
     }
-    allMoves=orderMoves(allMoves,false);
+    //allMoves=orderMoves(allMoves,false);
     if(allMoves.length==0){
         if(whiteInCheck()){
             return 100000*depthleft;
