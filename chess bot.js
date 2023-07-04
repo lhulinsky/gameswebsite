@@ -1525,7 +1525,7 @@ function searchAllBlackCaptures(alpha,beta){
             }
         }
     }
-    //captureMoves=orderMoves(captureMoves,true);
+    captureMoves=orderMoves(captureMoves,true);
     for(var i=0;i<captureMoves.length;i++){
         var move=captureMoves[i];
         var deletedValue=board[move[1]];
@@ -1565,7 +1565,7 @@ function searchAllWhiteCaptures(alpha,beta){
             }
         }
     }
-    //captureMoves=orderMoves(captureMoves,true);
+    captureMoves=orderMoves(captureMoves,true);
     for(var i=0;i<captureMoves.length;i++){
         var move=captureMoves[i];
         var deletedValue=board[move[1]];
@@ -1606,7 +1606,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSe
             }
         }
     }
-    //allMoves=orderMoves(allMoves,true);
+    allMoves=orderMoves(allMoves,true);
     //put best move from previous search first
     if(firstSearch && depthleft!=1){
         allMoves.splice(allMoves.indexOf([bestPiece,bestMove]),1)
@@ -1681,7 +1681,7 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime,numExtensions){
             }
         }
     }
-    //allMoves=orderMoves(allMoves,false);
+    allMoves=orderMoves(allMoves,false);
     if(allMoves.length==0){
         if(whiteInCheck()){
             return 100000*depthleft;
