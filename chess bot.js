@@ -1960,7 +1960,7 @@ function clickBoard(event){
 }
 function startGame(botNumber){
     document.getElementById("botSelect").style.display="none";
-    setTimeout(update,50);
+    setInterval(update,50);
     canvas.onmousedown=function(e){
         clickBoard(e);
         update();
