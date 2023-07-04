@@ -1525,7 +1525,7 @@ function searchAllBlackCaptures(alpha,beta){
             }
         }
     }
-    captureMoves=orderMoves(captureMoves,true);
+    //captureMoves=orderMoves(captureMoves,true);
     for(var i=0;i<captureMoves.length;i++){
         var move=captureMoves[i];
         var deletedValue=board[move[1]];
@@ -1565,7 +1565,7 @@ function searchAllWhiteCaptures(alpha,beta){
             }
         }
     }
-    captureMoves=orderMoves(captureMoves,true);
+    //captureMoves=orderMoves(captureMoves,true);
     for(var i=0;i<captureMoves.length;i++){
         var move=captureMoves[i];
         var deletedValue=board[move[1]];
