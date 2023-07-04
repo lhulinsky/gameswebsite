@@ -1152,12 +1152,6 @@ function scoreBoard(){
             }
         }
     }
-    if(blackInCheck()){
-        whitePoints+=50;
-    }
-    if(whiteInCheck()){
-        blackPoints+=50;
-    }
     return blackPoints-whitePoints;
 }
 
@@ -1462,16 +1456,16 @@ function orderMoves(moves,pieceIsBlack){
                 if(board[moves[i][1]+7]==1 || board[moves[i][1]+9]==1){
                     moveScore-=getValue(board[moves[i][0]]);
                 }
-                else if(board[moves[i][0]+7]==1 || board[moves[i][0]+9]==1){
-                    moveScore-=getValue(board[moves[i][0]]);
+                if(whiteInCheck()){
+                    moveScore+=50;
                 }
             }
             else{
-                if(board[moves[i][1]-7]==11 || board[moves[i][1]-9]==12){
+                if(board[moves[i][1]-7]==11 || board[moves[i][1]-9]==11){
                     moveScore+=getValue(board[moves[i][0]]);
                 }
-                else if(board[moves[i][0]-7]==11 || board[moves[i][0]-9]==11){
-                    moveScore+=getValue(board[moves[i][0]]);
+                if(blackInCheck()){
+                    moveScore+=50;
                 }
             }
         }
