@@ -88,7 +88,7 @@ function displayBoard(board){
         }
     }
     if(isMovingAnimation){
-        var animationProgress=1/(1+Math.pow(2.718,-(10-movingAnimationTime)/10));
+        var animationProgress=1/(1+Math.pow(2.718,-(5-movingAnimationTime)/5));
         var startPos=[boardMargin+movingPiece%8*60,Math.floor(movingPiece/8)*60];
         var endPos=[boardMargin+movingPieceDest%8*60,Math.floor(movingPieceDest/8)*60];
         var dist=Math.sqrt((startPos[0]-endPos[0])**2+(startPos[1]-endPos[1])**2);
@@ -1946,7 +1946,7 @@ function clickBoard(event){
                 movingPiece=selectedIndex;
                 movingPieceDest=newSelectedIndex;
                 isMovingAnimation=true;
-                movingAnimationTime=20;
+                movingAnimationTime=10;
                 botsTurn=true;
                 botDisplayMove=-1;
                 botDisplayPiece=-1;
