@@ -88,7 +88,7 @@ function displayBoard(board){
         }
     }
     if(isMovingAnimation){
-        var animationProgress=1/(1+Math.pow(2.718,-(25-movingAnimationTime)));
+        var animationProgress=1/(1+Math.pow(2.718,-(25-movingAnimationTime)/15));
         var startPos=[boardMargin+movingPiece%8*60,Math.floor(movingPiece/8)*60];
         var endPos=[boardMargin+movingPieceDest%8*60,Math.floor(movingPieceDest/8)*60];
         var dist=Math.sqrt((startPos[0]-endPos[0])**2+(startPos[1]-endPos[1])**2);
@@ -99,6 +99,8 @@ function displayBoard(board){
         console.log("moving")
         if(movingAnimationTime<=0){
             isMovingAnimation=false;
+            movingPiece=-1;
+            movingPieceDest=-1;
         }
     }
 }
