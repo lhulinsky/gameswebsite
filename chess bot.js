@@ -1122,6 +1122,9 @@ function getValue(pieceNumber){
 function distToWhiteKing(index){
     return Math.sqrt((index%8-whiteKingPosition%8)**2+(Math.floor(index/8)-Math.floor(whiteKingPosition/8))**2);
 }
+function distToWhiteKing(index){
+    return Math.sqrt((index%8-blackKingPosition%8)**2+(Math.floor(index/8)-Math.floor(blackKingPosition/8))**2);
+}
 
 function scoreBoard(){
     var blackPoints=0;
@@ -1129,23 +1132,13 @@ function scoreBoard(){
     for(var i=0;i<board.length;i++){
         if(board[i]!=0){
             if(isWhite(i)){
-                whitePoints+=getValue(board[i])+getPositionValue(i);
+                whitePoints+=getValue(board[i])+getPositionValue(i)*10-distToBlackKing(i)*endGameFactor;
                 if(board[i]==1 && i<8){
                     whitePoints+=800;
                 }
             }
             else{
-                if(!isEndGame){
-                    blackPoints+=getValue(board[i])+getPositionValue(i);
-                }
-                else{
-                    if(board[i]!=11){
-                        blackPoints+=getValue(board[i])-distToWhiteKing(i);
-                    }
-                    else{
-                        blackPoints+=getValue(board[i])+getPositionValue(i)*10;
-                    }
-                }
+                blackPoints+=getValue(board[i])+getPositionValue(i)*10-distToWhiteKing(i)*endGameFactor;
                 if(board[i]==11 && i>55){
                     blackPoints+=800;
                 }
@@ -1237,6 +1230,7 @@ var lastPiece=0;
 var lastlastMove=0;
 var lastlastPiece=0;
 var isEndGame=false;
+var endGameFactor=0;
 var firstMove=true;
 var botThinkTime=5000;
 function botMove(){
@@ -1292,6 +1286,16 @@ function botMove(){
     if(whitePieces<6){
         isEndGame=true;
     }
+    var blackPieces=0;
+    for(var i=0;i<board.length;i++){
+        if(isBlack(i)){
+            blackPieces+=1;
+        }
+    }
+    if(blackPieces<6){
+        isEndGame=true;
+    }
+    endGameFactor=(1-Math.min(blackPieces,whitePieces)/16)*15
     lastlastMove=lastMove;
     lastlastPiece=lastPiece;
     lastMove=bestMove;
