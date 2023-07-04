@@ -1122,7 +1122,7 @@ function getValue(pieceNumber){
 function distToWhiteKing(index){
     return Math.sqrt((index%8-whiteKingPosition%8)**2+(Math.floor(index/8)-Math.floor(whiteKingPosition/8))**2);
 }
-function distToWhiteKing(index){
+function distToBlackKing(index){
     return Math.sqrt((index%8-blackKingPosition%8)**2+(Math.floor(index/8)-Math.floor(blackKingPosition/8))**2);
 }
 
