@@ -96,6 +96,7 @@ function displayBoard(board){
         var movingPieceImage=pieceImages[pieceNumbers.indexOf(board[movingPieceDest])];
         ctx.drawImage(movingPieceImage,startPos[0]+Math.cos(angle)*dist*animationProgress,startPos[1]+Math.sin(angle)*dist*animationProgress);
         movingAnimationTime-=1;
+        console.log("moving")
         if(movingAnimationTime<=0){
             isMovingAnimation=false;
         }
@@ -1267,14 +1268,13 @@ function botMove(){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
-                console.log(alphaBetaMax(-1000000,1000000,i,searchStartTime,true));
+                alphaBetaMax(-1000000,1000000,i,searchStartTime,true);
                 if(new Date().getTime()-searchStartTime>botThinkTime){
-                    console.log([bestPiece,bestMove]);
                     break
                 }
             }
-            console.log("time: "+(new Date().getTime()-searchStartTime));
-            console.log("depth "+i)
+            console.log([bestPiece,bestMove]);
+            console.log("depth "+i);
         }
         else{
             firstMove=false;
