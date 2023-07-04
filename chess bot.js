@@ -71,36 +71,16 @@ for(var i=0;i<8;i++){
     board[48+i]=1;
 }
 
-var movingPiece=-1;
-var movingPieceDest=-1;
-var isMovingAnimation=false;
-var movingAnimationTime=0;
 function displayBoard(board){
     var pieceNumbers=[1,2,3,4,5,6,11,12,13,14,15,16];
     var pieceImages=[whitePawnImage,whiteKnightImage,whiteBishopImage,whiteRookImage,whiteQueenImage,whiteKingImage,
                     blackPawnImage,blackKnightImage,blackBishopImage,blackRookImage,blackQueenImage,blackKingImage]; 
     for(var i=0;i<board.length;i++){
         var pieceNumber=board[i];
-        if(pieceNumber!=0 && i!=movingPieceDest){
+        if(pieceNumber!=0){
             var piecePos=[boardMargin+i%8*60,Math.floor(i/8)*60];
             var pieceImage=pieceImages[pieceNumbers.indexOf(pieceNumber)];
             ctx.drawImage(pieceImage,piecePos[0],piecePos[1]);
-        }
-    }
-    if(isMovingAnimation){
-        var animationProgress=1/(1+Math.pow(2.718,-(5-movingAnimationTime)/5));
-        var startPos=[boardMargin+movingPiece%8*60,Math.floor(movingPiece/8)*60];
-        var endPos=[boardMargin+movingPieceDest%8*60,Math.floor(movingPieceDest/8)*60];
-        var dist=Math.sqrt((startPos[0]-endPos[0])**2+(startPos[1]-endPos[1])**2);
-        var angle=Math.atan2(endPos[1]-startPos[1],endPos[0]-startPos[0]);
-        var movingPieceImage=pieceImages[pieceNumbers.indexOf(board[movingPieceDest])];
-        ctx.drawImage(movingPieceImage,startPos[0]+Math.cos(angle)*dist*animationProgress,startPos[1]+Math.sin(angle)*dist*animationProgress);
-        movingAnimationTime-=1;
-        console.log("moving")
-        if(movingAnimationTime<=0){
-            isMovingAnimation=false;
-            movingPiece=-1;
-            movingPieceDest=-1;
         }
     }
 }
@@ -1943,10 +1923,6 @@ function clickBoard(event){
                 if(board[newSelectedIndex]==6){
                     whiteKingPosition=newSelectedIndex;
                 }
-                movingPiece=selectedIndex;
-                movingPieceDest=newSelectedIndex;
-                isMovingAnimation=true;
-                movingAnimationTime=10;
                 botsTurn=true;
                 botDisplayMove=-1;
                 botDisplayPiece=-1;
@@ -1962,7 +1938,6 @@ function clickBoard(event){
 }
 function startGame(botNumber){
     document.getElementById("botSelect").style.display="none";
-    setInterval(update,50);
     canvas.onmousedown=function(e){
         clickBoard(e);
         update();
