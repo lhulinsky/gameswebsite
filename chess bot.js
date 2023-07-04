@@ -1248,6 +1248,7 @@ function botMove(){
             console.log([bestPiece,bestMove]);
             console.log("depth "+i);
             console.log(branches);
+            console.log("time: "+new Date().getTime()-searchStartTime)
             branches=0;
         }
         else{
@@ -1503,7 +1504,6 @@ function orderMoves(moves,pieceIsBlack){
             i++;
         }
     }
-    console.log(moveScores)
     return moves;
 }
 
