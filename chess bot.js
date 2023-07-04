@@ -1664,7 +1664,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSe
     return alpha;
 }
 
-function alphaBetaMin(alpha,beta,depthleft,numExtensions,searchStartTime){
+function alphaBetaMin(alpha,beta,depthleft,searchStartTime,numExtensions){
     if(depthleft==0){
         return searchAllWhiteCaptures(alpha,beta);
     }
