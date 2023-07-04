@@ -1132,13 +1132,13 @@ function scoreBoard(){
     for(var i=0;i<board.length;i++){
         if(board[i]!=0){
             if(isWhite(i)){
-                whitePoints+=getValue(board[i])+getPositionValue(i)*10-distToBlackKing(i)*endGameFactor;
+                whitePoints+=getValue(board[i])+getPositionValue(i)*10-distToBlackKing(i)*whiteEndGameFactor;
                 if(board[i]==1 && i<8){
                     whitePoints+=800;
                 }
             }
             else{
-                blackPoints+=getValue(board[i])+getPositionValue(i)*10-distToWhiteKing(i)*endGameFactor;
+                blackPoints+=getValue(board[i])+getPositionValue(i)*10-distToWhiteKing(i)*blackEndGameFactor;
                 if(board[i]==11 && i>55){
                     blackPoints+=800;
                 }
@@ -1230,7 +1230,8 @@ var lastPiece=0;
 var lastlastMove=0;
 var lastlastPiece=0;
 var isEndGame=false;
-var endGameFactor=0;
+var whiteEndGameFactor=0;
+var blackEndGameFactor=0;
 var firstMove=true;
 var botThinkTime=5000;
 function botMove(){
@@ -1295,7 +1296,8 @@ function botMove(){
     if(blackPieces<6){
         isEndGame=true;
     }
-    endGameFactor=(1-Math.min(blackPieces,whitePieces)/16)*15
+    whiteEndGameFactor=(1-blackPieces/16)*15
+    blackEndGameFactor=(1-whitePieces/16)*15
     lastlastMove=lastMove;
     lastlastPiece=lastPiece;
     lastMove=bestMove;
