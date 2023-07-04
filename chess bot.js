@@ -1448,19 +1448,23 @@ function orderMoves(moves,pieceIsBlack){
                 moveScore+=10*getValue(board[moves[i][1]])-getValue(board[moves[i][0]]);;
             }
             else{
-                moveScore+=10*-getValue(board[moves[i][1]])+getValue(board[moves[i][0]]);
+                moveScore+=10*getValue(board[moves[i][1]])-getValue(board[moves[i][0]]);
             }
         }
         if(board[moves[i][0]]==11 && moves[i][1]>55){
             moveScore+=800;
         }
         else if(board[moves[i][0]]==1 && moves[i][1]<8){
-            moveScore-=800;
+            moveScore+=800;
         }
         else{
             if(pieceIsBlack){
                 if(board[moves[i][1]+7]==1 || board[moves[i][1]+9]==1){
                     moveScore-=getValue(board[moves[i][0]]);
+                }
+                //get away from pawn
+                if(board[moves[i][0]+7]==1 || board[moves[i][0]+9]==1){
+                    moveScore+=getValue(board[moves[i][0]]);
                 }
                 if(whiteInCheck()){
                     moveScore+=50;
@@ -1468,6 +1472,10 @@ function orderMoves(moves,pieceIsBlack){
             }
             else{
                 if(board[moves[i][1]-7]==11 || board[moves[i][1]-9]==11){
+                    moveScore-=getValue(board[moves[i][0]]);
+                }
+                //get away from pawn
+                if(board[moves[i][0]+7]==11 || board[moves[i][0]+9]==11){
                     moveScore+=getValue(board[moves[i][0]]);
                 }
                 if(blackInCheck()){
@@ -1494,7 +1502,7 @@ function orderMoves(moves,pieceIsBlack){
             }
         }
         else{
-            if(moveScores[i+1]<moveScores[i]){
+            if(moveScores[i+1]>moveScores[i]){
                 var old_a=moveScores[i+1];
                 moveScores[i+1]=moveScores[i];
                 moveScores[i]=old_a;
