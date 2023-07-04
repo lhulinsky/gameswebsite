@@ -1239,7 +1239,7 @@ function botMove(){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
             for(var i=1;i<100;i++){
-                alphaBetaMax(-1000000,1000000,i,searchStartTime,true);
+                alphaBetaMax(-1000000,1000000,i,searchStartTime,0,true);
                 if(new Date().getTime()-searchStartTime>botThinkTime){
                     break
                 }
@@ -1592,7 +1592,7 @@ function searchAllWhiteCaptures(alpha,beta){
     return beta;
 }
 
-function alphaBetaMax(alpha,beta,depthleft,searchStartTime,firstSearch=false){
+function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSearch=false){
     if(depthleft==0){
         return searchAllBlackCaptures(alpha,beta);
     }
@@ -1631,7 +1631,11 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,firstSearch=false){
         if(board[move[1]]==16){
             blackKingPosition=move[1];
         }
-        var score = alphaBetaMin(alpha,beta,depthleft - 1,searchStartTime);
+        var extension=0;
+        if((whiteInCheck() || blackInCheck()) && numExtensions<10){
+            extension=1;
+        }
+        var score = alphaBetaMin(alpha,beta,depthleft - 1+extension,searchStartTime,numExtensions+extension);
         board[move[0]]=board[move[1]];
         board[move[1]]=deletedValue;
         if(board[move[0]]==16){
@@ -1663,7 +1667,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,firstSearch=false){
     return alpha;
 }
 
-function alphaBetaMin(alpha,beta,depthleft,searchStartTime){
+function alphaBetaMin(alpha,beta,depthleft,numExtensions,searchStartTime){
     if(depthleft==0){
         return searchAllWhiteCaptures(alpha,beta);
     }
@@ -1697,7 +1701,11 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime){
         if(board[move[1]]==6){
             whiteKingPosition=move[1];
         }
-        var score = alphaBetaMax(alpha,beta,depthleft - 1,searchStartTime);
+        var extension=0;
+        if((whiteInCheck() || blackInCheck()) && numExtensions<10){
+            extension=1;
+        }
+        var score = alphaBetaMax(alpha,beta,depthleft - 1+extension,searchStartTime,numExtensions+extension);
         board[move[0]]=board[move[1]];
         board[move[1]]=deletedValue;
         if(board[move[0]]==6){
