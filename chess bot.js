@@ -1490,35 +1490,20 @@ function orderMoves(moves,pieceIsBlack){
     }
     var i=0;
     while(i<moveScores.length-1){
-        if(pieceIsBlack){
-            if(moveScores[i+1]>moveScores[i]){
-                var old_a=moveScores[i+1];
-                moveScores[i+1]=moveScores[i];
-                moveScores[i]=old_a;
-                var old_move=moves[i+1];
-                moves[i+1]=moves[i];
-                moves[i]=old_move;
-                i=0;
-            }
-            else{
-                i++;
-            }
+        if(moveScores[i+1]>moveScores[i]){
+            var old_a=moveScores[i+1];
+            moveScores[i+1]=moveScores[i];
+            moveScores[i]=old_a;
+            var old_move=moves[i+1];
+            moves[i+1]=moves[i];
+            moves[i]=old_move;
+            i=0;
         }
         else{
-            if(moveScores[i+1]>moveScores[i]){
-                var old_a=moveScores[i+1];
-                moveScores[i+1]=moveScores[i];
-                moveScores[i]=old_a;
-                var old_move=moves[i+1];
-                moves[i+1]=moves[i];
-                moves[i]=old_move;
-                i=0;
-            }
-            else{
-                i++;
-            }
+            i++;
         }
     }
+    console.log(moveScores)
     return moves;
 }
 
