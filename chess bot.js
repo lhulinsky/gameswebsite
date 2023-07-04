@@ -1944,7 +1944,7 @@ function clickBoard(event){
                 movingPiece=selectedIndex;
                 movingPieceDest=newSelectedIndex;
                 isMovingAnimation=true;
-                movingAnimationTime=20;
+                movingAnimationTime=50;
                 botsTurn=true;
                 botDisplayMove=-1;
                 botDisplayPiece=-1;
