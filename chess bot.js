@@ -1234,6 +1234,7 @@ var whiteEndGameFactor=0;
 var blackEndGameFactor=0;
 var firstMove=true;
 var botThinkTime=5000;
+var branches=0;
 function botMove(){
     if(botThinkTime>0){
         if(!firstMove){
@@ -1246,6 +1247,8 @@ function botMove(){
             }
             console.log([bestPiece,bestMove]);
             console.log("depth "+i);
+            console.log(branches);
+            branches=0;
         }
         else{
             firstMove=false;
@@ -1601,6 +1604,7 @@ function searchAllWhiteCaptures(alpha,beta){
 }
 
 function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSearch=false){
+    branches+=1;
     if(depthleft==0){
         return searchAllBlackCaptures(alpha,beta);
     }
