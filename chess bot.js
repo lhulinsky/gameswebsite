@@ -1634,6 +1634,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSe
         var extension=0;
         if((whiteInCheck() || blackInCheck()) && numExtensions<10){
             extension=1;
+            console.log("x");
         }
         var score = alphaBetaMin(alpha,beta,depthleft - 1+ extension,searchStartTime,numExtensions+extension);
         board[move[0]]=board[move[1]];
@@ -1687,7 +1688,7 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime,numExtensions){
     allMoves=orderMoves(allMoves,false);
     if(allMoves.length==0){
         if(whiteInCheck()){
-            return 100000*depthleft;
+            return 100000;
         }
         else{
             return 0;
@@ -1704,6 +1705,7 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime,numExtensions){
         var extension=0;
         if((whiteInCheck() || blackInCheck()) && numExtensions<10){
             extension=1;
+            console.log("x");
         }
         var score = alphaBetaMax(alpha,beta,depthleft - 1+extension,searchStartTime,numExtensions+extension);
         board[move[0]]=board[move[1]];
