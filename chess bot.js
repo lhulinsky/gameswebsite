@@ -1247,9 +1247,9 @@ function botMove(){
                 }
             }
             console.log([bestPiece,bestMove]);
-            console.log("depth "+i);
+            console.log("depth: "+i);
             console.log(branches);
-            console.log("time: "+new Date().getTime()-searchStartTime)
+            console.log("time: "+(new Date().getTime()-searchStartTime));
             console.log("score: "+score)
             branches=0;
         }
