@@ -1631,9 +1631,9 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSe
             blackKingPosition=move[1];
         }
         var extension=0;
-        //if((whiteInCheck() || blackInCheck()) && numExtensions<10){
-        //    extension=1;
-        //}
+        if((whiteInCheck() || blackInCheck()) && numExtensions<10){
+            extension=1;
+        }
         var score = alphaBetaMin(alpha,beta,depthleft - 1+ extension,searchStartTime,numExtensions+extension);
         board[move[0]]=board[move[1]];
         board[move[1]]=deletedValue;
@@ -1701,9 +1701,9 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime,numExtensions){
             whiteKingPosition=move[1];
         }
         var extension=0;
-        //if((whiteInCheck() || blackInCheck()) && numExtensions<10){
-        //    extension=1;
-        //}
+        if((whiteInCheck() || blackInCheck()) && numExtensions<10){
+            extension=1;
+        }
         var score = alphaBetaMax(alpha,beta,depthleft - 1+extension,searchStartTime,numExtensions+extension);
         board[move[0]]=board[move[1]];
         board[move[1]]=deletedValue;
