@@ -1631,7 +1631,7 @@ function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSe
             blackKingPosition=move[1];
         }
         var extension=0;
-        if((whiteInCheck() || blackInCheck()) && numExtensions<10){
+        if((whiteInCheck() || blackInCheck()) && numExtensions<6){
             extension=1;
             console.log("x");
         }
@@ -1702,7 +1702,7 @@ function alphaBetaMin(alpha,beta,depthleft,searchStartTime,numExtensions){
             whiteKingPosition=move[1];
         }
         var extension=0;
-        if((whiteInCheck() || blackInCheck()) && numExtensions<10){
+        if((whiteInCheck() || blackInCheck()) && numExtensions<6){
             extension=1;
             console.log("x");
         }
