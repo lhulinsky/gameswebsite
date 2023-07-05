@@ -1239,8 +1239,9 @@ function botMove(){
     if(botThinkTime>0){
         if(!firstMove){
             var searchStartTime=new Date().getTime();
+            var score=0;
             for(var i=1;i<100;i++){
-                alphaBetaMax(-1000000,1000000,i,searchStartTime,0,true);
+                score=alphaBetaMax(-1000000,1000000,i,searchStartTime,0,true);
                 if(new Date().getTime()-searchStartTime>botThinkTime){
                     break
                 }
@@ -1249,6 +1250,7 @@ function botMove(){
             console.log("depth "+i);
             console.log(branches);
             console.log("time: "+new Date().getTime()-searchStartTime)
+            console.log("score: "+score)
             branches=0;
         }
         else{
