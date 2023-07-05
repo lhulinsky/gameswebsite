@@ -1506,7 +1506,6 @@ function orderMoves(moves,pieceIsBlack){
             i++;
         }
     }
-    console.log(moveScores);
     return moves;
 }
 
