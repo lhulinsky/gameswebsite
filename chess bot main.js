@@ -6,6 +6,7 @@ var width=canvas.width;
 var height=canvas.height;
 var boardMargin=Math.floor((width-480)/2);
 var ctx=canvas.getContext("2d");
+var chessbot=new Version12("black");
 
 function loadImage(url){
     return new Promise(function(myResolve){
@@ -31,19 +32,19 @@ var blackQueenImage=null;
 var blackKingImage=null;
 
 async function loadImages(){
-    blackPawnImage=await loadImage("/gameswebsite/chess pieces/black pawn.png");
-    blackKnightImage=await loadImage("/gameswebsite/chess pieces/black knight.png");
-    blackBishopImage=await loadImage("/gameswebsite/chess pieces/black bishop.png");
-    blackRookImage=await loadImage("/gameswebsite/chess pieces/black rook.png");
-    blackQueenImage=await loadImage("/gameswebsite/chess pieces/black queen.png");
-    blackKingImage=await loadImage("/gameswebsite/chess pieces/black king.png");
+    blackPawnImage=await loadImage("./chess pieces/black pawn.png");
+    blackKnightImage=await loadImage("./chess pieces/black knight.png");
+    blackBishopImage=await loadImage("./chess pieces/black bishop.png");
+    blackRookImage=await loadImage("./chess pieces/black rook.png");
+    blackQueenImage=await loadImage("./chess pieces/black queen.png");
+    blackKingImage=await loadImage("./chess pieces/black king.png");
 
-    whitePawnImage=await loadImage("/gameswebsite/chess pieces/white pawn.png");
-    whiteKnightImage=await loadImage("/gameswebsite/chess pieces/white knight.png");
-    whiteBishopImage=await loadImage("/gameswebsite/chess pieces/white bishop.png");
-    whiteRookImage=await loadImage("/gameswebsite/chess pieces/white rook.png");
-    whiteQueenImage=await loadImage("/gameswebsite/chess pieces/white queen.png");
-    whiteKingImage=await loadImage("/gameswebsite/chess pieces/white king.png");
+    whitePawnImage=await loadImage("./chess pieces/white pawn.png");
+    whiteKnightImage=await loadImage("./chess pieces/white knight.png");
+    whiteBishopImage=await loadImage("./chess pieces/white bishop.png");
+    whiteRookImage=await loadImage("./chess pieces/white rook.png");
+    whiteQueenImage=await loadImage("./chess pieces/white queen.png");
+    whiteKingImage=await loadImage("./chess pieces/white king.png");
     update();
 }
 var board=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -1079,238 +1080,26 @@ function getValidMoves(pieceIndex){
     return [];
 }
 
-function getValue(pieceNumber){
-    if(pieceNumber==1){
-        return 100;
-    }
-    if(pieceNumber==2){
-        return 300;
-    }
-    if(pieceNumber==3){
-        return 300;
-    }
-    if(pieceNumber==4){
-        return 500;
-    }
-    if(pieceNumber==5){
-        return 900;
-    }
-    if(pieceNumber==6){
-        return 100000;
-    }
-    if(pieceNumber==11){
-        return 100;
-    }
-    if(pieceNumber==12){
-        return 300;
-    }
-    if(pieceNumber==13){
-        return 300;
-    }
-    if(pieceNumber==14){
-        return 500;
-    }
-    if(pieceNumber==15){
-        return 900;
-    }
-    if(pieceNumber==16){
-        return 100000;
-    }
-    return 0;
-}
-
-function distToWhiteKing(index){
-    return Math.sqrt((index%8-whiteKingPosition%8)**2+(Math.floor(index/8)-Math.floor(whiteKingPosition/8))**2);
-}
-function distToBlackKing(index){
-    return Math.sqrt((index%8-blackKingPosition%8)**2+(Math.floor(index/8)-Math.floor(blackKingPosition/8))**2);
-}
-
-function scoreBoard(){
-    var blackPoints=0;
-    var whitePoints=0;
-    for(var i=0;i<board.length;i++){
-        if(board[i]!=0){
-            if(isWhite(i)){
-                whitePoints+=getValue(board[i])+getPositionValue(i)*10-distToBlackKing(i)*whiteEndGameFactor;
-                if(board[i]==1 && i<8){
-                    whitePoints+=800;
-                }
-            }
-            else{
-                blackPoints+=getValue(board[i])+getPositionValue(i)*10-distToWhiteKing(i)*blackEndGameFactor;
-                if(board[i]==11 && i>55){
-                    blackPoints+=800;
-                }
-            }
-        }
-    }
-    return blackPoints-whitePoints;
-}
-
-function doRandomDefense(){
-    if(board[36]==1){
-        var random=Math.floor(Math.random()*6);
-        //kings pawn
-        if(random==0){
-            //ruy lopez
-            bestPiece=11;
-            bestMove=19;
-        }
-        else if(random==1){
-            //italian
-            bestPiece=12;
-            bestMove=28;
-        }
-        else if(random==2){
-            //sicilian
-            bestPiece=10;
-            bestMove=26;
-        }
-        else if(random==3){
-            //french
-            bestPiece=12;
-            bestMove=20;
-        }
-        else if(random==4){
-            //caro-kann
-            bestPiece=10;
-            bestMove=18;
-        }
-        else if(random==5){
-            //scandanavian
-            bestPiece=11;
-            bestMove=27;
-        }
-    }
-    else{
-        var random=Math.floor(Math.random()*6);
-        //queens pawn
-        if(random<2){
-            //queens gambit
-            bestPiece=11;
-            bestMove=27;
-        }
-        else if(random==2){
-            //indian
-            bestPiece=6;
-            bestMove=21;
-        }
-        else if(random==3){
-            //dutch
-            bestPiece=13;
-            bestMove=29;
-        }
-        else if(random==4){
-            //other
-            bestPiece=10;
-            bestMove=18;
-        }
-        else{
-            var allMoves=[];
-            for(var i=0;i<board.length;i++){
-                if(isBlack(i)){
-                    var pieceMoves=getValidMoves(i);
-                    for(var u=0;u<pieceMoves.length;u++){
-                        allMoves.push([i,pieceMoves[u]]);
-                    }
-                }
-            }
-            random=Math.floor(Math.random()*allMoves.length);
-            bestPiece=allMoves[random][0];
-            bestMove=allMoves[random][1];
-        }
-    }
-}
-
-var bestMove=0;
-var bestPiece=0;
-var lastMove=0;
-var lastPiece=0;
-var lastlastMove=0;
-var lastlastPiece=0;
-var isEndGame=false;
-var whiteEndGameFactor=0;
-var blackEndGameFactor=0;
-var firstMove=true;
-var botThinkTime=5000;
-var branches=0;
+	
 function botMove(){
-    if(botThinkTime>0){
-        if(!firstMove){
-            var searchStartTime=new Date().getTime();
-            var score=0;
-            for(var i=1;i<100;i++){
-                score=alphaBetaMax(-1000000,1000000,i,searchStartTime,0,true);
-                if(new Date().getTime()-searchStartTime>botThinkTime){
-                    break
-                }
-            }
-            console.log([bestPiece,bestMove]);
-            console.log("depth: "+i);
-            console.log(branches);
-            console.log("time: "+(new Date().getTime()-searchStartTime));
-            console.log("score: "+score)
-            branches=0;
-        }
-        else{
-            firstMove=false;
-            doRandomDefense();
-        }
-    }
-    else{
-        //random
-        var allMoves=[];
-        for(var i=0;i<board.length;i++){
-            if(isBlack(i)){
-                var pieceMoves=getValidMoves(i);
-                pieceMoves=removeIllegalMoves(i,pieceMoves);
-                for(var u=0;u<pieceMoves.length;u++){
-                    allMoves.push([i,pieceMoves[u]]);
-                }
-            }
-        }
-        var random=Math.floor(Math.random()*allMoves.length);
-        if(allMoves.length>0){
-            bestPiece=allMoves[random][0];
-            bestMove=allMoves[random][1];
-        }
-    }
-    board[bestMove]=board[bestPiece];
-    board[bestPiece]=0;
-    if(bestMove>55 && board[bestMove]==11){
-        board[bestMove]=15;
-    }
-    if(board[bestMove]==16){
-        blackKingPosition=bestMove;
-    }
-    var whitePieces=0;
-    for(var i=0;i<board.length;i++){
-        if(isWhite(i)){
-            whitePieces+=1;
-        }
-    }
-    if(whitePieces<6){
-        isEndGame=true;
-    }
-    var blackPieces=0;
-    for(var i=0;i<board.length;i++){
-        if(isBlack(i)){
-            blackPieces+=1;
-        }
-    }
-    if(blackPieces<6){
-        isEndGame=true;
-    }
-    whiteEndGameFactor=(1-blackPieces/16)*15
-    blackEndGameFactor=(1-whitePieces/16)*15
-    lastlastMove=lastMove;
-    lastlastPiece=lastPiece;
-    lastMove=bestMove;
-    lastPiece=bestPiece;
-    botDisplayMove=bestMove;
+	var move=chessbot.getMove();
+	var bestPiece=move[0];
+	var bestMove=move[1];
+	board[bestMove]=board[bestPiece];
+	board[bestPiece]=0;
+	if(bestMove>55 && board[bestMove]==11){
+		board[bestMove]=15;
+	}
+	else if(bestMove<8 && board[bestMove]==1){
+		board[bestMove]=5;
+	}
+	if(board[bestMove]==16){
+		blackKingPosition=bestMove;
+	}
+	botsTurn=false;
+	botDisplayMove=bestMove;
     botDisplayPiece=bestPiece;
-    update();
+	update();
 }
 
 var pawnPositions=[2,2,2,2,2,2,2,2,
@@ -1385,343 +1174,6 @@ var kingEndgamePositions=[ 0,1,1,1,1,1,1,0,
                            1,1,2,2,2,2,1,1,
                            0,1,1,1,1,1,1,0];
 
-function getPositionValue(pieceIndex){
-    var pieceType=board[pieceIndex];
-    if(pieceType==1){
-        if(isEndGame){
-            return pawnEndgamePositions[pieceIndex];
-        }
-        else{
-            return pawnPositions[pieceIndex];
-        }
-    }
-    else if(pieceType==2){
-        return knightPositions[pieceIndex];
-    }
-    else if(pieceType==3){
-        return bishopPositions[pieceIndex];
-    }
-    else if(pieceType==4){
-        return rookPositions[pieceIndex];
-    }
-    else if(pieceType==5){
-        return queenPositions[pieceIndex];
-    }
-    else if(pieceType==6){
-        if(isEndGame){
-            return kingEndgamePositions[pieceIndex];
-        }
-        else{
-            return kingPositions[pieceIndex];
-        }
-    }
-    else if(pieceType==11){
-        if(isEndGame){
-            return pawnEndgamePositions[63-pieceIndex];
-        }
-        else{
-            return pawnPositions[63-pieceIndex];
-        }
-    }
-    else if(pieceType==12){
-        return knightPositions[63-pieceIndex];
-    }
-    else if(pieceType==13){
-        return bishopPositions[63-pieceIndex];
-    }
-    else if(pieceType==14){
-        return rookPositions[63-pieceIndex];
-    }
-    else if(pieceType==15){
-        return queenPositions[63-pieceIndex];
-    }
-    else if(pieceType==16){
-        if(isEndGame){
-            return kingEndgamePositions[63-pieceIndex];
-        }
-        else{
-            return kingPositions[63-pieceIndex];
-        }
-    }
-}
-
-function orderMoves(moves,pieceIsBlack){
-    var moveScores=[];
-    for(var i=0;i<moves.length;i++){
-        var moveScore=0;
-        if(board[moves[i][1]]!=0){
-            if(pieceIsBlack){
-                moveScore+=10*getValue(board[moves[i][1]])-getValue(board[moves[i][0]]);;
-            }
-            else{
-                moveScore+=10*getValue(board[moves[i][1]])-getValue(board[moves[i][0]]);
-            }
-        }
-        if(board[moves[i][0]]==11 && moves[i][1]>55){
-            moveScore+=800;
-        }
-        else if(board[moves[i][0]]==1 && moves[i][1]<8){
-            moveScore+=800;
-        }
-        else{
-            if(pieceIsBlack){
-                if(board[moves[i][1]+7]==1 || board[moves[i][1]+9]==1){
-                    moveScore-=getValue(board[moves[i][0]]);
-                }
-                //get away from pawn
-                if(board[moves[i][0]+7]==1 || board[moves[i][0]+9]==1){
-                    moveScore+=getValue(board[moves[i][0]]);
-                }
-                if(whiteInCheck()){
-                    moveScore+=50;
-                }
-            }
-            else{
-                if(board[moves[i][1]-7]==11 || board[moves[i][1]-9]==11){
-                    moveScore-=getValue(board[moves[i][0]]);
-                }
-                //get away from pawn
-                if(board[moves[i][0]+7]==11 || board[moves[i][0]+9]==11){
-                    moveScore+=getValue(board[moves[i][0]]);
-                }
-                if(blackInCheck()){
-                    moveScore+=50;
-                }
-            }
-        }
-        moveScores.push(moveScore);
-    }
-    var i=0;
-    while(i<moveScores.length-1){
-        if(moveScores[i+1]>moveScores[i]){
-            var old_a=moveScores[i+1];
-            moveScores[i+1]=moveScores[i];
-            moveScores[i]=old_a;
-            var old_move=moves[i+1];
-            moves[i+1]=moves[i];
-            moves[i]=old_move;
-            i=0;
-        }
-        else{
-            i++;
-        }
-    }
-    return moves;
-}
-
-function searchAllBlackCaptures(alpha,beta){
-    var score=scoreBoard(board);
-    if(score>=beta){
-        return beta;
-    }
-    alpha=Math.max(score,alpha);
-    var captureMoves=[];
-    for(var i=0;i<board.length;i++){
-        if(isBlack(i)){
-            var pieceMoves=getValidMoves(i);
-            pieceMoves=removeIllegalMoves(i,pieceMoves);
-            for(var u=0;u<pieceMoves.length;u++){
-                if(isWhite(pieceMoves[u])){
-                    captureMoves.push([i,pieceMoves[u]]);
-                }
-            }
-        }
-    }
-    captureMoves=orderMoves(captureMoves,true);
-    for(var i=0;i<captureMoves.length;i++){
-        var move=captureMoves[i];
-        var deletedValue=board[move[1]];
-        board[move[1]]=board[move[0]];
-        board[move[0]]=0;
-        if(board[move[1]]==16){
-            blackKingPosition=move[1];
-        }
-        var score = searchAllWhiteCaptures(alpha,beta);
-        board[move[0]]=board[move[1]];
-        board[move[1]]=deletedValue;
-        if(board[move[0]]==16){
-            blackKingPosition=move[0];
-        }
-        if(score>=beta){
-            return beta;
-        }
-        alpha=Math.max(alpha,score);
-    }
-    return alpha;
-}
-function searchAllWhiteCaptures(alpha,beta){
-    var score=scoreBoard(board);
-    if(score<=alpha){
-        return alpha;
-    }
-    beta=Math.min(score,beta);
-    var captureMoves=[];
-    for(var i=0;i<board.length;i++){
-        if(isWhite(i)){
-            var pieceMoves=getValidMoves(i);
-            pieceMoves=removeIllegalMoves(i,pieceMoves);
-            for(var u=0;u<pieceMoves.length;u++){
-                if(isBlack(pieceMoves[u])){
-                    captureMoves.push([i,pieceMoves[u]]);
-                }
-            }
-        }
-    }
-    captureMoves=orderMoves(captureMoves,true);
-    for(var i=0;i<captureMoves.length;i++){
-        var move=captureMoves[i];
-        var deletedValue=board[move[1]];
-        board[move[1]]=board[move[0]];
-        board[move[0]]=0;
-        if(board[move[1]]==6){
-            whiteKingPosition=move[1];
-        }
-        var score = searchAllBlackCaptures(alpha,beta);
-        board[move[0]]=board[move[1]];
-        board[move[1]]=deletedValue;
-        if(board[move[0]]==6){
-            whiteKingPosition=move[0];
-        }
-        if(score<=alpha){
-            return alpha;
-        }
-        beta=Math.min(beta,score);
-    }
-    return beta;
-}
-
-function alphaBetaMax(alpha,beta,depthleft,searchStartTime,numExtensions,firstSearch=false){
-    branches+=1;
-    if(depthleft==0){
-        return searchAllBlackCaptures(alpha,beta);
-    }
-    if(new Date().getTime()-searchStartTime>botThinkTime){
-        return searchAllBlackCaptures(alpha,beta);
-    }
-    var allMoves=[];
-    for(var i=0;i<board.length;i++){
-        if(isBlack(i)){
-            var pieceMoves=getValidMoves(i);
-            pieceMoves=removeIllegalMoves(i,pieceMoves);
-            for(var u=0;u<pieceMoves.length;u++){
-                allMoves.push([i,pieceMoves[u]]);
-            }
-        }
-    }
-    allMoves=orderMoves(allMoves,true);
-    //put best move from previous search first
-    if(firstSearch && depthleft!=1){
-        allMoves.splice(allMoves.indexOf([bestPiece,bestMove]),1)
-        allMoves=[[bestPiece,bestMove]].concat(allMoves)
-    }
-    if(allMoves.length==0){
-        if(blackInCheck()){
-            return -100000;
-        }
-        else{
-            return 0;
-        }
-    }
-    for(var i=0;i<allMoves.length;i++){
-        var move=allMoves[i];
-        var deletedValue=board[move[1]];
-        board[move[1]]=board[move[0]];
-        board[move[0]]=0;
-        if(board[move[1]]==16){
-            blackKingPosition=move[1];
-        }
-        var extension=0;
-        if((whiteInCheck() || blackInCheck()) && numExtensions<6){
-            extension=1;
-            console.log("x");
-        }
-        var score = alphaBetaMin(alpha,beta,depthleft - 1+ extension,searchStartTime,numExtensions+extension);
-        board[move[0]]=board[move[1]];
-        board[move[1]]=deletedValue;
-        if(board[move[0]]==16){
-            blackKingPosition=move[0];
-        }
-        if(score>=beta){
-            return beta;
-        }
-        if(score>alpha){
-            if(firstSearch){
-                if(allMoves.length==1){
-                    bestPiece=move[0];
-                    bestMove=move[1];
-                    alpha=score;
-                }
-                else{
-                    if(move[0]!=lastlastPiece || move[1]!=lastlastMove){
-                        bestPiece=move[0];
-                        bestMove=move[1];
-                        alpha=score;
-                    }
-                }
-            }
-            else{
-                alpha=score
-            }
-        }
-    }
-    return alpha;
-}
-
-function alphaBetaMin(alpha,beta,depthleft,searchStartTime,numExtensions){
-    if(depthleft==0){
-        return searchAllWhiteCaptures(alpha,beta);
-    }
-    if(new Date().getTime()-searchStartTime>botThinkTime){
-        return searchAllWhiteCaptures(alpha,beta);
-    }
-    var allMoves=[];
-    for(var i=0;i<board.length;i++){
-        if(isWhite(i)){
-            var pieceMoves=getValidMoves(i);
-            pieceMoves=removeIllegalMoves(i,pieceMoves);
-            for(var u=0;u<pieceMoves.length;u++){
-                allMoves.push([i,pieceMoves[u]]);
-            }
-        }
-    }
-    allMoves=orderMoves(allMoves,false);
-    if(allMoves.length==0){
-        if(whiteInCheck()){
-            return 100000;
-        }
-        else{
-            return 0;
-        }
-    }
-    for(var i=0;i<allMoves.length;i++){
-        var move=allMoves[i];
-        var deletedValue=board[move[1]];
-        board[move[1]]=board[move[0]];
-        board[move[0]]=0;
-        if(board[move[1]]==6){
-            whiteKingPosition=move[1];
-        }
-        var extension=0;
-        if((whiteInCheck() || blackInCheck()) && numExtensions<6){
-            extension=1;
-            console.log("x");
-        }
-        var score = alphaBetaMax(alpha,beta,depthleft - 1+extension,searchStartTime,numExtensions+extension);
-        board[move[0]]=board[move[1]];
-        board[move[1]]=deletedValue;
-        if(board[move[0]]==6){
-            whiteKingPosition=move[0];
-        }
-        if(score<=alpha){
-            return alpha;
-        }
-        if(score<beta){
-            beta = score;
-        }
-    }
-    return beta;
-}
-
 var botsTurn=false;
 var canCastleRight=true;
 var canCastleLeft=true;
@@ -1776,73 +1228,73 @@ function displayEndText(message){
     var textElement=document.getElementById("endgameText");
     if(message=="win"){
         textElement.style.color="rgb(30, 163, 3)";
-        if(botThinkTime==0){
+        if(chessbot.thinkTime==0){
             textElement.innerHTML="Checkmate! You are SO good at chess";
         }
-        else if(botThinkTime==20){
+        else if(chessbot.thinkTime==20){
             textElement.innerHTML="Checkmate! I guess you're luckier than me...";
         }
-        else if(botThinkTime==100){
+        else if(chessbot.thinkTime==100){
             textElement.innerHTML="Checkmate! I'm getting a little aggravated...";
         }
-        else if(botThinkTime==500){
+        else if(chessbot.thinkTime==500){
             textElement.innerHTML="Checkmate! Somehow I didn't see that...";
         }
-        else if(botThinkTime==1000){
+        else if(chessbot.thinkTime==1000){
             textElement.innerHTML="Checkmate! I need to study...";
         }
-        else if(botThinkTime==3000){
+        else if(chessbot.thinkTime==3000){
             textElement.innerHTML="Checkmate! You're not supposed to win...";
         }
-        else if(botThinkTime==5000){
+        else if(chessbot.thinkTime==5000){
             textElement.innerHTML="Checkmate! Impossible!";
         }
     }
     else if(message=="lose"){
         textElement.style.color="rgb(190, 30, 3)";
-        if(botThinkTime==0){
+        if(chessbot.thinkTime==0){
             textElement.innerHTML="Checkmate! I guess chess isn't your thing...";
         }
-        else if(botThinkTime==20){
+        else if(chessbot.thinkTime==20){
             textElement.innerHTML="Checkmate! Not everyone is as lucky as me";
         }
-        else if(botThinkTime==100){
+        else if(chessbot.thinkTime==100){
             textElement.innerHTML="Checkmate! Are you feeling aggravated?";
         }
-        else if(botThinkTime==500){
+        else if(chessbot.thinkTime==500){
             textElement.innerHTML="Checkmate! I saw this possibility 14 moves ago";
         }
-        else if(botThinkTime==1000){
+        else if(chessbot.thinkTime==1000){
             textElement.innerHTML="Checkmate! It seems like you need more education";
         }
-        else if(botThinkTime==3000){
+        else if(chessbot.thinkTime==3000){
             textElement.innerHTML="Checkmate! How does it feel to be devoured?";
         }
-        else if(botThinkTime==5000){
+        else if(chessbot.thinkTime==5000){
             textElement.innerHTML="Checkmate! Did you really think you could win?";
         }
     }
     else{
         textElement.style.color="rgb(190, 190, 3)";
-        if(botThinkTime==0){
+        if(chessbot.thinkTime==0){
             textElement.innerHTML="Stalemate! You shouldn't have done that";
         }
-        else if(botThinkTime==20){
+        else if(chessbot.thinkTime==20){
             textElement.innerHTML="Stalemate! Thats unlucky";
         }
-        else if(botThinkTime==100){
+        else if(chessbot.thinkTime==100){
             textElement.innerHTML="Stalemate! This is so aggravating";
         }
-        else if(botThinkTime==500){
+        else if(chessbot.thinkTime==500){
             textElement.innerHTML="Stalemate! How did I not see that?";
         }
-        else if(botThinkTime==1000){
+        else if(chessbot.thinkTime==1000){
             textElement.innerHTML="Stalemate! I see that you haven't ready Edward's guide to stalemates";
         }
-        else if(botThinkTime==3000){
+        else if(chessbot.thinkTime==3000){
             textElement.innerHTML="Stalemate! You got away this time...";
         }
-        else if(botThinkTime==5000){
+        else if(chessbot.thinkTime==5000){
             textElement.innerHTML="Stalemate! This is the closest you'll ever get to winning";
         }
     }
@@ -1952,5 +1404,5 @@ function startGame(botNumber){
         update();
 
    }
-   botThinkTime=botNumber;
+   chessbot.thinkTime=botNumber;
 }
