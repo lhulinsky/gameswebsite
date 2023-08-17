@@ -1,4 +1,4 @@
-//actually converts pawns to queens in the search algorithm
+//actually converts pawns to queens in the search algorithm what
 class Version12{
 	constructor(color){
 		this.isWhite=true;
@@ -42,7 +42,7 @@ class Version12{
 				this.bestMove=20;
 			}
 			else if(random==4){
-				//caro-kann
+				//caro-kann ish
 				this.bestPiece=10;
 				this.bestMove=18;
 			}
