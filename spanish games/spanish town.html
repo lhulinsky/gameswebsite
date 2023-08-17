@@ -1,0 +1,347 @@
+<html>
+    <head>
+    </head>
+    <body style="margin:0px;">
+        <p style="position:absolute;z-index:-1;">Loading images and stuff...</p>
+        <canvas id="gameCanvas" style="margin:0px;"></canvas>
+        <style>
+            #modeButton:hover{
+                background-color:white;
+            }
+            #modeButton{
+                position:absolute;
+                left:10px;
+                padding:5px;
+                background-color:lightgray;
+                border:2px solid black;
+                border-radius:3px;
+            }
+        </style>
+        <script>
+            window.onerror = function(e, url, line){
+              alert('\nLine ' + line+" "+e);
+              return true;
+            }
+        </script>
+        <script>
+            function getOnRoad(x,y){
+                for(let i=0;i<roads.length;i++){
+                    if(x>=roads[i].x && x<=roads[i].x+roads[i].width){
+                        if(y>=roads[i].y && y<=roads[i].y+roads[i].height){
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            function getTouchedBuilding(x,y){
+                for(let i=0;i<buildings.length;i++){
+                    if(x>=buildings[i].x && x<=buildings[i].x+buildings[i].width){
+                        if(y>=buildings[i].y && y<=buildings[i].y+buildings[i].height){
+                            return buildings[i];
+                        }
+                    }
+                }
+                return "none";
+            }
+
+            class Car {
+                constructor(x,y){
+                    this.x=x;
+                    this.y=y;
+                    this.vx=0
+                    this.vy=0;
+                    this.angle=0;
+                    this.width=100;
+                    this.height=55;
+                }
+                draw(){
+                    ctx.save();
+                    ctx.translate(width/2, height/2);
+                    ctx.rotate(this.angle+Math.PI);
+                    ctx.drawImage(carImage, -(this.width/2),-(this.height/2),this.width,this.height);
+                    ctx.restore();
+                }
+                update(){
+                    if(holdingUp){
+                        this.vx+=Math.cos(this.angle)*.04;
+                        this.vy+=Math.sin(this.angle)*.04;
+                    }
+                    else{
+                        this.vx*=.9;
+                        this.vy*=.9;
+                    }
+
+                    if(getOnRoad(this.x+this.vx,this.y)){
+                        this.x+=this.vx;
+                    }
+                    else{
+                        this.vx=0;
+                    }
+                    if(getOnRoad(this.x,this.y+this.vy)){
+                        this.y+=this.vy;
+                    }
+                    else{
+                        this.vy=0;
+                    }
+
+                    if(holdingLeft){
+                        this.angle-=.025;
+                        this.vx*=.98;
+                        this.vy*=.98;
+                    }
+                    else if(holdingRight){
+                        this.angle+=.025;
+                        this.vx*=.98;
+                        this.vy*=.98;
+                    }
+                    let building=getTouchedBuilding(this.x+Math.cos(this.angle)*5,this.y+Math.sin(this.angle)*5);
+                    if(building!="none" && building.name==nextBuilding){
+                        imageNamesListCopy.splice(imageNamesListCopy.indexOf(nextBuilding),1);
+                        if(imageNamesListCopy.length==0){
+                            building.correct=true;
+                            clearInterval(interval);
+                            setTimeout(endGame,20);
+                        }
+                        else{
+                            nextBuilding=imageNamesListCopy[Math.floor(Math.random()*imageNamesListCopy.length)];
+                            building.correct=true;
+                        }
+                    }
+                }
+            }
+            class Road{
+                constructor(x,y,w,h){
+                    this.x=x;
+                    this.y=y;
+                    this.width=w;
+                    this.height=h;
+                }
+                draw(){
+                    ctx.fillStyle="gray";
+                    ctx.fillRect(this.x-zoomBob.x+width/2,this.y-zoomBob.y+height/2,this.width,this.height);
+                    ctx.fillStyle="yellow";
+                    if(this.height>this.width){
+                        for(let i=0;i<Math.floor(this.height/100);i++){
+                            ctx.fillRect(this.x-zoomBob.x+width/2+this.width/2,this.y-zoomBob.y+height/2+i*100,3,50);
+                        }
+                    }
+                    else{
+                       for(let i=0;i<Math.floor(this.width/100);i++){
+                            ctx.fillRect(this.x-zoomBob.x+width/2+i*100,this.y-zoomBob.y+height/2+this.height/2,50,3);
+                        }
+                    }
+                }
+            }
+            class Building{
+                constructor(x,y,image,name){
+                    this.x=x;
+                    this.y=y;
+                    this.name=name;
+                    this.width=400;
+                    this.height=400;
+                    this.image=image;
+                    this.correct=false;
+                }
+                draw(){
+                    ctx.drawImage(this.image,this.x-zoomBob.x+width/2,this.y-zoomBob.y+height/2,this.width,this.height);
+                    if(this.correct){
+                        ctx.fillStyle="rgba(0,255,0,.5)";
+                        ctx.fillRect(this.x-zoomBob.x+width/2,this.y-zoomBob.y+height/2,this.width,this.height);
+                    }
+                }
+            }
+
+            var canvas=document.getElementById("gameCanvas");
+            var carImage=new Image();
+            carImage.src="https://www.freeiconspng.com/thumbs/top-car-view-png/white-modern-car-top-view-24.png";
+            var ctx=canvas.getContext("2d");
+            var grassImage=new Image();
+            grassImage.src="https://thumbs.dreamstime.com/b/flat-green-artificial-grass-texture-background-flat-green-artificial-grass-texture-background-short-grass-pattern-217350520.jpg";
+            var imageSrcList=["https://media.istockphoto.com/vectors/red-library-cartoon-building-icon-vector-id695924018?k=20&m=695924018&s=612x612&w=0&h=5I9BTNtlZUEAFsg7CQIkxrAI4zHdVGwqCQjIAW1o_hk=",
+            "https://static.vecteezy.com/system/resources/previews/001/338/020/non_2x/coffee-shop-storefront-design-free-vector.jpg",
+            "https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/39522/country-house-clipart-xl.png",
+            "https://thumbs.dreamstime.com/b/shopping-mall-building-exterior-vector-flat-illustration-52546155.jpg",
+            "https://i.pinimg.com/originals/20/4f/47/204f47c5570ebb3be130c0d9cb4d49bc.jpg",
+            "https://media.istockphoto.com/vectors/gym-building-exterior-outdoor-front-view-facade-showcase-window-flat-vector-id688921996?k=20&m=688921996&s=612x612&w=0&h=BkVUJyzXCqI0eV4x5BcjMwlACx0c2uitI2otrCM_oTU=",
+            "https://i.fbcd.co/products/resized/resized-750-500/35f61fcc9a41fd02c243df4a9d6386c4f63f489ecf91b3a7f79a57fdd1bdad55.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgT8vDGnW30wpXIspPWQ4rWHea4C6jG6-Nrw&usqp=CAU",
+            "https://www.pngitem.com/pimgs/m/203-2034372_clipart-mountain-snow-mountain-mountain-clipart-png-transparent.png",
+            "https://media.istockphoto.com/vectors/landscape-in-city-park-vector-flat-style-illustration-vector-id1097251356?k=20&m=1097251356&s=612x612&w=0&h=qykO_JA-Dn4YIwnkZ2uYgJWXxcB2txm4w1cArur6klg=",
+            "https://www.pinclipart.com/picdir/big/486-4867672_perth-fence-clipart-swimming-pool-png-transparent-png.png",
+            "https://clipart.world/wp-content/uploads/2020/08/chair-and-umbrella-on-tropical-beach.jpg",
+            "https://i.pinimg.com/736x/77/7d/9c/777d9c6e187bfc29677c7de89aa73c5a.jpg",
+            "https://www.kindpng.com/picc/m/134-1346395_synagogue-png-transparent-png.png",
+            "https://www.pngitem.com/pimgs/m/218-2183244_india-clipart-temple-thailand-clipart-png-transparent-png.png",
+            "https://media.istockphoto.com/vectors/corporate-office-building-vector-id512287656?k=20&m=512287656&s=612x612&w=0&h=VHew5BAVgW6L73J5mQcmCag8umqAUPsmxxymeoxSM2Q=",
+            "https://images.clipartlogo.com/files/istock/previews/1044/104407039-farm-field-flat-countryside-landscape.jpg"];
+            var imageNamesList=["la biblioteca","el café","la casa","el centro comercial","el cine","el gimnasio","la iglesia",
+            "la mezquita","las montañas","el parque","la piscina","la playa","el restaurante","la sinagoga","el templo","el trabajo","el campo"];
+            canvas.width=window.innerWidth;
+            canvas.height=window.innerHeight-5;
+            var width=canvas.width;
+            var height=canvas.height;
+            var zoomBob=new Car(0,0);
+            var holdingLeft=false;
+            var holdingRight=false;
+            var holdingUp=false;
+            var startTime=new Date().getTime();
+            var roads=[];
+            var buildings=[];
+            for(let y=0;y<5;y++){
+                for(let x=0;x<5;x++){
+                    if(x<4){
+                        roads.push(new Road(x*500,y*500,500,100));
+                    }
+                    if(y<4){
+                        roads.push(new Road(x*500,y*500,100,600));
+                    }
+                }
+            }
+            for(let i=0;i<10;i++){
+                let rand=Math.floor(Math.random()*roads.length);
+                if(rand>1){
+                    roads.splice(rand,1);
+                }
+            }
+            var imageNamesListCopy=imageNamesList.slice(0,-1);
+            for(let y=0;y<4;y++){
+                for(let x=0;x<4;x++){
+                    let index=x+y*4
+                    index=Math.floor(Math.random()*imageNamesListCopy.length);
+                    let buildingImage=new Image();
+                    buildingImage.src=imageSrcList[imageNamesList.indexOf(imageNamesListCopy[index])];
+                    buildings.push(new Building(x*500+100,y*500+100,buildingImage,imageNamesListCopy[index]));
+                    imageNamesListCopy.splice(index,1);
+                }
+            }
+            let buildingImage=new Image();
+            buildingImage.src=imageSrcList[imageNamesList.length-1];
+            buildings.push(new Building(100,2100,buildingImage,"el campo"));
+
+            var imageNamesListCopy=imageNamesList.slice();
+            var nextBuilding=imageNamesListCopy[Math.floor(Math.random()*imageNamesListCopy.length)];
+
+            document.addEventListener("keydown",function(e){
+                if(e.keyCode==37){
+                    holdingLeft=true;
+                }
+                else if(e.keyCode==39){
+                    holdingRight=true;
+                }
+                else if(e.keyCode==38){
+                    holdingUp=true;
+                }
+            });
+            document.addEventListener("keyup",function(e){
+                if(e.keyCode==37){
+                    holdingLeft=false;
+                }
+                else if(e.keyCode==39){
+                    holdingRight=false;
+                }
+                else if(e.keyCode==38){
+                    holdingUp=false;
+                }
+            });
+
+            function update(){
+                ctx.setTransform(1,0,0,1,0,0);
+                ctx.drawImage(grassImage,-zoomBob.x%width,-zoomBob.y%height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width-width,-zoomBob.y%height-height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width+width,-zoomBob.y%height-height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width-width,-zoomBob.y%height+height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width+width,-zoomBob.y%height+height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width-width,-zoomBob.y%height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width+width,-zoomBob.y%height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width,-zoomBob.y%height+height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width,-zoomBob.y%height-height,width,height);
+                for(i=0;i<roads.length;i++){
+                    roads[i].draw();
+                }
+                for(i=0;i<buildings.length;i++){
+                    buildings[i].draw();
+                }
+                zoomBob.update();
+                zoomBob.draw();
+
+                ctx.fillStyle="black";
+                ctx.font="50px Verdana";
+                var time=new Date().getTime();
+                time-=startTime;
+                var hundreths=Math.floor(time/10)%100;
+                var secs=Math.floor(time/1000)%60;
+                var mins=Math.floor(time/1000/60)%60;
+                if(secs>9){
+                    ctx.fillText(mins+":"+secs+"."+hundreths,10,height-10);
+                }
+                else{
+                    ctx.fillText(mins+":0"+secs+"."+hundreths,10,height-10);
+                }
+                ctx.fillStyle="rgb(230,230,230)";
+                ctx.font="100px Verdana";
+                let message="";
+                if(nextBuilding.slice(0,2)=="el"){
+                    message="Ve al "+nextBuilding.slice(3);
+                }
+                else{
+                    message="Ve a "+nextBuilding;
+                }
+                ctx.fillText(message,width/2-getTextWidth(message)/2,200);
+
+            }
+
+            function getTextWidth(text){
+                var metrics = ctx.measureText(text);
+                return metrics.width;
+            }
+            function randomEnd(){
+                ctx.fillStyle="rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
+                ctx.font="100px Verdana";
+                ctx.fillText("You Win!",width/2-getTextWidth("You Win!")/2,200);
+            }
+            function endGame(){
+                ctx.setTransform(1,0,0,1,0,0);
+                ctx.drawImage(grassImage,-zoomBob.x%width,-zoomBob.y%height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width-width,-zoomBob.y%height-height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width+width,-zoomBob.y%height-height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width-width,-zoomBob.y%height+height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width+width,-zoomBob.y%height+height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width-width,-zoomBob.y%height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width+width,-zoomBob.y%height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width,-zoomBob.y%height+height,width,height);
+                ctx.drawImage(grassImage,-zoomBob.x%width,-zoomBob.y%height-height,width,height);
+                for(i=0;i<roads.length;i++){
+                    roads[i].draw();
+                }
+                for(i=0;i<buildings.length;i++){
+                    buildings[i].draw();
+                }
+                zoomBob.draw();
+
+                ctx.fillStyle="black";
+                ctx.font="50px Verdana";
+                var time=new Date().getTime();
+                time-=startTime;
+                var hundreths=Math.floor(time/10)%100;
+                var secs=Math.floor(time/1000)%60;
+                var mins=Math.floor(time/1000/60)%60;
+                if(secs>9){
+                    ctx.fillText(mins+":"+secs+"."+hundreths,10,height-10);
+                }
+                else{
+                    ctx.fillText(mins+":0"+secs+"."+hundreths,10,height-10);
+                }
+                ctx.fillStyle="yellow";
+                ctx.font="100px Verdana";
+                ctx.fillText("You Win!",width/2-getTextWidth("You Win!")/2,200);
+                setInterval(randomEnd,100);
+            }
+            var interval=0;
+            window.onload=function(){
+                interval=setInterval(update,10);
+            }
+        </script>
+    </body>
+</html>
