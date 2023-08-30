@@ -391,6 +391,11 @@
                 var color=getColorFromCookie();
                 if(color.length>0){
                     styleColor=color;
+                    if(fancyMode=="red"){
+                        bellHeader.style.backgroundColor=styleColor;
+                    }
+                    dayButton.style.backgroundColor=styleColor;
+                    $(".slider").css("background",styleColor);
                 }
             }
             function changeColor(degValue) {
