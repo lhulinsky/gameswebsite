@@ -4,7 +4,7 @@
         <title id="tabTitle">Bell Schedule</title>
         <link rel="icon" href="bulldog.png">
     </head>
-    <body id="therealbody">
+    <body id="therealbody" onload="setSavedColor()">
         <img src="bulldog.png" id="bulldog" onclick="setRotateBulldog();"></img>
         <canvas id="headerCanvas"></canvas>
         <h1 id="bellHeader" onclick="showCanvas();">LCHS Bell Schedule</h1>
@@ -365,8 +365,39 @@
                 bells.push(new Bell(13,53,"Eighth Period Starts in "));
                 bells.push(new Bell(14,30,"School Ends in "));
             }
+            function saveColorCookie(color){
+                //cookies expire after 2 days
+                const exdays=2;
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires="+ d.toUTCString();
+                document.cookie = "styleColor=" + color + ";" + expires + ";path=/";
+            }
+            function getColorFromCookie(){
+                let name = "styleColor=";
+                //deals with special characters
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+            function setSavedColor(){
+                var color=getColorFromCookie();
+                if(color.length>0){
+                    styleColor=color;
+                }
+            }
             function changeColor(degValue) {
                 styleColor="hsl("+degValue+",100%,50%)";
+                saveColorCookie(styleColor);
                 if(fancyMode=="red"){
                     bellHeader.style.backgroundColor=styleColor;
                 }
