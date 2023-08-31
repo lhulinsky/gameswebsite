@@ -365,14 +365,6 @@
                 bells.push(new Bell(13,53,"Eighth Period Starts in "));
                 bells.push(new Bell(14,30,"School Ends in "));
             }
-            function saveColorCookie(color){
-                //cookies expire after 2 days
-                const exdays=2;
-                const d = new Date();
-                d.setTime(d.getTime() + (exdays*24*60*60*1000));
-                let expires = "expires="+ d.toUTCString();
-                document.cookie ="styleColor=" + color + ";" + expires + ";path=/";
-            }
             function saveSliderCookie(value){
                 //cookies expire after 2 days
                 const exdays=2;
@@ -396,23 +388,14 @@
                 return "";
             }
             function setSavedColor(){
-                var color=getCookieValue("styleColor");
-                if(color.length>0){
-                    styleColor=color;
-                    if(fancyMode=="red"){
-                        bellHeader.style.backgroundColor=styleColor;
-                    }
-                    dayButton.style.backgroundColor=styleColor;
-                    $(".slider").css("background",styleColor);
-                }
                 var sliderValue=getCookieValue("sliderValue");
                 if(sliderValue.length>0){
                     colorRange.value=parseInt(sliderValue);
+                    changeColor(colorRange.value);
                 }
             }
             function changeColor(degValue) {
                 styleColor="hsl("+degValue+",100%,50%)";
-                saveColorCookie(styleColor);
                 if(fancyMode=="red"){
                     bellHeader.style.backgroundColor=styleColor;
                 }
