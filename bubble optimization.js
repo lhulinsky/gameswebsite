@@ -1,11 +1,10 @@
 var vertexShaderText =
 `#version 300 es
-precision highp float;
+precision mediump float;
 
 in vec4 position;
 out vec2 screenPosition;
 uniform vec2 u_screenSize;
-out float time;
 
 void main()
 {
@@ -15,7 +14,7 @@ void main()
 
 var fragmentShaderText =
 `#version 300 es
-precision medp float;
+precision mediump float;
 in vec2 screenPosition;
 out vec4 outColor;
 
