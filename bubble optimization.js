@@ -21,12 +21,7 @@ out vec4 outColor;
 
 void main()
 {
-    if(length(gl_PointCoord-screenPosition)<.4){
-        outColor = vec4(1,1,1,1);
-    }
-    else{
-        outColor = vec4(0,0,0,1);
-    }
+    outColor = vec4(1,1,1,1);
 }`;
 function runShader(){
 	var canvas=document.getElementById("gameCanvas");
