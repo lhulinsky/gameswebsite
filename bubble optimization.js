@@ -18,13 +18,9 @@ precision mediump float;
 in vec2 screenPosition;
 out vec4 outColor;
 
-float distance(vec2 pos){
-    return sqrt(pow(pos.x,2)+pow(pos.y,2));
-}
-
 void main()
 {
-    if(distance(screenPosition)<.4){
+    if(length(screenPosition)<.4){
         outColor = vec4(1,1,1,1);
     }
     else{
