@@ -9,6 +9,7 @@ uniform vec2 u_screenSize;
 void main()
 {
     gl_Position = position;
+	gl_PointSize = 30;
     screenPosition=vec2(position.x*(u_screenSize.x/u_screenSize.y),position.y);
 }`;
 
@@ -107,7 +108,7 @@ function runShader(){
 		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 		gl.uniform2f(screenSizeUniformLocation,width,height);
 		gl.bindVertexArray(backgroundVertexArray);
-		gl.drawArrays(gl.TRIANGLES, 0, 6);
+		gl.drawArrays(gl.POINTS, 0, 6);
 		gl.bindVertexArray(null);
 		requestAnimationFrame(loop);
 	}
