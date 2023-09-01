@@ -20,7 +20,7 @@ out vec4 outColor;
 
 void main()
 {
-    if(length(screenPosition)<.4){
+    if(length(screenPosition-vec2(0.5,0.0))<.4){
         outColor = vec4(1,1,1,1);
     }
     else{
