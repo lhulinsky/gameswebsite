@@ -9,7 +9,7 @@ uniform vec2 u_screenSize;
 void main()
 {
     gl_Position = position;
-	gl_PointSize = 30.0;
+	gl_PointSize = 0.5;
     screenPosition=vec2(position.x*(u_screenSize.x/u_screenSize.y),position.y);
 }`;
 
@@ -21,7 +21,7 @@ out vec4 outColor;
 
 void main()
 {
-    if(length(screenPosition-vec2(0.5,0.0))<.4){
+    if(length(gl_PointCoord-screenPosition)<.4){
         outColor = vec4(1,1,1,1);
     }
     else{
