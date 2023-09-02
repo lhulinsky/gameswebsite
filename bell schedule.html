@@ -440,7 +440,7 @@
                 ctx.beginPath();
                 ctx.moveTo(canvas.width/2,canvas.height/2);
                 ctx.lineTo(canvas.width/2,canvas.height/2-190);
-                ctx.arc(canvas.width/2, canvas.height/2, 190, 0, clockAngle);
+                ctx.arc(canvas.width/2, canvas.height/2, 190, -Math.PI/2, clockAngle);
                 ctx.moveTo(canvas.width/2+Math.cos(clockAngle)*190,canvas.height/2+Math.sin(clockAngle)*190);
                 ctx.lineTo(canvas.width/2,canvas.height/2);
                 ctx.fill();
