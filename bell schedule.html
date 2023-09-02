@@ -435,15 +435,15 @@
                 ctx.fillRect(0,0,canvas.width,canvas.height)
                 var clockAngle=Math.PI*2*(elapsedTime/periodLength)-(Math.PI/2);
 
-                ctx.strokeStyle=styleColor;
-                var subtract=0
-                while(clockAngle-subtract>-Math.PI/2){
-                    ctx.beginPath()
-                    ctx.moveTo(canvas.width/2,canvas.height/2)
-                    ctx.lineTo(canvas.width/2+Math.cos(clockAngle-subtract)*190,canvas.height/2+Math.sin(clockAngle-subtract)*190);
-                    ctx.stroke();
-                    subtract+=.01;
-                }
+                ctx.fillStyle=styleColor;
+                ctx.lineWidth="2";
+                ctx.beginPath();
+                ctx.moveTo(canvas.width/2,canvas.height/2);
+                ctx.lineTo(canvas.width/2,canvas.height/2-190);
+                ctx.arc(canvas.width/2, canvas.height/2, 190, 0, clockAngle);
+                ctx.moveTo(canvas.width/2+Math.cos(clockAngle)*190,canvas.height/2+Math.sin(clockAngle)*190);
+                ctx.lineTo(canvas.width/2,canvas.height/2);
+                ctx.fill();
 
                 ctx.strokeStyle="black";
                 ctx.lineWidth="2";
