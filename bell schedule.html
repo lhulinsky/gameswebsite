@@ -475,6 +475,7 @@
                 if(fancyMode!="red"){
                     var circlePositions=[];
                     for(var i=0;i<bubbles.length;i++){
+                        bubbles[i].update();
                         circlePositions.push((bubbles[i].x/headerCanvas.width*2)-1)
                         circlePositions.push((bubbles[i].y/headerCanvas.height*2)-1)
                     }
