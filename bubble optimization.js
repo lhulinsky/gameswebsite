@@ -75,7 +75,7 @@ gl.bindVertexArray(null);
 var screenSizeUniformLocation=gl.getUniformLocation(program,"u_screenSize");
 var circleModeUniformLocation=gl.getUniformLocation(program,"circleMode");
 function drawFancyCircles(circlePositions,filled){
-	gl.clearColor(1.0,1.0,1.0,1.0);
+	gl.clearColor(1.0,1.0,1.0,.1);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	gl.uniform2f(screenSizeUniformLocation,headerCanvas.width,headerCanvas.height);
 	if(filled){
