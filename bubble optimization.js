@@ -110,6 +110,7 @@ function drawFancyCircles(circlePositions,filled,siteColor){
 	var hueValue=siteColor.split(",").slice(4);
 	var hueNumber=parseInt(hueValue)/255;
 	var rgbColor=hslToRgb(hueNumber,100,50);
+	console.log(rgbColor);
 	gl.uniform3fv(siteColorUniformLocation,rgbColor);
 	if(filled){
 		gl.uniform1i(circleModeUniformLocation,1);
