@@ -411,7 +411,7 @@
             setNormalDay();
 
             var bubbles=[];
-            for(i=0;i<1000;i++){
+            for(i=0;i<800;i++){
                 bubbles.push(new Bubble(Math.floor(Math.random()*headerCanvas.width),Math.floor(Math.random()*headerCanvas.height),[Math.random()*2-1,Math.random()*2-1]));
             }
             function updateDisplay(){
@@ -466,12 +466,7 @@
                     bulldogDeg+=2;
                     bulldog.style.transform="rotate("+bulldogDeg+"deg)";
                     colorNumber+=1;
-                    styleColor="hsl("+colorNumber+",100%,50%)";
-                    if(fancyMode=="red"){
-                        bellHeader.style.backgroundColor=styleColor;
-                    }
-                    dayButton.style.backgroundColor=styleColor;
-                    $(".slider").css("background",styleColor);
+                    changeColor(colorNumber);
                 }
                 if(fancyMode!="red"){
                     var circlePositions=[];
