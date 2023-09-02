@@ -28,7 +28,7 @@ void main()
     if (r > 1.0) {
         discard;
     }
-    gl_FragColor = vec4(1,0,0,.3) * (alpha);
+    outColor = vec4(1,0,0,.3) * (alpha);
 }`;
 
 var gl=headerCanvas.getContext("webgl2",{ premultipliedAlpha: false });
