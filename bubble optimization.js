@@ -9,7 +9,7 @@ uniform vec2 u_screenSize;
 void main()
 {
     gl_Position = position;
-	gl_PointSize = 0.5;
+	gl_PointSize = 50.0;
     screenPosition=vec2(position.x*(u_screenSize.x/u_screenSize.y),position.y);
 }`;
 
@@ -18,65 +18,77 @@ var fragmentShaderText =
 precision mediump float;
 in vec2 screenPosition;
 out vec4 outColor;
+uniform int circleMode;
 
 void main()
 {
-    outColor = vec4(1,1,1,1);
+	float circleDistance=length(gl_PointCoord-vec2(.5,.5));
+	if(circleMode==0 && circleDistance<.5 && circleDistance>.45){
+		outColor = vec4(1,.6,0,1);
+	}
+	else if(circleMode==1 && circleDistance<.5){
+		outColor = vec4(1,.6,0,.4);
+	}
+	else{
+		discard;
+	}
 }`;
-function runShader(){
-	var canvas=document.getElementById("gameCanvas");
-	canvas.width=window.innerWidth;
-	canvas.height=window.innerHeight-5;
-	var width=canvas.width;
-	var height=canvas.height;
 
-	var gl=canvas.getContext("webgl2");
-	gl.clearColor(0.1,0.1,0.1, 1.0);
+var gl=headerCanvas.getContext("webgl2",{ premultipliedAlpha: false });
+gl.clearColor(1.0,1.0,1.0, 1.0);
+gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+gl.enable(gl.CULL_FACE);
+gl.enable(gl.BLEND)
+gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+gl.frontFace(gl.CCW);
+gl.cullFace(gl.BACK);
+
+var vertexShader=gl.createShader(gl.VERTEX_SHADER);
+var fragmentShader=gl.createShader(gl.FRAGMENT_SHADER);
+
+gl.shaderSource(vertexShader,vertexShaderText);
+gl.shaderSource(fragmentShader,fragmentShaderText);
+
+gl.compileShader(vertexShader);
+if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+	alert('ERROR compiling vertex shader '+gl.getShaderInfoLog(vertexShader));
+	return;
+}
+gl.compileShader(fragmentShader);
+if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+	alert('ERROR compiling fragment shader '+gl.getShaderInfoLog(fragmentShader));
+	return;
+}
+var program=gl.createProgram();
+gl.attachShader(program, vertexShader);
+gl.attachShader(program, fragmentShader);
+gl.linkProgram(program);
+if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+	alert('ERROR linking program! '+gl.getProgramInfoLog(program));
+	return;
+}
+gl.validateProgram(program);
+if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
+	alert('ERROR validating program! '+gl.getProgramInfoLog(program));
+	return;
+}
+
+gl.useProgram(program);
+
+gl.bindVertexArray(null);
+var screenSizeUniformLocation=gl.getUniformLocation(program,"u_screenSize");
+var circleModeUniformLocation=gl.getUniformLocation(program,"circleMode");
+function drawFancyCircles(circlePositions,filled){
+	gl.clearColor(1.0,1.0,1.0,1.0);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-	gl.enable(gl.DEPTH_TEST);
-	gl.enable(gl.CULL_FACE);
-	gl.frontFace(gl.CCW);
-	gl.cullFace(gl.BACK);
-
-	var vertexShader=gl.createShader(gl.VERTEX_SHADER);
-	var fragmentShader=gl.createShader(gl.FRAGMENT_SHADER);
-
-	gl.shaderSource(vertexShader,vertexShaderText);
-	gl.shaderSource(fragmentShader,fragmentShaderText);
-
-	gl.compileShader(vertexShader);
-	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-		alert('ERROR compiling vertex shader '+gl.getShaderInfoLog(vertexShader));
-		return;
+	gl.uniform2f(screenSizeUniformLocation,headerCanvas.width,headerCanvas.height);
+	if(filled){
+		gl.uniform1i(circleModeUniformLocation,1);
 	}
-	gl.compileShader(fragmentShader);
-	if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-		alert('ERROR compiling fragment shader '+gl.getShaderInfoLog(fragmentShader));
-		return;
+	else{
+		gl.uniform1i(circleModeUniformLocation,0);
 	}
-	var program=gl.createProgram();
-	gl.attachShader(program, vertexShader);
-	gl.attachShader(program, fragmentShader);
-	gl.linkProgram(program);
-	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-		alert('ERROR linking program! '+gl.getProgramInfoLog(program));
-		return;
-	}
-	gl.validateProgram(program);
-	if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
-		alert('ERROR validating program! '+gl.getProgramInfoLog(program));
-		return;
-	}
-
-	gl.useProgram(program);
-
 	var backgroundPositionBuffer=gl.createBuffer();
-	var backgroundVertices=[ 1.0,1.0,
-	                        -1.0,-1.0,
-	                         1.0,-1.0,
-	                         1.0,1.0,
-	                         -1.0,1.0,
-	                         -1.0,-1.0];
 	var backgroundPositionAttribLocation = gl.getAttribLocation(program, "position");
 
 	var backgroundVertexArray = gl.createVertexArray();
@@ -84,7 +96,7 @@ function runShader(){
 
 	gl.enableVertexAttribArray(backgroundPositionAttribLocation);
 	gl.bindBuffer(gl.ARRAY_BUFFER, backgroundPositionBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(backgroundVertices), gl.STATIC_DRAW);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(circlePositions), gl.STATIC_DRAW);
 	gl.vertexAttribPointer(
 		backgroundPositionAttribLocation, // Attribute location
 		2, // Number of elements per attribute
@@ -93,23 +105,6 @@ function runShader(){
 		2 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
 		0 // Offset from the beginning of a single vertex to this attribute
 	);
-
+	gl.drawArrays(gl.POINTS, 0, parseInt(circlePositions.length/2));
 	gl.bindVertexArray(null);
-	var zoom=1.1;
-	var screenSizeUniformLocation=gl.getUniformLocation(program,"u_screenSize");
-	var origin=[0,0];
-	function loop(){
-		gl.clearColor(0.0,0.0,0.0,1.0);
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-		gl.uniform2f(screenSizeUniformLocation,width,height);
-		gl.bindVertexArray(backgroundVertexArray);
-		gl.drawArrays(gl.POINTS, 0, 6);
-		gl.bindVertexArray(null);
-		requestAnimationFrame(loop);
-	}
-
-	requestAnimationFrame(loop);
-
-
-
 }

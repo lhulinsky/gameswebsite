@@ -151,7 +151,6 @@
             var colorRange=document.getElementById("colorRange");
             var nextPeriodText=document.getElementById("nextPeriod");
             var ctx=canvas.getContext("2d");
-            var hctx=headerCanvas.getContext("2d");
 
             headerCanvas.width=window.innerWidth-16;
             headerCanvas.height=145;
@@ -237,21 +236,6 @@
                     else if(this.y<this.radius){
                         this.y=this.radius;
                         this.vect[1]=-this.vect[1];
-                    }
-                }
-                draw(){
-                    if(fancyMode=="circle"){
-                        hctx.lineWidth=1;
-                        hctx.strokeStyle=styleColor;
-                        hctx.beginPath()
-                        hctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-                        hctx.stroke();
-                    }
-                    else{
-                        hctx.fillStyle=styleColor.slice(0,styleColor.length-1)+",.3)";
-                        hctx.beginPath()
-                        hctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-                        hctx.fill();
                     }
                 }
             }
@@ -489,11 +473,16 @@
                     $(".slider").css("background",styleColor);
                 }
                 if(fancyMode!="red"){
-                    hctx.fillStyle="white";
-                    hctx.fillRect(0,0,headerCanvas.width,headerCanvas.height);
-                    for(i=0;i<bubbles.length;i++){
-                        bubbles[i].update();
-                        bubbles[i].draw();
+                    var circlePositions=[];
+                    for(var i=0;i<bubbles.length;i++){
+                        circlePositions.push((bubbles[i].x/headerCanvas.width*2)-1)
+                        circlePositions.push((bubbles[i].y/headerCanvas.height*2)-1)
+                    }
+                    if(fancyMode=="circle"){
+                        drawFancyCircles(circlePositions,false);
+                    }
+                    else{
+                        drawFancyCircles(circlePositions,true);
                     }
                 }
                 requestAnimationFrame(updateDisplay);
@@ -566,5 +555,6 @@
             setInterval(updateBells,1000);
             requestAnimationFrame(updateDisplay);
         </script>
+        <script src="bubble optimization.js"></script>
     </body>
 </html>
