@@ -27,7 +27,7 @@ void main()
 		outColor = vec4(1,.6,0,1);
 	}
 	else if(circleMode==1 && circleDistance<.5){
-		outColor = vec4(1,.6,0,.6);
+		outColor = vec4(1,.6,0,.3);
 	}
 	else{
 		discard;
