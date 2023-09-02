@@ -52,12 +52,10 @@ gl.shaderSource(fragmentShader,fragmentShaderText);
 gl.compileShader(vertexShader);
 if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
 	alert('ERROR compiling vertex shader '+gl.getShaderInfoLog(vertexShader));
-	return;
 }
 gl.compileShader(fragmentShader);
 if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
 	alert('ERROR compiling fragment shader '+gl.getShaderInfoLog(fragmentShader));
-	return;
 }
 var program=gl.createProgram();
 gl.attachShader(program, vertexShader);
@@ -65,12 +63,10 @@ gl.attachShader(program, fragmentShader);
 gl.linkProgram(program);
 if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
 	alert('ERROR linking program! '+gl.getProgramInfoLog(program));
-	return;
 }
 gl.validateProgram(program);
 if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
 	alert('ERROR validating program! '+gl.getProgramInfoLog(program));
-	return;
 }
 
 gl.useProgram(program);
