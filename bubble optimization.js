@@ -9,7 +9,7 @@ uniform vec2 u_screenSize;
 void main()
 {
     gl_Position = position;
-	gl_PointSize = 50.0;
+	gl_PointSize = 40.0;
     screenPosition=vec2(position.x*(u_screenSize.x/u_screenSize.y),position.y);
 }`;
 
