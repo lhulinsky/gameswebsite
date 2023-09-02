@@ -433,7 +433,8 @@
                 var seconds = Math.floor((periodLength % (1000 * 60)) / 1000);
                 ctx.fillStyle="white";
                 ctx.fillRect(0,0,canvas.width,canvas.height)
-                var clockAngle=Math.PI*2*(elapsedTime/periodLength)-(Math.PI/2);
+                //var clockAngle=Math.PI*2*(elapsedTime/periodLength)-(Math.PI/2);
+                var clockAngle=Math.PI*2*60/seconds;
 
                 ctx.fillStyle=styleColor;
                 ctx.lineWidth="2";
