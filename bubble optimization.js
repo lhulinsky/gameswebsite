@@ -90,7 +90,7 @@ function hslToRgb(h, s, l) {
 	  b = hueToRgb(p, q, h - 1/3);
 	}
   
-	return [r, g, b];
+	return [r/255, g/255, b/255];
   }
   
   function hueToRgb(p, q, t) {
@@ -108,7 +108,7 @@ function drawFancyCircles(circlePositions,filled,siteColor){
 	gl.uniform2f(screenSizeUniformLocation,headerCanvas.width,headerCanvas.height);
 	//hsl string to rgb
 	var hueValue=siteColor.split(",").slice(4);
-	var hueNumber=parseInt(hueValue)/255;
+	var hueNumber=parseInt(hueValue);
 	var rgbColor=hslToRgb(hueNumber,100,50);
 	console.log(rgbColor);
 	gl.uniform3fv(siteColorUniformLocation,rgbColor);
