@@ -107,7 +107,7 @@ function drawFancyCircles(circlePositions,filled,siteColor){
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	gl.uniform2f(screenSizeUniformLocation,headerCanvas.width,headerCanvas.height);
 	//hsl string to rgb
-	var hueValue=siteColor.split(",").slice(4);
+	var hueValue=siteColor.split(",");
 	console.log(hueValue);
 	var hueNumber=parseInt(hueValue);
 	var rgbColor=hslToRgb(hueNumber,100,50);
