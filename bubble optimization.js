@@ -22,16 +22,13 @@ uniform int circleMode;
 
 void main()
 {
-	float circleDistance=length(gl_PointCoord-vec2(.5,.5));
-	if(circleMode==0 && circleDistance<.5 && circleDistance>.45){
-		outColor = vec4(1,.6,0,1);
-	}
-	else if(circleMode==1 && circleDistance<.5){
-		outColor = vec4(1,0,0,.3);
-	}
-	else{
-		discard;
-	}
+	float r = 0.0, delta = 0.0, alpha = 1.0;
+    vec2 cxy = 2.0 * gl_PointCoord - 1.0;
+    r = dot(cxy, cxy);
+    if (r > 1.0) {
+        discard;
+    }
+    gl_FragColor = vec4(1,0,0,.3) * (alpha);
 }`;
 
 var gl=headerCanvas.getContext("webgl2",{ premultipliedAlpha: false });
