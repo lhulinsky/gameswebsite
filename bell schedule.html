@@ -480,10 +480,10 @@
                         circlePositions.push((bubbles[i].y/headerCanvas.height*2)-1)
                     }
                     if(fancyMode=="circle"){
-                        drawFancyCircles(circlePositions,false);
+                        drawFancyCircles(circlePositions,false,styleColor);
                     }
                     else{
-                        drawFancyCircles(circlePositions,true);
+                        drawFancyCircles(circlePositions,true,styleColor);
                     }
                 }
                 requestAnimationFrame(updateDisplay);
