@@ -27,7 +27,7 @@ void main()
 		outColor = vec4(1,.6,0,1);
 	}
 	else if(circleMode==1 && circleDistance<.5){
-		outColor = vec4(1,.6,0,.7);
+		outColor = vec4(1,.6,0,.6);
 	}
 	else{
 		discard;
@@ -35,7 +35,7 @@ void main()
 }`;
 
 var gl=headerCanvas.getContext("webgl2",{ premultipliedAlpha: false });
-gl.clearColor(1.0,1.0,1.0, 1.0);
+gl.clearColor(1.0,1.0,1.0, 0);
 gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 gl.enable(gl.CULL_FACE);
 gl.enable(gl.BLEND)
@@ -75,7 +75,7 @@ gl.bindVertexArray(null);
 var screenSizeUniformLocation=gl.getUniformLocation(program,"u_screenSize");
 var circleModeUniformLocation=gl.getUniformLocation(program,"circleMode");
 function drawFancyCircles(circlePositions,filled){
-	gl.clearColor(1.0,1.0,1.0,.1);
+	gl.clearColor(1.0,1.0,1.0,0);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	gl.uniform2f(screenSizeUniformLocation,headerCanvas.width,headerCanvas.height);
 	if(filled){
