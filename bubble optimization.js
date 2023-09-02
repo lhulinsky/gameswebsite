@@ -24,10 +24,10 @@ void main()
 {
 	float circleDistance=length(gl_PointCoord-vec2(.5,.5));
 	if(circleMode==0 && circleDistance<.5 && circleDistance>.47){
-		outColor = vec4(1,0,0,1);
+		outColor = vec4(1,.6,0,1);
 	}
 	else if(circleMode==1 && circleDistance<.5){
-		outColor = vec4(1,0,0,.5);
+		outColor = vec4(1,.6,0.5);
 	}
 	else{
 		discard;
