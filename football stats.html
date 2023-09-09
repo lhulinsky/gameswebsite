@@ -4,27 +4,25 @@
 
     </head>
     <body>
-        <div id="leftSpacer">
-            <p>Home</p>
-        </div>
-        <div id="rightSpacer">
-            <p>Away</p>
+        <div id="container">
+            <div id="leftSpacer">
+                <p>Home</p>
+            </div>
+            <div id="rightSpacer">
+                <p>Away</p>
+            </div>
         </div>
         <style>
+            #container{
+                display:flex
+            }
             #leftSpacer{
-               width:50%;
-               margin:0px;
-               display:inline-block;
-               position:fixed;
+               flex:1;
+               background-color:red
             }
             #rightSpacer{
-               width:50%;
-               margin:0px;
-               display:inline-block;
-               position:fixed;
-            }
-            body{
-                margin:0px;
+               flex:1;
+               background-color: aliceblue;
             }
         </style>
     </body>
