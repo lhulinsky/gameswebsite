@@ -7,25 +7,24 @@
         <div id="container">
             <div id="leftSpacer">
                 <p>Home</p>
-                <p>rushing</p>
-                <button>good</button>
-                <button>bad</button>
-                <p>passing</p>
-                <button>good</button>
-                <button>bad</button>
+            </br>
+                <p id="homeDisplay">Passing 0/0 0%</p>
+                <button onclick="homePass(1);">Complete</button>
+                <button onclick="homePass(0);">Incomplete</button>
             </div>
             <div id="rightSpacer">
                 <p>Away</p>
-                <p>Home</p>
-                <p>rushing</p>
-                <button>good</button>
-                <button>bad</button>
-                <p>passing</p>
-                <button>good</button>
-                <button>bad</button>
+            </br>
+                <p id="awayDisplay">Passing 0/0 0%</p>
+                <button onclick="awayPass(1);">Complete</button>
+                <button onclick="awayPass(0);">Incomplete</button>
             </div>
         </div>
         <style>
+            *{
+                font-family:Georgia, 'Times New Roman', Times, serif;
+                font-size:30px;
+            }
             #container{
                 display:flex
             }
@@ -40,5 +39,23 @@
                text-align:center;
             }
         </style>
+        <script>
+            var homeText=document.getElementById("homeDisplay");
+            var awayText=document.getElementById("awayDisplay");
+            var homeCatches=0;
+            var homeAttempts=0;
+            var awayCatches=0;
+            var awayAttempts=0;
+            function homePass(success){
+                homeCatches+=success;
+                homeAttempts+=1;
+                homeText.innerHTML="Passing "+homeCatches+"/"+homeAttempts+" "+parseInt(homeCatches/homeAttempts)+"%";
+            }
+            function awayPass(success){
+                awayCatches+=success;
+                awayAttempts+=1;
+                awayText.innerHTML="Passing "+awayCatches+"/"+awayAttempts+" "+parseInt(awayCatches/awayAttempts)+"%";
+            }
+        </script>
     </body>
 </html>
