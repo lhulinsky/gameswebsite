@@ -23,7 +23,7 @@
         <style>
             *{
                 font-family:Georgia, 'Times New Roman', Times, serif;
-                font-size:30px;
+                font-size:25px;
             }
             #container{
                 display:flex
@@ -32,11 +32,13 @@
                flex:1;
                background-color:red;
                text-align:center;
+               padding:10px;
             }
             #rightSpacer{
                flex:1;
                background-color: aliceblue;
                text-align:center;
+               padding:10px
             }
         </style>
         <script>
@@ -49,12 +51,12 @@
             function homePass(success){
                 homeCatches+=success;
                 homeAttempts+=1;
-                homeText.innerHTML="Passing "+homeCatches+"/"+homeAttempts+" "+parseInt(homeCatches/homeAttempts)+"%";
+                homeText.innerHTML="Passing "+homeCatches+"/"+homeAttempts+" "+parseInt(homeCatches/homeAttempts*100)+"%";
             }
             function awayPass(success){
                 awayCatches+=success;
                 awayAttempts+=1;
-                awayText.innerHTML="Passing "+awayCatches+"/"+awayAttempts+" "+parseInt(awayCatches/awayAttempts)+"%";
+                awayText.innerHTML="Passing "+awayCatches+"/"+awayAttempts+" "+parseInt(awayCatches/awayAttempts*100)+"%";
             }
         </script>
     </body>
