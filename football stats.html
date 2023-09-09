@@ -65,26 +65,26 @@
             function homePass(success){
                 homeCatches+=success;
                 homeAttempts+=1;
-                homeText.innerHTML="Passing "+homeCatches+"/"+homeAttempts+" "+parseInt(homeCatches/homeAttempts*100)+"%";
+                homePassingText.innerHTML="Passing "+homeCatches+"/"+homeAttempts+" "+parseInt(homeCatches/homeAttempts*100)+"%";
             }
             function awayPass(success){
                 awayCatches+=success;
                 awayAttempts+=1;
-                awayText.innerHTML="Passing "+awayCatches+"/"+awayAttempts+" "+parseInt(awayCatches/awayAttempts*100)+"%";
+                awayPassingText.innerHTML="Passing "+awayCatches+"/"+awayAttempts+" "+parseInt(awayCatches/awayAttempts*100)+"%";
             }
             function homeRush(){
                 var yards=parseInt(homeRushingInput.value);
                 homeRushingInput.value="";
                 homeRushingYards+=yards;
                 homeRushes+=1;
-                homeRushingText.innerHTML="Avg Rushing Yards: "+Math.round(homeRushingYards/homeRushes,1);
+                homeRushingText.innerHTML="Avg Rushing Yards: "+Math.round(homeRushingYards/homeRushes*10)/10;
             }
             function awayRush(){
                 var yards=parseInt(awayRushingInput.value);
                 awayRushingInput.value="";
                 awayRushingYards+=yards;
                 awayRushes+=1;
-                awayRushingText.innerHTML="Avg Rushing Yards: "+Math.round(awayRushingYards/awayRushes,1);
+                awayRushingText.innerHTML="Avg Rushing Yards: "+Math.round(awayRushingYards/awayRushes*10)/10;
             }
         </script>
     </body>
