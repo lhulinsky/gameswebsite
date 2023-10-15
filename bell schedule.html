@@ -131,6 +131,7 @@
 
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://lhulinsky.github.io/gameswebsite/school bell offset.js"></script>
         <script>
             window.onerror = function(e, url, line){
               alert('\nLine ' + line+" "+e);
@@ -158,12 +159,8 @@
             var styleColor="hsl(0,100%,50%)";
             var colorNumber=0;
             var minOffset=0;
-            var secOffset=38;
-            //move bell back .36 second per day
-            //December 2, 2021
-            var theFirstDay=new Date("August 24, 2023 0:00:00")
-            var millisecondsPassed=new Date().getTime()-theFirstDay.getTime();
-            secOffset+=.3*Math.floor(millisecondsPassed/(1000*60*60*24));
+            //get from outside link for easier editing
+            var secOffset=getSchoolBellOffset();
             var fancyMode="red";
             var rotateBulldog=false;
             var bulldogDeg=0;
