@@ -3,5 +3,5 @@ function getSchoolBellOffset(){
     var millisecondsPassed=new Date().getTime()-startDate.getTime();
     const originalOffset=38;
     const offsetPerDay=.3;
-    return orgininalOffset+offsetPerDay*Math.floor(millisecondsPassed/(1000*60*60*24));
+    return originalOffset+offsetPerDay*Math.floor(millisecondsPassed/(1000*60*60*24));
 }
