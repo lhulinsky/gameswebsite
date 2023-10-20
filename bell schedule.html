@@ -348,12 +348,20 @@
                 bells.push(new Bell(14,30,"School Ends in "));
             }
             function saveSliderCookie(value){
-                //cookies expire after 2 days
-                const exdays=2;
+                //cookies expire after a week
+                const exdays=7;
                 const d = new Date();
                 d.setTime(d.getTime() + (exdays*24*60*60*1000));
                 let expires = "expires="+ d.toUTCString();
                 document.cookie ="sliderValue=" + value + ";" + expires + ";path=/";
+            }
+            function saveHeaderCookie(value){
+                //cookies expire after a week
+                const exdays=7;
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires="+ d.toUTCString();
+                document.cookie ="headerStyle=" + value + ";" + expires + ";path=/";
             }
             function getCookieValue(name){
                 name+="=";
@@ -375,6 +383,7 @@
                     colorRange.value=parseInt(sliderValue);
                     changeColor(colorRange.value);
                 }
+                var fancyMode=getCookieValue("headerStyle");
             }
             function changeColor(degValue) {
                 styleColor="hsl("+degValue+",100%,50%)";
@@ -401,6 +410,7 @@
                     fancyMode="red";
                     bellHeader.style.backgroundColor=styleColor;
                 }
+                saveHeaderCookie(fancyMode);
             }
             function setRotateBulldog(){
                 rotateBulldog=!rotateBulldog;
