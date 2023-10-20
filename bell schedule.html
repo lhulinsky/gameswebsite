@@ -378,12 +378,13 @@
                 return "";
             }
             function setSavedColor(){
+                fancyMode=getCookieValue("headerStyle");
+                alert(fancyMode);
                 var sliderValue=getCookieValue("sliderValue");
                 if(sliderValue.length>0){
                     colorRange.value=parseInt(sliderValue);
                     changeColor(colorRange.value);
                 }
-                fancyMode=getCookieValue("headerStyle");
             }
             function changeColor(degValue) {
                 styleColor="hsl("+degValue+",100%,50%)";
