@@ -379,7 +379,6 @@
             }
             function setSavedColor(){
                 fancyMode=getCookieValue("headerStyle");
-                alert(fancyMode);
                 var sliderValue=getCookieValue("sliderValue");
                 if(sliderValue.length>0){
                     colorRange.value=parseInt(sliderValue);
@@ -390,6 +389,9 @@
                 styleColor="hsl("+degValue+",100%,50%)";
                 if(fancyMode=="red"){
                     bellHeader.style.backgroundColor=styleColor;
+                }
+                else{
+                    bellHeader.style.backgroundColor="transparent";
                 }
                 dayButton.style.backgroundColor=styleColor;
                 $(".slider").css("background",styleColor);
