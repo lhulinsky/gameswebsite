@@ -110,19 +110,19 @@ function miniMax(depthLeft,player){
         if(board[i]==0){
             board[i]=player;
             boardIsFull=false;
-        }
-        var nextPlayer=1;
-        if(player==1){
-            nextPlayer=2;
-        }
-        var score=-miniMax(depthLeft-1,nextPlayer);
-        if(score>bestScore){
-            bestScore=score;
-            if(depthLeft==9){
-                bestMove=i;
+            var nextPlayer=1;
+            if(player==1){
+                nextPlayer=2;
             }
+            var score=-miniMax(depthLeft-1,nextPlayer);
+            if(score>bestScore){
+                bestScore=score;
+                if(depthLeft==9){
+                    bestMove=i;
+                }
+            }
+            board[i]=0;
         }
-        board[i]=0;
     }
     if(boardIsFull){
         return 0;
