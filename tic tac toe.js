@@ -86,7 +86,7 @@ function update(){
 var bestMove=0;
 function computerMove(){
     if(!checkWin()){
-        console.log(miniMax(2,computerNumber));
+        console.log(miniMax(9,computerNumber));
         board[bestMove]=computerNumber;
         myTurn=true;
         if(checkWin()){
@@ -114,10 +114,10 @@ function miniMax(depthLeft,player){
             if(player==1){
                 nextPlayer=2;
             }
-            var score=-miniMax(depthLeft-1,nextPlayer);
+            var score=miniMax(depthLeft-1,nextPlayer);
             if(score>bestScore){
                 bestScore=score;
-                if(depthLeft==2){
+                if(depthLeft==9){
                     bestMove=i;
                 }
             }
