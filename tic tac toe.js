@@ -86,7 +86,7 @@ function update(){
 var bestMove=0;
 function computerMove(){
     if(!checkWin()){
-        console.log(miniMax(9,computerNumber));
+        miniMax(9,computerNumber);
         board[bestMove]=computerNumber;
         myTurn=true;
         if(checkWin()){
