@@ -97,7 +97,7 @@ function computerMove(){
 
 function miniMax(depthLeft,player){
     if(depthLeft==0 || scoreBoard()!=0){
-        if(player==1){
+        if(player==2){
             return scoreBoard();
         }
         else{
@@ -125,7 +125,6 @@ function miniMax(depthLeft,player){
         }
     }
     if(boardIsFull){
-        console.log("full");
         return 0;
     }   
     return bestScore;
