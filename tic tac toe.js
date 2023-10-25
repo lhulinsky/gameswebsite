@@ -3,10 +3,13 @@ canvas.width=600;
 canvas.height=600;
 var tileSize=canvas.width/3;
 var ctx=canvas.getContext("2d");
-var board=[1,2,0,
+var board=[0,0,0,
            0,0,0,
            0,0,0];
 var iAmPlayerOne=true;
+if(Math.floor(Math.random()*2)==0){
+    iAmPlayerOne=false;
+}
 var myTurn=false;
 var myNumber=2;
 var computerNumber=1;
