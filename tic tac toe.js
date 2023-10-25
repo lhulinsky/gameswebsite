@@ -28,7 +28,7 @@ function resetGame(){
         myTurn=false;
         myNumber=2;
         computerNumber=1;
-        computerMove();
+        setTimeout(computerMove,500);
     }
 }
 
