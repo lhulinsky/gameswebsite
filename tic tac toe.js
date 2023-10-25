@@ -84,14 +84,7 @@ function update(){
     requestAnimationFrame(update);
 }
 function computerMove(){
-    var boardIsFull=true;
-    for(var i=0;i<board.length;i++){
-        if(board[i]==0){
-            boardIsFull=false;
-            break;
-        }
-    }
-    if(!boardIsFull && !checkWin()){
+    if(!checkWin()){
         var placedTile=false;
         while(!placedTile){
             var index=Math.floor(Math.random()*10);
@@ -134,6 +127,16 @@ function checkWin(){
             return i;
         }
     }
+    var boardIsFull=true;
+    for(var i=0;i<board.length;i++){
+        if(board[i]==0){
+            boardIsFull=false;
+            break;
+        }
+    }
+    if(boardIsFull){
+        return 3;
+    }
     return 0;
 }
 
@@ -141,8 +144,11 @@ function displayWin(player){
     if(player==myNumber){
         winText.innerHTML="You Win";
     }
-    else{
+    else if(player==computerNumber){
         winText.innerHTML="Computer Wins";
+    }
+    else{
+        winText.innerHTML="Draw";
     }
 }
 
