@@ -102,9 +102,6 @@ function computerMove(){
         }
         myTurn=true;
     }
-    if(checkWin()){
-        alert(checkWin());
-    }
 }
 
 function checkWin(){
