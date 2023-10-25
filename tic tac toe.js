@@ -83,21 +83,82 @@ function update(){
     }
     requestAnimationFrame(update);
 }
+var bestMove=0;
 function computerMove(){
     if(!checkWin()){
-        var placedTile=false;
-        while(!placedTile){
-            var index=Math.floor(Math.random()*10);
-            if(board[index]==0){
-                board[index]=computerNumber;
-                placedTile=true;
-            }
-        }
+        miniMax(9,computerNumber);
+        board[bestMove]=computerNumber;
         myTurn=true;
         if(checkWin()){
             displayWin(checkWin());
         }
     }
+}
+
+function miniMax(depthLeft,player){
+    if(depthLeft==0 || scoreBoard()!=0){
+        if(player==1){
+            return scoreBoard();
+        }
+        else{
+            return -scoreBoard();
+        }
+    }
+    var bestScore=-2;
+    var boardIsFull=true;
+    for(var i=0;i<board.length;i++){
+        if(board[i]==0){
+            board[i]=player;
+            boardIsFull=false;
+        }
+        var nextPlayer=1;
+        if(player==1){
+            nextPlayer=2;
+        }
+        var score=-miniMax(depthLeft-1,nextPlayer);
+        if(score>bestScore){
+            bestScore=score;
+            if(depthLeft==9){
+                bestMove=i;
+            }
+        }
+        board[i]=0;
+    }
+    if(boardIsFull){
+        return 0;
+    }   
+    return bestScore;
+}
+
+function scoreBoard(){
+    for(var i=1;i<3;i++){
+        if(board[0]==i && board[1]==i && board[2]==i){
+            //converts 1 and 2 to -1 and 1
+            return i*2-3;
+        }
+        if(board[3]==i && board[4]==i && board[5]==i){
+            return i*2-3;
+        }
+        if(board[6]==i && board[7]==i && board[8]==i){
+            return i*2-3;
+        }
+        if(board[0]==i && board[3]==i && board[6]==i){
+            return i*2-3;
+        }
+        if(board[1]==i && board[4]==i && board[7]==i){
+            return i*2-3;
+        }
+        if(board[2]==i && board[5]==i && board[8]==i){
+            return i*2-3;
+        }
+        if(board[0]==i && board[4]==i && board[8]==i){
+            return i*2-3;
+        }
+        if(board[2]==i && board[4]==i && board[6]==i){
+            return i*2-3;
+        }
+    }
+    return 0;
 }
 
 function checkWin(){
