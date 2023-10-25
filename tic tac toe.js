@@ -1,26 +1,39 @@
 var canvas=document.getElementById("gameCanvas");
+var winText=document.getElementById("winText");
 canvas.width=600;
 canvas.height=600;
 var tileSize=canvas.width/3;
 var ctx=canvas.getContext("2d");
+
 var board=[0,0,0,
            0,0,0,
            0,0,0];
 var iAmPlayerOne=true;
-if(Math.floor(Math.random()*2)==0){
-    iAmPlayerOne=false;
-}
-var myTurn=false;
-var myNumber=2;
-var computerNumber=1;
-if(iAmPlayerOne){
+var myTurn=true;
+var myNumber=1;
+var computerNumber=2;
+
+function resetGame(){
+    winText.innerHTML="";
+    board=[0,0,0,
+           0,0,0,
+           0,0,0];
+    iAmPlayerOne=true;
     myTurn=true;
     myNumber=1;
     computerNumber=2;
+    if(Math.floor(Math.random()*2)==0){
+        //computer is player one
+        iAmPlayerOne=false;
+        myTurn=false;
+        myNumber=2;
+        computerNumber=1;
+        computerMove();
+    }
 }
-else{
-    computerMove();
-}
+
+resetGame();
+
 function update(){
     ctx.fillStyle="white";
     ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -124,6 +137,15 @@ function checkWin(){
     return 0;
 }
 
+function displayWin(player){
+    if(player==myNumber){
+        winText.innerHTML="You Win";
+    }
+    else{
+        winText.innerHTML="Computer Wins";
+    }
+}
+
 document.onmousedown = (event) => {
     var x = event.clientX;
     var y = event.clientY;
@@ -133,12 +155,12 @@ document.onmousedown = (event) => {
             if(board[squareIndex]==0 && myTurn){
                 board[squareIndex]=myNumber;
                 myTurn=false;
-                if(checkWin()){
-                    alert(checkWin());
-                }
                 setTimeout(computerMove,500);
             }
         }
+    }
+    else{
+        resetGame();
     }
 }
 requestAnimationFrame(update);
