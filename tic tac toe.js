@@ -98,13 +98,13 @@ function computerMove(){
 function miniMax(depthLeft,player){
     if(depthLeft==0 || scoreBoard()!=0){
         if(player==2){
-            return -scoreBoard();
+            return scoreBoard();
         }
         else{
             return -scoreBoard();
         }
     }
-    var bestScore=-2;
+    var bestScore=2;
     var boardIsFull=true;
     for(var i=0;i<board.length;i++){
         if(board[i]==0){
@@ -115,7 +115,7 @@ function miniMax(depthLeft,player){
                 nextPlayer=2;
             }
             var score=-miniMax(depthLeft-1,nextPlayer);
-            if(score>bestScore){
+            if(score<bestScore){
                 bestScore=score;
                 if(depthLeft==9){
                     bestMove=i;
