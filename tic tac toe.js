@@ -7,11 +7,16 @@ var board=[1,2,0,
            0,0,0,
            0,0,0];
 var iAmPlayerOne=true;
+var myTurn=false;
 var myNumber=2;
 var computerNumber=1;
 if(iAmPlayerOne){
+    myTurn=true;
     myNumber=1;
     computerNumber=2;
+}
+else{
+    setTimeout(computerMove,500);
 }
 function update(){
     ctx.fillStyle="white";
@@ -82,6 +87,11 @@ function computerMove(){
         myTurn=true;
     }
 }
+
+function checkWin(){
+
+}
+
 document.onmousedown = (event) => {
     var x = event.clientX;
     var y = event.clientY;
