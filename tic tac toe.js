@@ -98,7 +98,7 @@ function computerMove(){
 function miniMax(depthLeft,player){
     if(depthLeft==0 || scoreBoard()!=0){
         if(player==2){
-            return scoreBoard();
+            return -scoreBoard();
         }
         else{
             return -scoreBoard();
