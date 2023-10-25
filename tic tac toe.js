@@ -58,7 +58,7 @@ function update(){
         }
         else if(board[i]==2){
             //O
-            ctx.lineWidth=2;
+            ctx.lineWidth=3;
             var tilePos=[(i%3)*200,Math.floor(i/3)*200];
             var circleCenter=[tilePos[0]+Math.floor(tileSize/2),tilePos[1]+Math.floor(tileSize/2)];
             var circleMargin=20;
@@ -78,7 +78,7 @@ function computerMove(){
             break;
         }
     }
-    if(!boardIsFull){
+    if(!boardIsFull && !checkWin()){
         var placedTile=false;
         while(!placedTile){
             var index=Math.floor(Math.random()*10);
@@ -92,18 +92,69 @@ function computerMove(){
 }
 
 function checkWin(){
+    if(board[0]==1 && board[1]==1 && board[2]==1){
+        return 1;
+    }
+    if(board[3]==1 && board[4]==1 && board[5]==1){
+        return 1;
+    }
+    if(board[6]==1 && board[7]==1 && board[8]==1){
+        return 1;
+    }
+    if(board[0]==1 && board[3]==1 && board[6]==1){
+        return 1;
+    }
+    if(board[1]==1 && board[4]==1 && board[7]==1){
+        return 1;
+    }
+    if(board[2]==1 && board[5]==1 && board[8]==1){
+        return 1;
+    }
+    if(board[0]==1 && board[4]==1 && board[8]==1){
+        return 1;
+    }
+    if(board[2]==1 && board[4]==1 && board[6]==1){
+        return 1;
+    }
 
+    if(board[0]==2 && board[1]==2 && board[2]==2){
+        return 2;
+    }
+    if(board[3]==2 && board[4]==2 && board[5]==2){
+        return 2;
+    }
+    if(board[6]==2 && board[7]==2 && board[8]==2){
+        return 2;
+    }
+    if(board[0]==2 && board[3]==2 && board[6]==2){
+        return 2;
+    }
+    if(board[1]==2 && board[4]==2 && board[7]==2){
+        return 2;
+    }
+    if(board[2]==2 && board[5]==2 && board[8]==2){
+        return 2;
+    }
+    if(board[0]==2 && board[4]==2 && board[8]==2){
+        return 2;
+    }
+    if(board[2]==2 && board[4]==2 && board[6]==2){
+        return 2;
+    }
+    return 0;
 }
 
 document.onmousedown = (event) => {
     var x = event.clientX;
     var y = event.clientY;
-    if(x<canvas.width && y<canvas.height){
-        var squareIndex=Math.floor(y/200)*3+Math.floor(x/200);
-        if(board[squareIndex]==0 && myTurn){
-            board[squareIndex]=myNumber;
-            myTurn=false;
-            setTimeout(computerMove,500);
+    if(!checkWin()){
+        if(x<canvas.width && y<canvas.height){
+            var squareIndex=Math.floor(y/200)*3+Math.floor(x/200);
+            if(board[squareIndex]==0 && myTurn){
+                board[squareIndex]=myNumber;
+                myTurn=false;
+                setTimeout(computerMove,500);
+            }
         }
     }
 }
