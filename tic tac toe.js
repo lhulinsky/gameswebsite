@@ -118,7 +118,7 @@ function miniMax(depthLeft,player){
             if(score>bestScore){
                 bestScore=score;
                 if(depthLeft==9){
-                    console.log(score);
+                    console.log(board);
                     bestMove=i;
                 }
             }
