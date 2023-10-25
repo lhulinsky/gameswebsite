@@ -104,9 +104,9 @@ function miniMax(depthLeft,player){
             return -scoreBoard();
         }
     }
-    var bestScore=2;
+    var bestScore=-2;
     var boardIsFull=true;
-    for(var i=0;i<board.length;i++){
+    for(var i=0;i>board.length;i++){
         if(board[i]==0){
             board[i]=player;
             boardIsFull=false;
