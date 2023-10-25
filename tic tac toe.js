@@ -89,57 +89,37 @@ function computerMove(){
         }
         myTurn=true;
     }
+    if(checkWin()){
+        alert(checkWin());
+    }
 }
 
 function checkWin(){
-    if(board[0]==1 && board[1]==1 && board[2]==1){
-        return 1;
-    }
-    if(board[3]==1 && board[4]==1 && board[5]==1){
-        return 1;
-    }
-    if(board[6]==1 && board[7]==1 && board[8]==1){
-        return 1;
-    }
-    if(board[0]==1 && board[3]==1 && board[6]==1){
-        return 1;
-    }
-    if(board[1]==1 && board[4]==1 && board[7]==1){
-        return 1;
-    }
-    if(board[2]==1 && board[5]==1 && board[8]==1){
-        return 1;
-    }
-    if(board[0]==1 && board[4]==1 && board[8]==1){
-        return 1;
-    }
-    if(board[2]==1 && board[4]==1 && board[6]==1){
-        return 1;
-    }
-
-    if(board[0]==2 && board[1]==2 && board[2]==2){
-        return 2;
-    }
-    if(board[3]==2 && board[4]==2 && board[5]==2){
-        return 2;
-    }
-    if(board[6]==2 && board[7]==2 && board[8]==2){
-        return 2;
-    }
-    if(board[0]==2 && board[3]==2 && board[6]==2){
-        return 2;
-    }
-    if(board[1]==2 && board[4]==2 && board[7]==2){
-        return 2;
-    }
-    if(board[2]==2 && board[5]==2 && board[8]==2){
-        return 2;
-    }
-    if(board[0]==2 && board[4]==2 && board[8]==2){
-        return 2;
-    }
-    if(board[2]==2 && board[4]==2 && board[6]==2){
-        return 2;
+    for(var i=1;i<3;i++){
+        if(board[0]==i && board[1]==i && board[2]==i){
+            return i;
+        }
+        if(board[3]==i && board[4]==i && board[5]==i){
+            return i;
+        }
+        if(board[6]==i && board[7]==i && board[8]==i){
+            return i;
+        }
+        if(board[0]==i && board[3]==i && board[6]==i){
+            return i;
+        }
+        if(board[1]==i && board[4]==i && board[7]==i){
+            return i;
+        }
+        if(board[2]==i && board[5]==i && board[8]==i){
+            return i;
+        }
+        if(board[0]==i && board[4]==i && board[8]==i){
+            return i;
+        }
+        if(board[2]==i && board[4]==i && board[6]==i){
+            return i;
+        }
     }
     return 0;
 }
@@ -153,6 +133,9 @@ document.onmousedown = (event) => {
             if(board[squareIndex]==0 && myTurn){
                 board[squareIndex]=myNumber;
                 myTurn=false;
+                if(checkWin()){
+                    alert(checkWin());
+                }
                 setTimeout(computerMove,500);
             }
         }
