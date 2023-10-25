@@ -14,6 +14,8 @@ if(iAmPlayerOne){
     computerNumber=2;
 }
 function update(){
+    ctx.fillStyle="white";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.lineWidth=3;
     ctx.beginPath();
     ctx.moveTo(tileSize,0);
@@ -34,8 +36,9 @@ function update(){
     for(var i=0;i<board.length;i++){
         if(board[i]==1){
             //X
+            ctx.lineWidth=3;
             var tilePos=[(i%3)*200,Math.floor(i/3)*200];
-            var xMargin=[10,10];
+            var xMargin=[20,20];
             ctx.beginPath();
             ctx.moveTo(tilePos[0]+xMargin[0],tilePos[1]+xMargin[1]);
             ctx.lineTo(tilePos[0]+tileSize-xMargin[0],tilePos[1]+tileSize-xMargin[1]);
@@ -47,9 +50,10 @@ function update(){
         }
         else if(board[i]==2){
             //O
+            ctx.lineWidth=2;
             var tilePos=[(i%3)*200,Math.floor(i/3)*200];
             var circleCenter=[tilePos[0]+Math.floor(tileSize/2),tilePos[1]+Math.floor(tileSize/2)];
-            var circleMargin=10;
+            var circleMargin=20;
             var circleRadius=Math.floor(tileSize/2)-circleMargin;
             ctx.beginPath();
             ctx.arc(circleCenter[0], circleCenter[1], circleRadius, 0, 2 * Math.PI);
@@ -58,12 +62,36 @@ function update(){
     }
     requestAnimationFrame(update);
 }
+function computerMove(){
+    var boardIsFull=true;
+    for(var i=0;i<board.length;i++){
+        if(board[i]==0){
+            boardIsFull=false;
+            break;
+        }
+    }
+    if(!boardIsFull){
+        var placedTile=false;
+        while(!placedTile){
+            var index=Math.floor(Math.random()*10);
+            if(board[index]==0){
+                board[index]=computerNumber;
+                placedTile=true;
+            }
+        }
+        myTurn=true;
+    }
+}
 document.onmousedown = (event) => {
     var x = event.clientX;
     var y = event.clientY;
     if(x<canvas.width && y<canvas.height){
         var squareIndex=Math.floor(y/200)*3+Math.floor(x/200);
-        board[squareIndex]=myNumber;
+        if(board[squareIndex]==0 && myTurn){
+            board[squareIndex]=myNumber;
+            myTurn=false;
+            setTimeout(computerMove,500);
+        }
     }
 }
 requestAnimationFrame(update);
