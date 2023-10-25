@@ -114,7 +114,8 @@ function miniMax(depthLeft,player){
             if(player==1){
                 nextPlayer=2;
             }
-            var score=miniMax(depthLeft-1,nextPlayer);
+            var score=-miniMax(depthLeft-1,nextPlayer);
+            console.log(score)
             if(score>bestScore){
                 bestScore=score;
                 if(depthLeft==9){
