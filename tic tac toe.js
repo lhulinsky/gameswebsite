@@ -19,7 +19,7 @@ if(iAmPlayerOne){
     computerNumber=2;
 }
 else{
-    setTimeout(computerMove,500);
+    computerMove();
 }
 function update(){
     ctx.fillStyle="white";
