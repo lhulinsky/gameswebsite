@@ -101,6 +101,9 @@ function computerMove(){
             }
         }
         myTurn=true;
+        if(checkWin()){
+            displayWin(checkWin());
+        }
     }
 }
 
@@ -152,6 +155,9 @@ document.onmousedown = (event) => {
             if(board[squareIndex]==0 && myTurn){
                 board[squareIndex]=myNumber;
                 myTurn=false;
+                if(checkWin()){
+                    displayWin(checkWin());
+                }
                 setTimeout(computerMove,500);
             }
         }
