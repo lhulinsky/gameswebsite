@@ -87,13 +87,26 @@ function update(){
 var bestMove=0;
 function computerMove(){
     if(!checkWin()){
-        var predictedScore=miniMax(9,computerNumber);
-        if(predictedScore==1){
-            //turns red if you are going to lose
-            ctx.strokeStyle="red";
+        var boardIsEmpty=true;
+        for(var i=0;i<board.length;i++){
+            if(board[i]!=0){
+                boardIsEmpty=false;
+                break;
+            }
+        }
+        if(boardIsEmpty){
+            //first move is random
+            bestMove=Math.floor(Math.random()*10);
         }
         else{
-            ctx.strokeStyle="black";
+            var predictedScore=miniMax(9,computerNumber);
+            if(predictedScore==1){
+                //turns red if you are going to lose
+                ctx.strokeStyle="red";
+            }
+            else{
+                ctx.strokeStyle="black";
+            }
         }
         board[bestMove]=computerNumber;
         myTurn=true;
