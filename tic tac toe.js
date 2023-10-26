@@ -15,6 +15,7 @@ var computerNumber=2;
 
 function resetGame(){
     winText.innerHTML="";
+    ctx.strokeStyle="black";
     board=[0,0,0,
            0,0,0,
            0,0,0];
@@ -86,7 +87,14 @@ function update(){
 var bestMove=0;
 function computerMove(){
     if(!checkWin()){
-        miniMax(9,computerNumber);
+        var predictedScore=miniMax(9,computerNumber);
+        if(predictedScore==1){
+            //turns red if you are going to lose
+            ctx.strokeStyle="red";
+        }
+        else{
+            ctx.strokeStyle="black";
+        }
         board[bestMove]=computerNumber;
         myTurn=true;
         if(checkWin()){
