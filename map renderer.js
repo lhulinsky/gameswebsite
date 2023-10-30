@@ -38,6 +38,8 @@ async function loadMap(){
 function drawMap(mapData){
     var canada=mapData[0];
     var points=canada.geo_shape.geometry.coordinates[0][0];
+    alert(points.length);
+    alert(points[0].length)
     ctx.beginPath();
     ctx.moveTo(points[0][0]+180,points[0][1]+90);
     for(var i=0;i<points.length;i++){
