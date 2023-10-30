@@ -31,27 +31,27 @@ async function LoadJSONResource(url){
     });
 }
 async function loadMap(){
-    var mapData=await LoadJSONResource("https://lhulinsky.github.io/gameswebsite/world-administrative-boundaries-americas.json");
+    var mapData=await LoadJSONResource("world map data.geojson");
     drawMap(mapData);
 }
 
 function drawMap(mapData){
-    var canada=mapData[0];
-    var points=canada.geo_shape.geometry.coordinates[0][0];
-    alert(points.length);
-    alert(points[0].length)
-    ctx.beginPath();
-    ctx.moveTo(points[0][0]+180,points[0][1]+90);
-    for(var i=0;i<points.length;i++){
-        if(i<points.length-1){
-            ctx.lineTo(points[i+1][0]+180,points[i+1][1]+90);
-        }
-        else{
-            ctx.lineTo(points[0][0]+180,points[0][1]+90);
+    alert("start");
+    var coords=mapData.features[0].properties.coordinates[0];
+    for(var i=0;i<coords.length;i++){
+        var polygon=coords[i][0];
+        ctx.beginPath();
+        ctx.moveTo(polygon[0][0]+180,polygon[0][1]+90);
+        for(var p=0;p<polygon.length;p++){
+            if(p<polygon.length-1){
+                ctx.lineTo(polygon[i+1][0]+180,polygon[i+1][1]+90);
+            }
+            else{
+                ctx.lineTo(polygon[0][0]+180,polygon[0][1]+90);
+            }
         }
     }
     ctx.strokeStyle = "#000000";
     ctx.lineWidth=1;
     ctx.stroke();
-    alert("done")
 }
