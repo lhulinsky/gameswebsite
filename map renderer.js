@@ -3,7 +3,7 @@ var canvas=document.getElementById("mapCanvas");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 var width=canvas.width;
-var height=canvas.height;
+var height=canvas.height-5;
 var ctx=canvas.getContext("2d");
 function LoadTextResource(url){
     return new Promise(function(myResolve,myReject){
@@ -51,4 +51,5 @@ function drawMap(mapData){
     ctx.strokeStyle = "#000000";
     ctx.lineWidth=1;
     ctx.stroke();
+    alert("done")
 }
