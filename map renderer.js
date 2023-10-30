@@ -21,7 +21,7 @@ function LoadTextResource(url){
 }
 
 async function LoadJSONResource(url){
-    var value = await NewLoadTextResource(url);
+    var value = await LoadTextResource(url);
     return new Promise(function(myResolve){
         try {
 			myResolve(JSON.parse(value));
