@@ -31,8 +31,7 @@ async function LoadJSONResource(url){
     });
 }
 async function loadMap(){
-    alert("started");
-    var mapData=await LoadJSONResource("world-administrative-boundaries-americas.json");
+    var mapData=await LoadJSONResource("https://lhulinsky.github.io/gameswebsite/world-administrative-boundaries-americas.json");
     drawMap(mapData);
 }
 
