@@ -1,0 +1,18 @@
+<!Doctype HTML>
+<head>
+    <script>
+        window.onerror = function(e, url, line){
+          alert('\nLine ' + line+" "+e);
+          return true;
+        }
+    </script>
+    <script src="map renderer.js"></script>
+</head>
+<body onload="loadMap();">
+	<canvas id="mapCanvas" </canvas>
+	<style>
+		body{
+			margin:0px;
+		}
+	</style>
+</body>
