@@ -41,9 +41,8 @@ function coordsToPoint(x,y){
 
 function drawMap(mapData){
     for(var c=0;c<mapData.features.length;c++){
-        alert(mapData.features[c].properties.NAME);
+        //alert(mapData.features[c].properties.NAME);
         var coords=mapData.features[c].geometry.coordinates;
-        alert(coords.length);
         if(mapData.features[c].geometry.type=="Polygon"){
             //convert polygons into multipolygons
             coords=[coords];
@@ -63,9 +62,9 @@ function drawMap(mapData){
                     ctx.lineTo(point[0],point[1]);
                 }
             }
+            ctx.strokeStyle = "#000000";
+            ctx.lineWidth=1;
+            ctx.stroke();
         }
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth=1;
-        ctx.stroke();
     }
 }
