@@ -48,16 +48,13 @@ function drawMap(mapData){
             alert(i);
             var polygon=coords[i][0];
             ctx.beginPath();
-            ctx.moveTo((polygon[0][0]+180)*3,(polygon[0][1]+90)*3);
+            ctx.moveTo((polygon[0][0]+180)*5,(polygon[0][1]+90)*5);
             for(var p=0;p<polygon.length;p++){
-                if(i==3){
-                    alert(polygon[p]);
-                }
                 if(p<polygon.length-1){
-                    ctx.lineTo((polygon[i+1][0]+180)*3,(polygon[i+1][1]+90)*3);
+                    ctx.lineTo((polygon[p+1][0]+180)*5,(polygon[p+1][1]+90)*5);
                 }
                 else{
-                    ctx.lineTo((polygon[0][0]+180)*3,(polygon[0][1]+90)*3);
+                    ctx.lineTo((polygon[0][0]+180)*5,(polygon[0][1]+90)*5);
                 }
             }
             alert("done "+i)
