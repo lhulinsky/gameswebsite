@@ -37,7 +37,7 @@ async function loadMap(){
 
 function drawMap(mapData){
     alert("start");
-    for(var c=0;c<mapData.features.length;c++)
+    for(var c=0;c<mapData.features.length;c++){
         var coords=mapData.features[c].properties.geometry.coordinates;
         if(mapData.features[c].properties.geometry.type=="Polygon"){
             //convert polygons into multipolygons
