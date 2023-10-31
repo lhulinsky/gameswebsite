@@ -40,7 +40,7 @@ function drawMap(mapData){
         alert(mapData.features[c].properties.NAME);
         alert(mapData.features[c].geometry.length);
         var coords=mapData.features[c].geometry.coordinates;
-        if(mapData.features[c]..geometry.type=="Polygon"){
+        if(mapData.features[c].geometry.type=="Polygon"){
             //convert polygons into multipolygons
             coords=[coords];
         }
