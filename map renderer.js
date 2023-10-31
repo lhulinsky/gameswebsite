@@ -62,6 +62,8 @@ function drawMap(mapData){
                     ctx.lineTo(point[0],point[1]);
                 }
             }
+            ctx.fillStyle="red";
+            ctx.fill();
             ctx.strokeStyle = "#000000";
             ctx.lineWidth=1;
             ctx.stroke();
