@@ -45,6 +45,7 @@ function drawMap(mapData){
         }
         for(var i=0;i<coords.length;i++){
             var polygon=coords[i][0];
+            alert(polygon.length);
             ctx.beginPath();
             ctx.moveTo(polygon[0][0]+180,polygon[0][1]+90);
             for(var p=0;p<polygon.length;p++){
