@@ -43,6 +43,7 @@ function drawMap(mapData){
             //convert polygons into multipolygons
             coords=[coords];
         }
+        alert(coords.length);
         for(var i=0;i<coords.length;i++){
             var polygon=coords[i][0];
             ctx.beginPath();
