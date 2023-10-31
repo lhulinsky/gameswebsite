@@ -39,11 +39,11 @@ function drawMap(mapData){
     for(var c=0;c<mapData.features.length;c++){
         alert(mapData.features[c].properties.NAME);
         var coords=mapData.features[c].properties.geometry.coordinates;
+        alert(coords.length);
         if(mapData.features[c].properties.geometry.type=="Polygon"){
             //convert polygons into multipolygons
             coords=[coords];
         }
-        alert("coords "+coords.length);
         for(var i=0;i<coords.length;i++){
             var polygon=coords[i][0];
             ctx.beginPath();
