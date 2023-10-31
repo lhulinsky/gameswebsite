@@ -41,8 +41,9 @@ function coordsToPoint(x,y){
 
 function drawMap(mapData){
     for(var c=0;c<mapData.features.length;c++){
-        //alert(mapData.features[c].properties.NAME);
+        alert(mapData.features[c].properties.NAME);
         var coords=mapData.features[c].geometry.coordinates;
+        alert(coords.length);
         if(mapData.features[c].geometry.type=="Polygon"){
             //convert polygons into multipolygons
             coords=[coords];
