@@ -36,7 +36,6 @@ async function loadMap(){
 }
 
 function drawMap(mapData){
-    alert("start");
     for(var c=0;c<mapData.features.length;c++){
         var coords=mapData.features[c].properties.geometry.coordinates;
         if(mapData.features[c].properties.geometry.type=="Polygon"){
@@ -60,4 +59,5 @@ function drawMap(mapData){
         ctx.lineWidth=1;
         ctx.stroke();
     }
+    alert("done");
 }
