@@ -35,6 +35,10 @@ async function loadMap(){
     drawMap(mapData);
 }
 
+function coordsToPoint(x,y){
+    return [(x+180)*4,(90-y)*4];
+}
+
 function drawMap(mapData){
     for(var c=0;c<mapData.features.length;c++){
         //alert(mapData.features[c].properties.NAME);
@@ -46,13 +50,16 @@ function drawMap(mapData){
         for(var i=0;i<coords.length;i++){
             var polygon=coords[i][0];
             ctx.beginPath();
-            ctx.moveTo((polygon[0][0]+180)*4,(polygon[0][1]+90)*4);
+            var startPoint=coordsToPoint(polygon[0][0],polygon[0][1])
+            ctx.moveTo(startPoint[0],startPoint[1]);
             for(var p=0;p<polygon.length;p++){
                 if(p<polygon.length-1){
-                    ctx.lineTo((polygon[p+1][0]+180)*4,(polygon[p+1][1]+90)*4);
+                    var point=coordsToPoint(polygon[p+1][0],polygon[p+1][1]);
+                    ctx.lineTo(point[0],point[1]);
                 }
                 else{
-                    ctx.lineTo((polygon[0][0]+180)*4,(polygon[0][1]+90)*4);
+                    var point=coordsToPoint(polygon[0][0],polygon[0][1]);
+                    ctx.lineTo(point[0],point[1]);
                 }
             }
         }
