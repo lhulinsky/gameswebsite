@@ -30,16 +30,17 @@ async function LoadJSONResource(url){
 		}
     });
 }
+var mapData=null;
 async function loadMap(){
     var mapData=await LoadJSONResource("world borders simple.geojson");
-    drawMap(mapData);
+    requestAnimationFrame(drawMap);
 }
 
 function coordsToPoint(x,y){
     return [(x+180)*width/360,(90-y)*height/180];
 }
 
-function drawMap(mapData){
+function drawMap(){
     for(var c=0;c<mapData.features.length;c++){
         //alert(mapData.features[c].properties.NAME);
         var coords=mapData.features[c].geometry.coordinates;
@@ -69,4 +70,5 @@ function drawMap(mapData){
             ctx.stroke();
         }
     }
+    requestAnimationFrame(drawMap);
 }
