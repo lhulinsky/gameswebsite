@@ -37,7 +37,7 @@ async function loadMap(){
 
 function drawMap(mapData){
     for(var c=0;c<mapData.features.length;c++){
-        alert(mapData.features[c].properties.NAME);
+        //alert(mapData.features[c].properties.NAME);
         var coords=mapData.features[c].geometry.coordinates;
         if(mapData.features[c].geometry.type=="Polygon"){
             //convert polygons into multipolygons
@@ -45,7 +45,6 @@ function drawMap(mapData){
         }
         alert(coords.length+" polygons");
         for(var i=0;i<coords.length;i++){
-            alert(i);
             var polygon=coords[i][0];
             ctx.beginPath();
             ctx.moveTo((polygon[0][0]+180)*5,(polygon[0][1]+90)*5);
@@ -57,7 +56,6 @@ function drawMap(mapData){
                     ctx.lineTo((polygon[0][0]+180)*5,(polygon[0][1]+90)*5);
                 }
             }
-            alert("done "+i)
         }
         ctx.strokeStyle = "#000000";
         ctx.lineWidth=1;
