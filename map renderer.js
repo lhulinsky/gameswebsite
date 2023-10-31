@@ -1,9 +1,9 @@
 //data from https://public.opendatasoft.com/
 var canvas=document.getElementById("mapCanvas");
 canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+canvas.height=window.innerHeight-5;
 var width=canvas.width;
-var height=canvas.height-5;
+var height=canvas.height;
 var ctx=canvas.getContext("2d");
 function LoadTextResource(url){
     return new Promise(function(myResolve,myReject){
@@ -36,7 +36,7 @@ async function loadMap(){
 }
 
 function coordsToPoint(x,y){
-    return [(x+180)*4,(90-y)*4];
+    return [(x+180)*width/360,(90-y)*height/180];
 }
 
 function drawMap(mapData){
