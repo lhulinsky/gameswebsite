@@ -45,7 +45,7 @@ function drawMap(mapData){
         }
         alert(coords.length+" polygons");
         for(var i=0;i<coords.length;i++){
-            alert(coords[i][0]);
+            alert(i);
             var polygon=coords[i][0];
             ctx.beginPath();
             ctx.moveTo(polygon[0][0]+180,polygon[0][1]+90);
@@ -57,6 +57,7 @@ function drawMap(mapData){
                     ctx.lineTo(polygon[0][0]+180,polygon[0][1]+90);
                 }
             }
+            alert("done "+i)
         }
         ctx.strokeStyle = "#000000";
         ctx.lineWidth=1;
