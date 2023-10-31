@@ -32,7 +32,7 @@ async function LoadJSONResource(url){
 }
 var mapData=null;
 async function loadMap(){
-    var mapData=await LoadJSONResource("world borders simple.geojson");
+    mapData=await LoadJSONResource("world borders simple.geojson");
     requestAnimationFrame(drawMap);
 }
 
