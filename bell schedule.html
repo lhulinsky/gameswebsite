@@ -561,6 +561,13 @@
 
                 }
             }
+            window.onresize=function resizeHeader(){
+                headerCanvas.width=window.innerWidth-16;
+                bubbles=[];
+                for(i=0;i<800;i++){
+                    bubbles.push(new Bubble(Math.floor(Math.random()*headerCanvas.width),Math.floor(Math.random()*headerCanvas.height),[Math.random()*2-1,Math.random()*2-1]));
+                }
+            }
             setInterval(updateBells,1000);
             requestAnimationFrame(updateDisplay);
         </script>
