@@ -175,7 +175,7 @@ class Version12{
 				//console.log(this.isWhite);
 				//console.log("depth: "+i);
 				//console.log("score: "+score)
-				console.log(this.whiteTranspositionsUsed);
+				alert(this.whiteTranspositionsUsed);
 			}
 		}
 		else{
