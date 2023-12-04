@@ -175,7 +175,7 @@ class Version12{
 				//console.log(this.isWhite);
 				//console.log("depth: "+i);
 				//console.log("score: "+score)
-				//console.log(this.whiteTranspositionsUsed);
+				console.log(this.whiteTranspositionsUsed);
 			}
 		}
 		else{
@@ -819,7 +819,6 @@ class Version12{
 		return beta;
 	}
 }
-
 class TranspositionTable12{
 	constructor(){
 		this.tableSize=32000;
