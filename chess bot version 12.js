@@ -175,7 +175,6 @@ class Version12{
 				//console.log(this.isWhite);
 				//console.log("depth: "+i);
 				//console.log("score: "+score)
-				alert(this.whiteTranspositionsUsed);
 			}
 		}
 		else{
@@ -821,7 +820,7 @@ class Version12{
 }
 class TranspositionTable12{
 	constructor(){
-		this.tableSize=32000;
+		this.tableSize=10000;
 		this.numTableElements=6; //hash, score, scoretype, depth,moved piece, move
 		this.zobrist = new Uint32Array(12 * 64 * 2) // types of pieces including both colors * positions * each player's turn
 		for (var i=0; i<this.zobrist.length; i++){
