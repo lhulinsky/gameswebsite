@@ -532,6 +532,7 @@
                     nextPeriodText.innerHTML=newNextPeriodText;
                 }
                 closest.draw();
+                setTimeout(updateBells, 1000);
             }
 
             function changeDay(){
@@ -568,7 +569,8 @@
                     bubbles.push(new Bubble(Math.floor(Math.random()*headerCanvas.width),Math.floor(Math.random()*headerCanvas.height),[Math.random()*2-1,Math.random()*2-1]));
                 }
             }
-            setInterval(updateBells,1000);
+            setTimeout(updateBells, 1000);
+            //setInterval(updateBells,1000);
             requestAnimationFrame(updateDisplay);
         </script>
         <script src="bubble optimization.js"></script>
