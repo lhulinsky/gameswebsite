@@ -43,7 +43,7 @@ function applyForces(){
     }
     for(var i=0;i<atoms.length;i++){
         atoms[i].position=atoms[i].position.add(atoms[i].velocity);
-        atoms[i].position=atoms[i].position.limitDistance(maxDist);
+        atoms[i].position=atoms[i].position.limitDistance(1);
         atoms[i].velocity=atoms[i].velocity.scale(.99);
     }
 }
