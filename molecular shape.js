@@ -38,8 +38,8 @@ function applyForces(){
                 atoms[a].velocity=atoms[a].velocity.add(direction.scale(10/dist**2));
             }
         }
+        atoms[i].velocity=atoms[i].velocity.scale(.99);
     }
-    atoms[i].velocity=atoms[i].velocity.scale(.99);
 }
 function draw(){
     for(var i=0;i<atoms.length;i++){
