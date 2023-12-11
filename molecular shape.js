@@ -30,14 +30,14 @@ class Atom{
         this.velocity=new Vector3(0,0,0);
     }
 }
-var atoms=[new Atom(1,0,0),new Atom(0,1,0),new Atom(0,0,1),new Atom(0,1,1)];
+var atoms=[new Atom(1,0,0),new Atom(0,1,0),new Atom(0,0,1),new Atom(0,1,1),new Atom(-1,0,0)];
 function applyForces(){
     for(var i=0;i<atoms.length;i++){
         for(var a=0;a<atoms.length;a++){
             if(a!=i){
                 var direction=atoms[i].position.subtract(atoms[a].position);
                 var dist=direction.getLength();
-                atoms[a].velocity=atoms[a].velocity.subtract(direction.scale(.01/dist**2));
+                atoms[a].velocity=atoms[a].velocity.subtract(direction.scale(.1/dist**2));
             }
         }
     }
@@ -57,7 +57,7 @@ function draw(){
         ctx.lineTo(canvas.width/2+atoms[i].position.x*100,canvas.height/2+atoms[i].position.y*100);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(canvas.width/2+atoms[i].position.x*100,canvas.height/2+atoms[i].position.y*100, atoms[i].position.z+10, 0, 2 * Math.PI);
+        ctx.arc(canvas.width/2+atoms[i].position.x*100,canvas.height/2+atoms[i].position.y*100, atoms[i].position.z*2+10, 0, 2 * Math.PI);
         ctx.fill();
     }
 }
