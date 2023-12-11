@@ -49,7 +49,7 @@ function applyForces(){
     for(var i=0;i<atoms.length;i++){
         atoms[i].position=atoms[i].position.add(atoms[i].velocity);
         atoms[i].position=atoms[i].position.limitDistance(1);
-        //atoms[i].velocity=atoms[i].velocity.scale(.99);
+        atoms[i].velocity=atoms[i].velocity.scale(.99);
     }
 }
 var animationAngle=0;
@@ -73,5 +73,13 @@ function update(){
     applyForces();
     draw();
     requestAnimationFrame(update);
+}
+document.onkeydown=(e) => {
+    if(e.keyCode==189){
+        atoms=atoms.slice(0,atoms.length-1);
+    }
+    else if(e.keyCode==187){
+        atoms.push(new Atom(Math.random()*2-1,Math.random()*2-1,Math.random()*2-1))
+    }
 }
 requestAnimationFrame(update);
