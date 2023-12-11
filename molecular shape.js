@@ -23,6 +23,11 @@ class Vector3{
     limitDistance(maxDist){
         return this.scale(maxDist/this.getLength())
     }
+    rotateY(angle){
+        var x=this.x*Math.cos(angle)-this.z*Math.sin(angle);
+        var z=this.x*Math.sin(angle)+this.z*Math.cos(angle);
+        return new Vector3(x,this.y,z);
+    }
 }
 class Atom{
     constructor(x,y,z){
@@ -47,17 +52,19 @@ function applyForces(){
         atoms[i].velocity=atoms[i].velocity.scale(.99);
     }
 }
+var animationAngle=0;
 function draw(){
     ctx.fillStyle="white";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle="blue";
+    animationAngle+=.01;
     for(var i=0;i<atoms.length;i++){
         ctx.beginPath();
         ctx.moveTo(canvas.width/2,canvas.height/2);
-        ctx.lineTo(canvas.width/2+atoms[i].position.x*100,canvas.height/2+atoms[i].position.y*100);
+        ctx.lineTo(canvas.width/2+atoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+atoms[i].position.y*100);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(canvas.width/2+atoms[i].position.x*100,canvas.height/2+atoms[i].position.y*100, atoms[i].position.z*2+10, 0, 2 * Math.PI);
+        ctx.arc(canvas.width/2+atoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+atoms[i].position.y*100, atoms[i].position.rotateY(animationAngle).z*3+10, 0, 2 * Math.PI);
         ctx.fill();
     }
 }
