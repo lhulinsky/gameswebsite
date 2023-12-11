@@ -27,7 +27,7 @@ class Atom{
         this.velocity=new Vector3(0,0,0);
     }
 }
-var atoms=[Atom(1,0,0),Atom(0,1,0)];
+var atoms=[new Atom(1,0,0),new Atom(0,1,0)];
 function applyForces(){
     for(var i=0;i<atoms.length;i++){
         atoms[i].position=atoms[i].position.add(atoms[i].velocity);
