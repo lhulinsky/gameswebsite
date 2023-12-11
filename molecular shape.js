@@ -36,7 +36,7 @@ class Atom{
         this.fieldStrength=fieldStrength;
     }
 }
-var atoms=[new Atom(1,0,0),new Atom(0,1,0),new Atom(0,0,1),new Atom(0,1,1),new Atom(-1,0,0,.5)];
+var atoms=[new Atom(1,0,0),new Atom(0,1,0),new Atom(0,0,1),new Atom(0,1,1),new Atom(-1,0,0,.1)];
 function applyForces(){
     for(var i=0;i<atoms.length;i++){
         for(var a=0;a<atoms.length;a++){
