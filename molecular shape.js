@@ -58,6 +58,13 @@ function draw(){
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle="blue";
     animationAngle+=.01;
+    var sortedAtoms=atoms.slice();
+    for(var i=0;i<sortedAtoms.length-1;i++){
+        if(sortedAtoms[i]>sortedAtoms[i+1]){
+            sortedAtoms[i],sortedAtoms[i+1]=sortedAtoms[i+1],sortedAtoms[i];
+            i=0;
+        }
+    }
     for(var i=0;i<atoms.length;i++){
         ctx.beginPath();
         ctx.moveTo(canvas.width/2,canvas.height/2);
