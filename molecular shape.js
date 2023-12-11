@@ -30,14 +30,16 @@ class Atom{
 var atoms=[new Atom(1,0,0),new Atom(0,1,0)];
 function applyForces(){
     for(var i=0;i<atoms.length;i++){
-        atoms[i].position=atoms[i].position.add(atoms[i].velocity);
         for(var a=0;a<atoms.length;a++){
             if(a!=i){
                 var direction=atoms[i].position.subtract(atoms[a]);
                 var dist=direction.getLength();
-                //atoms[a].velocity=atoms[a].velocity.add(direction.scale(10/dist**2));
+                atoms[a].velocity=atoms[a].velocity.add(direction.scale(10/dist**2));
             }
         }
+    }
+    for(var i=0;i<atoms.length;i++){
+        atoms[i].position=atoms[i].position.add(atoms[i].velocity);
         atoms[i].velocity=atoms[i].velocity.scale(.99);
     }
 }
