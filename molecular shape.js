@@ -44,6 +44,9 @@ function applyForces(){
     }
 }
 function draw(){
+    ctx.fillStyle="white";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="blue";
     for(var i=0;i<atoms.length;i++){
         ctx.beginPath();
         ctx.moveTo(canvas.width/2,canvas.height/2);
