@@ -33,7 +33,7 @@ function applyForces(){
         atoms[i].position=atoms[i].position.add(atoms[i].velocity);
         for(var a=0;a<atoms.length;a++){
             if(a!=i){
-                var direction=atoms[i].subtract(atoms[a]);
+                var direction=atoms[i].position.subtract(atoms[a]);
                 var dist=direction.getLength();
                 atoms[a].velocity=atoms[a].velocity.add(direction.scale(10/dist**2));
             }
