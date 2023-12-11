@@ -426,6 +426,7 @@
                 bubbles.push(new Bubble(Math.floor(Math.random()*headerCanvas.width),Math.floor(Math.random()*headerCanvas.height),[Math.random()*2-1,Math.random()*2-1]));
             }
             function updateDisplay(){
+                updateBells();
                 var closest=bells[0];
                 var farthest=bells[0];
                 for(var i=0;i<bells.length;i++){
@@ -532,7 +533,6 @@
                     nextPeriodText.innerHTML=newNextPeriodText;
                 }
                 closest.draw();
-                setTimeout(updateBells, 1000);
             }
 
             function changeDay(){
@@ -569,8 +569,6 @@
                     bubbles.push(new Bubble(Math.floor(Math.random()*headerCanvas.width),Math.floor(Math.random()*headerCanvas.height),[Math.random()*2-1,Math.random()*2-1]));
                 }
             }
-            setTimeout(updateBells, 1000);
-            //setInterval(updateBells,1000);
             requestAnimationFrame(updateDisplay);
         </script>
         <script src="bubble optimization.js"></script>
