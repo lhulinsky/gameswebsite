@@ -39,7 +39,7 @@ function applyForces(){
             }
         }
     }
-    atoms[i].velocity*=.995;
+    atoms[i].velocity=atoms[i].velocity.scale(.99);
 }
 function draw(){
     for(var i=0;i<atoms.length;i++){
