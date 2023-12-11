@@ -20,6 +20,9 @@ class Vector3{
     getLength(){
         return Math.sqrt(this.x**2+this.y**2+this.z**2);
     }
+    limitDistance(maxDist){
+        return this.scale(maxDist/this.getLength())
+    }
 }
 class Atom{
     constructor(x,y,z){
@@ -40,6 +43,7 @@ function applyForces(){
     }
     for(var i=0;i<atoms.length;i++){
         atoms[i].position=atoms[i].position.add(atoms[i].velocity);
+        atoms[i].position=atoms[i].position.limitDistance(maxDist);
         atoms[i].velocity=atoms[i].velocity.scale(.99);
     }
 }
