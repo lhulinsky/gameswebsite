@@ -65,13 +65,13 @@ function draw(){
             i=0;
         }
     }
-    for(var i=0;i<atoms.length;i++){
+    for(var i=0;i<sortedAtoms.length;i++){
         ctx.beginPath();
         ctx.moveTo(canvas.width/2,canvas.height/2);
-        ctx.lineTo(canvas.width/2+atoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+atoms[i].position.y*100);
+        ctx.lineTo(canvas.width/2+sortedAtoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+sortedAtoms[i].position.y*100);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(canvas.width/2+atoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+atoms[i].position.y*100, atoms[i].position.rotateY(animationAngle).z*3+10, 0, 2 * Math.PI);
+        ctx.arc(canvas.width/2+sortedAtoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+sortedAtoms[i].position.y*100, sortedAtoms[i].position.rotateY(animationAngle).z*3+10, 0, 2 * Math.PI);
         ctx.fill();
     }
 }
