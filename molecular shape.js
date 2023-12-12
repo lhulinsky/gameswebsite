@@ -63,7 +63,7 @@ function draw(){
         sortedPositions.push(atoms[i].position.rotateY(animationAngle));
     }
     for(var i=0;i<sortedPositions.length-1;i++){
-        if(sortedPositions[i].z>sortedPositions[i].z){
+        if(sortedPositions[i].z>sortedPositions[i+1].z){
             firstAtom=sortedPositions[i];
             sortedPositions[i]=sortedPositions[i+1];
             sortedPositions[i+1]=firstAtom;
