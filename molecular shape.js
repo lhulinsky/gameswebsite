@@ -59,9 +59,9 @@ function draw(){
     ctx.fillStyle="blue";
     animationAngle+=.01;
     var sortedAtoms=atoms.slice();
+    console.log(sortedAtoms.length);
     for(var i=0;i<sortedAtoms.length-1;i++){
         if(sortedAtoms[i].position.z>sortedAtoms[i+1].position.z){
-            console.log(i);
             firstAtom=sortedAtoms[i];
             sortedAtoms[i]=sortedAtoms[i+1];
             sortedAtoms[i+1]=firstAtom;
