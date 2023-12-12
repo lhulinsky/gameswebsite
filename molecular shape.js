@@ -58,25 +58,25 @@ function draw(){
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle="blue";
     animationAngle+=.01;
-    var sortedAtoms=atoms.slice();
+    var sortedPositions=[];
     for(var i=0;i<sortedAtoms.length;i++){
-        sortedAtoms[i].position=sortedAtoms[i].position.rotateY(animationAngle);
+        sortedPositions.push(sortedAtoms[i].position.rotateY(animationAngle));
     }
-    for(var i=0;i<sortedAtoms.length-1;i++){
-        if(sortedAtoms[i].position.z>sortedAtoms[i+1].position.z){
-            firstAtom=sortedAtoms[i];
-            sortedAtoms[i]=sortedAtoms[i+1];
-            sortedAtoms[i+1]=firstAtom;
+    for(var i=0;i<sortedPositions.length-1;i++){
+        if(sortedPositions[i].z>sortedPositions[i].z){
+            firstAtom=sortedPositions[i];
+            sortedPositions[i]=sortedPositions[i+1];
+            sortedPositions[i+1]=firstAtom;
             i=0;
         }
     }
-    for(var i=0;i<sortedAtoms.length;i++){
+    for(var i=0;i<sortedPositions.length;i++){
         ctx.beginPath();
         ctx.moveTo(canvas.width/2,canvas.height/2);
-        ctx.lineTo(canvas.width/2+sortedAtoms[i].position.x*100,canvas.height/2+sortedAtoms[i].position.y*100);
+        ctx.lineTo(canvas.width/2+sortedPositions[i].x*100,canvas.height/2+sortedPositions[i].y*100);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(canvas.width/2+sortedAtoms[i].position.x*100,canvas.height/2+sortedAtoms[i].position.y*100, sortedAtoms[i].position.z*3+10, 0, 2 * Math.PI);
+        ctx.arc(canvas.width/2+sortedPositions[i].x*100,canvas.height/2+sortedPositions[i].y*100,sortedPositions[i].z*3+10, 0, 2 * Math.PI);
         ctx.fill();
     }
 }
