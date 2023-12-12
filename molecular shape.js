@@ -59,7 +59,9 @@ function draw(){
     ctx.fillStyle="blue";
     animationAngle+=.01;
     var sortedAtoms=atoms.slice();
-    console.log(sortedAtoms.length);
+    for(var i=0;i<sortedAtoms.length;i++){
+        sortedAtoms[i].position=sortedAtoms[i].position.rotateY(animationAngle);
+    }
     for(var i=0;i<sortedAtoms.length-1;i++){
         if(sortedAtoms[i].position.z>sortedAtoms[i+1].position.z){
             firstAtom=sortedAtoms[i];
@@ -71,10 +73,10 @@ function draw(){
     for(var i=0;i<sortedAtoms.length;i++){
         ctx.beginPath();
         ctx.moveTo(canvas.width/2,canvas.height/2);
-        ctx.lineTo(canvas.width/2+sortedAtoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+sortedAtoms[i].position.y*100);
+        ctx.lineTo(canvas.width/2+sortedAtoms[i].position.x*100,canvas.height/2+sortedAtoms[i].position.y*100);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(canvas.width/2+sortedAtoms[i].position.rotateY(animationAngle).x*100,canvas.height/2+sortedAtoms[i].position.y*100, sortedAtoms[i].position.rotateY(animationAngle).z*3+10, 0, 2 * Math.PI);
+        ctx.arc(canvas.width/2+sortedAtoms[i].position.x*100,canvas.height/2+sortedAtoms[i].position.y*100, sortedAtoms[i].position.z*3+10, 0, 2 * Math.PI);
         ctx.fill();
     }
 }
