@@ -59,8 +59,8 @@ function draw(){
     ctx.fillStyle="blue";
     animationAngle+=.01;
     var sortedPositions=[];
-    for(var i=0;i<sortedAtoms.length;i++){
-        sortedPositions.push(sortedAtoms[i].position.rotateY(animationAngle));
+    for(var i=0;i<atoms.length;i++){
+        sortedPositions.push(atoms[i].position.rotateY(animationAngle));
     }
     for(var i=0;i<sortedPositions.length-1;i++){
         if(sortedPositions[i].z>sortedPositions[i].z){
