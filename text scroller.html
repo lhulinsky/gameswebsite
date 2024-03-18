@@ -1,8 +1,6 @@
 <canvas id="scrollCanvas"></canvas>
 <style>
     #scrollCanvas{
-        width:100%;
-        height:300px;
         margin:0px;
     }
     body{
@@ -12,7 +10,7 @@
 <script>
     var canvas=document.getElementById("scrollCanvas");
     var ctx=canvas.getContext("2d");
-    canvas.width=document.innerWidth;
+    canvas.width=window.innerWidth;
     canvas.height=300;
     var width=canvas.width;
     var height=canvas.height;
