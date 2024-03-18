@@ -1,0 +1,26 @@
+<canvas id="scrollCanvas"></canvas>
+<style>
+    #scrollCanvas{
+        width:100%;
+        margin:0px;
+    }
+</style>
+<script>
+    var canvas=document.getElementById("scrollCanvas");
+    var ctx=canvas.getContext("2d");
+    var width=canvas.width;
+    var height=canvas.height;
+    var scrollText="Hello There this is some very long text";
+    ctx.font = "30px Arial";
+    var textScrollX=0;
+    var textWidth=ctx.measureText(scrollText).width;
+    function update(){
+        textScrollX+=1;
+        ctx.fillColor="white";
+        ctx.fillRect(0,0,width,height);
+        ctx.fillColor="black";
+        ctx.fillText(scrollText+" "+scrollText, textScrollX%textWidth, 0);
+        requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+</script>
