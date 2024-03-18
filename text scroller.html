@@ -24,12 +24,12 @@
         fullText+=scrollText+" ";
     }
     function update(){
-        textScrollX+=1;
+        textScrollX-=1;
         ctx.fillStyle="gray";
         ctx.fillRect(0,0,width,height);
         ctx.fillStyle="black";
         ctx.font = "40px Arial";
-        ctx.fillText(fullText, textScrollX%scrollDist-scrollDist, 100);
+        ctx.fillText(fullText, textScrollX%scrollDist, 100);
         requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
