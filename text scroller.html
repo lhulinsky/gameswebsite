@@ -2,6 +2,7 @@
 <style>
     #scrollCanvas{
         width:100%;
+        height:300px;
         margin:0px;
     }
 </style>
@@ -16,11 +17,12 @@
     var textWidth=parseInt(ctx.measureText(scrollText).width);
     function update(){
         textScrollX+=1;
-        ctx.fillStyle="white";
+        ctx.fillStyle="gray";
         ctx.fillRect(0,0,width,height);
         ctx.fillStyle="black";
-        ctx.font = "30px Arial";
-        ctx.fillText(scrollText+" "+scrollText, textScrollX%textWidth, 0);
+        ctx.font = "40px Arial";
+        ctx.fillText(scrollText+" "+scrollText, textScrollX%textWidth-textScrollX, 0);
+        alert(textScrollX);
         requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
