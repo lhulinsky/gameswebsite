@@ -16,9 +16,9 @@
     var textWidth=parseInt(ctx.measureText(scrollText).width);
     function update(){
         textScrollX+=1;
-        ctx.fillColor="white";
+        ctx.fillStyle="white";
         ctx.fillRect(0,0,width,height);
-        ctx.fillColor="red";
+        ctx.fillStyle="black";
         ctx.font = "30px Arial";
         ctx.fillText(scrollText+" "+scrollText, textScrollX%textWidth, 0);
         requestAnimationFrame(update);
