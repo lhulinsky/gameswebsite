@@ -17,7 +17,7 @@
     var scrollText="Hello There this is some very long text";
     ctx.font = "40px Arial";
     var textScrollX=0;
-    var textWidth=parseInt(ctx.measureText(scrollText).width);
+    var textWidth=parseInt(ctx.measureText(scrollText+" ").width);
     function update(){
         textScrollX+=1;
         ctx.fillStyle="gray";
