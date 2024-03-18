@@ -3,15 +3,12 @@
     #scrollCanvas{
         margin:0px;
     }
-    body{
-        margin:0px;
-    }
 </style>
 <script>
     var canvas=document.getElementById("scrollCanvas");
     var ctx=canvas.getContext("2d");
     canvas.width=window.innerWidth;
-    canvas.height=300;
+    canvas.height=200;
     var width=canvas.width;
     var height=canvas.height;
     var scrollText="This is quite short";
@@ -25,11 +22,11 @@
     }
     function update(){
         textScrollX-=1;
-        ctx.fillStyle="gray";
+        ctx.fillStyle="white";
         ctx.fillRect(0,0,width,height);
         ctx.fillStyle="black";
         ctx.font = "40px Arial";
-        ctx.fillText(fullText, textScrollX%scrollDist, 100);
+        ctx.fillText(fullText, textScrollX%scrollDist, 40);
         requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
