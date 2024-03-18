@@ -14,17 +14,22 @@
     canvas.height=300;
     var width=canvas.width;
     var height=canvas.height;
-    var scrollText="Hello There this is some very long text";
+    var scrollText="This is quite short";
     ctx.font = "40px Arial";
     var textScrollX=0;
-    var textWidth=parseInt(ctx.measureText(scrollText+" ").width);
+    var scrollDist=parseInt(ctx.measureText(scrollText+" ").width);
+    var numTextRepeats=Math.ceil(width/scrollDist)+1;
+    var fullText="";
+    for(var i=0;i<numTextRepeats;i++){
+        fullText+=scrollText+" ";
+    }
     function update(){
         textScrollX+=1;
         ctx.fillStyle="gray";
         ctx.fillRect(0,0,width,height);
         ctx.fillStyle="black";
         ctx.font = "40px Arial";
-        ctx.fillText(scrollText+" "+scrollText, textScrollX%textWidth-textWidth, 100);
+        ctx.fillText(fullText, textScrollX%scrollDist-scrollDist, 100);
         requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
