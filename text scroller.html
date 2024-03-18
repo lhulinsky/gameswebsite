@@ -13,12 +13,13 @@
     var scrollText="Hello There this is some very long text";
     ctx.font = "30px Arial";
     var textScrollX=0;
-    var textWidth=ctx.measureText(scrollText).width;
+    var textWidth=parseInt(ctx.measureText(scrollText).width);
     function update(){
         textScrollX+=1;
         ctx.fillColor="white";
         ctx.fillRect(0,0,width,height);
-        ctx.fillColor="black";
+        ctx.fillColor="red";
+        ctx.font = "30px Arial";
         ctx.fillText(scrollText+" "+scrollText, textScrollX%textWidth, 0);
         requestAnimationFrame(update);
     }
