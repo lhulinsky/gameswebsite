@@ -24,7 +24,7 @@
         ctx.fillRect(0,0,width,height);
         ctx.fillStyle="black";
         ctx.font = "40px Arial";
-        ctx.fillText(scrollText+" "+scrollText, textScrollX, 100);
+        ctx.fillText(scrollText+" "+scrollText, textScrollX%textWidth-textWidth, 100);
         requestAnimationFrame(update);
     }
     requestAnimationFrame(update);
