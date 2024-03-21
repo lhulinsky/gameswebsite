@@ -22,6 +22,10 @@
         <canvas id="clockCanvas" width="400" height="400"></canvas>
         </div>
         </div>
+        <a href="https://sites.google.com/lemarscsd.org/votejack/vote-jack-never-look-back">
+            <img id="jackAd" src="/static/jack ad.png"></img>
+        </a>
+        <button id="removeAdButton" onclick="hideAd();">Hide</button>
         <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet'>
         <style>
             *{
@@ -126,6 +130,18 @@
             }
             #nextPeriod{
                 display:none;
+            }
+            #jackAd{
+                position:fixed;
+                right:10px;
+                bottom:10px;
+                width:300px;
+            }
+            #removeAdButton{
+                position:fixed;
+                right:10px;
+                bottom:10px;
+                font-size:18px;
             }
 
 
@@ -568,6 +584,12 @@
                     bubbles.push(new Bubble(Math.floor(Math.random()*headerCanvas.width),Math.floor(Math.random()*headerCanvas.height),[Math.random()*2-1,Math.random()*2-1]));
                 }
             }
+            
+            function hideAd(){
+                document.getElementById("jackAd").style.display="none";
+                document.getElementById("removeAdButton").style.display="none";
+            }
+
             requestAnimationFrame(updateDisplay);
             setInterval(updateBells,1000);
         </script>
