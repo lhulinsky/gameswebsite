@@ -1,5 +1,5 @@
 function getSchoolBellOffset(){
-    var startDate=new Date("Jan 16, 2024 0:00:00")
+    var startDate=new Date("Aug 30, 2024 0:00:00")
     var millisecondsPassed=new Date().getTime()-startDate.getTime();
     const originalOffset=-4;
     const offsetPerDay=.3;
