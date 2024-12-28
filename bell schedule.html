@@ -143,7 +143,6 @@
 
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://gmollgmoll44.pythonanywhere.com/static/school bell offset.js"></script>
         <script>
             window.onerror = function(e, url, line){
               alert('\nLine ' + line+" "+e);
@@ -170,8 +169,16 @@
             headerCanvas.height=145;
             var styleColor="hsl(0,100%,50%)";
             var colorNumber=0;
-            var minOffset=0;
+
             //get from outside link for easier editing
+            function getSchoolBellOffset() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "https://gmollgmoll44.pythonanywhere.com/getSchoolBellOffset", false);
+                xhttp.send("quantumStateUnencrypt");
+                var bellOffset=xhttp.responseText;
+                return parseInt(bellOffset);
+            }
+
             var secOffset=getSchoolBellOffset();
             var fancyMode="red";
             var rotateBulldog=false;
@@ -183,7 +190,7 @@
             class Bell{
                 constructor(hour,min,message){
                     this.countDownDate=new Date();
-                    this.countDownDate.setHours(hour,min-minOffset,-secOffset);
+                    this.countDownDate.setHours(hour,min,-secOffset);
                     this.countDownDate=this.countDownDate.getTime();
                     this.message=message;
                     var now = new Date().getTime();
