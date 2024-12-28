@@ -173,9 +173,10 @@
             //get from outside link for easier editing
             function getSchoolBellOffset() {
                 var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", "https://gmollgmoll44.pythonanywhere.com/getSchoolBellOffset", false);
-                xhttp.send("quantumStateUnencrypt");
+                xhttp.open("GET", "https://gmollgmoll44.pythonanywhere.com/getSchoolBellOffset", false);
+                xhttp.send();
                 var bellOffset=xhttp.responseText;
+                console.log(bellOffset);
                 return parseInt(bellOffset);
             }
 
