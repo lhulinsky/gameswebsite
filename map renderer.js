@@ -37,7 +37,7 @@ async function loadMap(){
 }
 
 function coordsToPoint(x,y){
-    return [(x+180)*width/360,(90-y)*height/180];
+    return [((x+90) % 180)*width/360,(90-y)*height/180];
 }
 
 function drawMap(){
